@@ -130,10 +130,11 @@ angular.module('starter.controllers', [])
 .controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, $cordovaSocialSharing, Incidents, StorageService) {
     $scope.incident = Incidents.get($stateParams.incidentId);
 
-        // Social Sharing
+    // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share('This is my message', 'Subject string', null, 'http://www.mylink.com') // Share via native share sheet
+        .share($scope.incident.town, $scope.incident.description,
+            null, null) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -376,8 +377,21 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('MyIncidentDetailCtrl', function ($scope, $stateParams, StorageService, CategorieFilter) {
+.controller('MyIncidentDetailCtrl', function ($scope, $stateParams, StorageService, $cordovaSocialSharing, CategorieFilter) {
     $scope.incident = StorageService.get($stateParams.incidentId);
+
+    // Social Sharing
+    $scope.share = function() {
+        $cordovaSocialSharing
+        .share($scope.incident.town, $scope.incident.description,
+            null, null) // Share via native share sheet
+        .then(function(result) {
+          // Success!
+          console.log('sharing');
+        }, function(err) {
+          // An error occured. Show a message to the user
+        });
+    }
 })
 
 .controller('FavoritesCtrl', function ($scope, $ionicModal, StorageService, Categories, CategorieFilter) {
@@ -466,8 +480,21 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('FavoriteDetailCtrl', function ($scope, $stateParams, StorageService) {
+.controller('FavoriteDetailCtrl', function ($scope, $stateParams, $cordovaSocialSharing, StorageService) {
     $scope.incident = StorageService.getFavorite($stateParams.incidentId);
+
+    // Social Sharing
+    $scope.share = function() {
+        $cordovaSocialSharing
+        .share($scope.incident.town, $scope.incident.description,
+            null, null) // Share via native share sheet
+        .then(function(result) {
+          // Success!
+          console.log('sharing');
+        }, function(err) {
+          // An error occured. Show a message to the user
+        });
+    }
 })
 
 .controller('AccountCtrl', function ($scope, $ionicPopup, $translate, StorageService) {
