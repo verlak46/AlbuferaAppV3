@@ -2,10 +2,10 @@
 <widget id="com.ionicframework.albuferaapp364220" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>albuferaApp</name>
   <description>
-        An Ionic Framework and Cordova project.
+        An Ionic Framework and Cordova project for manage Albufera's incidents.
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+  <author email="ivan.easypyme@gmail.com" href="https://github.com/verlak46/AlbuferaAppV3">
+      Easy Pyme
     </author>
   <content src="index.html"/>
   <access origin="*"/>
