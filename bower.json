@@ -1,0 +1,26 @@
+{
+  "name": "albuferaApp",
+  "homepage": "https://github.com/verlak46/albuferaAppV3",
+  "authors": [
+    "verlak46 <verlak46@gmail.com>"
+  ],
+  "description": "albuferaApp",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ngCordova": "~0.1.23-alpha",
+    "angularjs-geolocation": "latest",
+    "angular-google-maps": "latest",
+    "ngstorage": "~0.3.10",
+    "angular-translate": "latest"
+  }
+}

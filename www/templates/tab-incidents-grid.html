@@ -1,0 +1,7 @@
+﻿<ion-view view-title="{{'INCIDENTS' | translate}}">
+    <ion-content>
+            <div class="collection-div" collection-repeat="incident in incidents | filter:categorieFilter">
+                <a href="#/tab/incidents/{{incident.id}}"><img class="img-grid" ng-src="{{incident.image}}"></a>
+            </div>
+</ion-content>
+</ion-view>

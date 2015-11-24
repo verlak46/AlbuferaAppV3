@@ -1,0 +1,22 @@
+﻿<ion-view view-title="{{ 'FAVORITES' | translate }}">
+    <ion-content>
+        <div class="card" ng-show="incidents.length === 0">
+            <div class="item item-text-wrap">
+                {{ 'NOT_ADDED' | translate }}
+            </div>
+        </div>
+        <ion-list show-delete="shouldShowDelete">
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="incident in incidents | filter:categorieFilter" type="item-text-wrap" href="#/tab/favorites/{{incident.id}}">
+                <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+                <img ng-src="{{incident.image}}">
+                <h2>{{incident.categorie | translate}}</h2>
+                <p>{{incident.description}}</p>
+                <i class="icon ion-chevron-right"></i>
+                <ion-delete-button class="ion-minus-circled" ng-click="remove(incident)"></ion-delete-button>
+            </ion-item>
+        </ion-list>
+        <ion-toggle ng-model="shouldShowDelete">
+            Borrar
+        </ion-toggle>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,84 @@
+﻿<ion-view view-title="{{ 'NEW_INCIDENT'| translate }}">
+    <ion-content class="padding">
+        <ion-list>
+            <div class="list card">
+                <div class="item item-divider" style="text-align:center">
+                    <i class="{{categorie.icon}}"></i>
+                    {{categorie.name | translate}}
+                </div>
+                <div class="item item-body">
+                    <form name="incidentForm" novalidate>
+                        <div class="item item-divider" style="text-align:center">
+                            <i class="ion-images"></i>
+                            {{'IMAGE' | translate}}
+                        </div>
+                        <a class="item item-list-detail" ng-click="openModal()" style="height:150px; text-align:center">
+                            <div class="bar bar-footer bar-positive" ng-show="imgURI === undefined">
+                                <div class="title">{{'ADD_IMAGE' | translate}}</div>
+                            </div>
+                            <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" style="height:130px; padding: 5px 5px 5px 5px;">
+                        </a>
+
+                        <div class="list card">
+                            <div class="item item-divider">{{'DESCRIPTION' | translate}}</div>
+                            <div class="item item-body">
+                                <div class="list">
+                                    <label class="item item-input">
+                                        <textarea rows="5" name="description" placeholder="{{'PLEASE' | translate}}" maxlength="500" ng-model="newForm.description" required></textarea>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list card">
+                            <div class="item item-divider">{{'LOCATION' | translate}}</div>
+                            <div class="item item-body">
+                                <div class="list">
+                                    <ion-item class="item item-icon-left" ng-click="getCoordenades()">
+                                        <i class="icon ion-ios-location"></i>
+                                        {{'GET_COORDS' | translate}}
+                                    </ion-item>
+                                    <label class="item item-input">
+                                        <input type="text" name="coords" readonly placeholder="{{'COORDS' | translate}}" ng-model="newForm.coords" required>
+                                    </label>
+                                    <label class="item item-input">
+                                        <input type="text" name="town" placeholder="{{'TOWN' | translate}}" ng-model="newForm.town" required>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list card">
+                            <div class="item item-divider">{{'DATA' | translate}}</div>
+                            <div class="item item-text-wrap">
+                                {{'NEVER' | translate}}
+                            </div>
+                            <div class="item item-body">
+                                <div class="list">
+                                    <label class="item item-input">
+                                        <input type="text" placeholder="{{'NAME' | translate}}" ng-model="newForm.name" required>
+                                    </label>
+                                    <label class="item item-input">
+                                        <input type="text" placeholder="{{'SUBNAME' | translate}}" ng-model="newForm.subname" required>
+                                    </label>
+                                    <label class="item item-input">
+                                        <input type="text" placeholder="{{'EMAIL' | translate}}" ng-model="newForm.email" required>
+                                    </label>
+                                    <label class="item item-input">
+                                        <input type="text" placeholder="{{'PHONE' | translate}}" ng-model="newForm.phone" required>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button class="button button-full button-positive" ng-disabled="incidentForm.$invalid || imgURI===undefined" ng-click="submit()">
+                                {{'SEND' | translate}}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>
