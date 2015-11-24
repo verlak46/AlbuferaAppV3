@@ -127,12 +127,19 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, Incidents, StorageService) {
+.controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, $cordovaSocialSharing, Incidents, StorageService) {
     $scope.incident = Incidents.get($stateParams.incidentId);
 
-    // share anywhere
-    $scope.share = function () {
-        $cordovaSocialSharing.share('This is my message', 'Subject string', null, 'http://www.mylink.com');
+        // Social Sharing
+    $scope.share = function() {
+        $cordovaSocialSharing
+        .share('This is my message', 'Subject string', null, 'http://www.mylink.com') // Share via native share sheet
+        .then(function(result) {
+          // Success!
+          console.log('sharing');
+        }, function(err) {
+          // An error occured. Show a message to the user
+        });
     }
 
     $scope.addToFavorites = function () {
