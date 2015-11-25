@@ -90,10 +90,14 @@ angular.module('starter.controllers', [])
         showDelay: 0
     });
 
-    // Mark's user location and center's the map on Albufera coords
     geolocation.getLocation().then(function (data) {
+        //Center's the map on Albufera coords
         $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12 };
 
+        // Mark's incidents
+        $scope.incidents = Incidents.all();
+
+        // Mark's user location
         $scope.marker = {
             id: 0,
             show: false,
@@ -326,7 +330,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('MyIncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation) {
+.controller('MyIncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, StorageService) {
 
     // Setup the loader
     $ionicLoading.show({
@@ -337,10 +341,14 @@ angular.module('starter.controllers', [])
         showDelay: 0
     });
 
-    // Mark's user location and center's the map on Albufera coords
     geolocation.getLocation().then(function (data) {
+        // Center's the map on Albufera coords
         $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12 };
 
+        // Mark's incidents
+        $scope.incidents = StorageService.getAll();
+
+        //Mark's user location
         $scope.marker = {
             id: 0,
             show: false,
@@ -429,7 +437,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('FavoritesMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, CategorieFilter) {
+.controller('FavoritesMapCtrl', function ($scope, $stateParams, $ionicLoading, StorageService, geolocation) {
 
     // Setup the loader
     $ionicLoading.show({
@@ -440,10 +448,15 @@ angular.module('starter.controllers', [])
         showDelay: 0
     });
 
-    // Mark's user location and center's the map on Albufera coords
+
     geolocation.getLocation().then(function (data) {
+        // Center's the map on Albufera coords
         $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12 };
 
+        // Mark's incidents
+        $scope.incidents = StorageService.getAllFavorites();
+        
+        // Mark's user location
         $scope.marker = {
             id: 0,
             show: false,
