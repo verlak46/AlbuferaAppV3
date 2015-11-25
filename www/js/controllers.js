@@ -132,7 +132,7 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.town, $scope.incident.description,
+        .share($scope.incident.coords, $scope.incident.description,
             null, null) // Share via native share sheet
         .then(function(result) {
           // Success!
@@ -179,6 +179,7 @@ angular.module('starter.controllers', [])
 
 .controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $ionicPopup, $ionicLoading, geolocation, Images, Categories, StorageService, IDGenerator) {
     $scope.categorie = Categories.get($stateParams.categorieId);
+    var incidentCoords;
 
     // Load the modal from the given template URL
     $ionicModal.fromTemplateUrl('templates/new-incident-image-modal.html', {
@@ -236,42 +237,38 @@ angular.module('starter.controllers', [])
 
         geolocation.getLocation().then(function (data) {
             $scope.newForm.coords = data.coords.latitude + ", " + data.coords.longitude;
+            incidentCoords = data.coords;
             $ionicLoading.hide();
         });
     }
 
     // Form Validation
     $scope.newForm = {};
-    $scope.newForm.town = "";
-    $scope.newForm.description = "";
-    incidentCategorie = Categories.get($stateParams.categorieId);
 
     var account = StorageService.getAccount();
 
-    if (account === undefined) {
-        $scope.newForm.name = "";
-        $scope.newForm.subname = "";
-        $scope.newForm.email = "";
-        $scope.newForm.phone = "";
-    } else {
+    if (account !== undefined) {
         $scope.newForm.name = account.name;
         $scope.newForm.subname = account.subname;
         $scope.newForm.email = account.email;
         $scope.newForm.phone = account.phone;
     }
 
-
     $scope.submit = function () {
 
         var newIncident = {
             id: IDGenerator.generate(),
-            categorie: incidentCategorie.name,
-            town: $scope.newForm.town,
+            categorie: $scope.categorie.name,
             date: new Date().toLocaleString(),
             description: $scope.newForm.description,
             image: $scope.imgURI,
-            coords: $scope.newForm.coords
+            coords: {
+                latitude: incidentCoords.latitude,
+                longitude: incidentCoords.longitude
+            }
         };
+
+        console.log(newIncident);
 
         // Save Local Incident
         StorageService.add(newIncident);
@@ -382,7 +379,7 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.town, $scope.incident.description,
+        .share($scope.incident.coords, $scope.incident.description,
             null, null) // Share via native share sheet
         .then(function(result) {
           // Success!
@@ -485,7 +482,7 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.town, $scope.incident.description,
+        .share($scope.incident.coords, $scope.incident.description,
             null, null) // Share via native share sheet
         .then(function(result) {
           // Success!
@@ -502,18 +499,13 @@ angular.module('starter.controllers', [])
 
     // Form Validation
     $scope.account = {};
-    if (account === undefined) {
-        $scope.account.name = "";
-        $scope.account.subname = "";
-        $scope.account.email = ""
-        $scope.account.phone = "";
-    } else {
+
+    if (account !== undefined) {
         $scope.account.name = account.name;
         $scope.account.subname = account.subname;
         $scope.account.email = account.email;
         $scope.account.phone = account.phone;
     }
-
 
     $scope.submit = function () {
         var newAccount = {
@@ -551,35 +543,35 @@ angular.module('starter.controllers', [])
     // if we are selecting the home title then 
     // change the state back to the top state
         switch (_scope.title) {
-        case 'Incidencias':
-            setTimeout(function() {
-                $state.go('tab.incidents', {});
-              },20);
+            case 'Incidencias':
+                setTimeout(function() {
+                    $state.go('tab.incidents', {});
+                },20);
             break;
-        case 'Incidents':
-            setTimeout(function() {
-                $state.go('tab.incidents', {});
-              },20);
+            case 'Incidents':
+                setTimeout(function() {
+                    $state.go('tab.incidents', {});
+                },20);
             break;
-        case 'Mis incidencias':
-            setTimeout(function() {
-                $state.go('tab.my-incidents', {});
-              },20);
+            case 'Mis incidencias':
+                setTimeout(function() {
+                    $state.go('tab.my-incidents', {});
+                },20);
             break;
-        case 'My incidents':
-            setTimeout(function() {
-                $state.go('tab.my-incidents', {});
-              },20);
+            case 'My incidents':
+                setTimeout(function() {
+                    $state.go('tab.my-incidents', {});
+                },20);
             break;
-        case 'Favoritas':
-            setTimeout(function() {
-                $state.go('tab.favorites', {});
-              },20);
+            case 'Favoritas':
+                setTimeout(function() {
+                    $state.go('tab.favorites', {});
+                },20);
             break;
-        case 'Favorites':
-            setTimeout(function() {
-                $state.go('tab.favorites', {});
-              },20);
+            case 'Favorites':
+                setTimeout(function() {
+                    $state.go('tab.favorites', {});
+                },20);
             break;  
         }
     }
