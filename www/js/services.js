@@ -7,7 +7,6 @@
     var incidents = [{
         id: 0,
         categorie: 'PUBLIC_ROAD',
-        town: 'Valencia',
         date: '06-11-2015',
         description: 'Obras en la CV-50',
         image: 'img/albufera1.jpg',
@@ -15,7 +14,6 @@
     }, {
         id: 1,
         categorie: 'CLEANING',
-        town: 'El Palmar',
         date: '12-08-2015',
         description: 'Alguien ha tirado basura',
         image: 'img/albufera2.jpg',
@@ -23,7 +21,6 @@
     }, {
         id: 2,
         categorie: 'CLEANING',
-        town: 'Valencia',
         date: '28-07-2015',
         description: 'Alguien ha tirado basura',
         image: 'img/albufera3.jpg',
@@ -31,7 +28,6 @@
     }, {
         id: 3,
         categorie: 'TRANSPORT',
-        town: 'El Perellonet',
         date: '15-07-2015',
         description: 'El autobús tarda más de media hora en pasar',
         image: 'img/albufera4.jpg',
@@ -39,7 +35,6 @@
     }, {
         id: 4,
         categorie: 'LIGHTING',
-        town: 'El Palmar',
         date: '02-04-2015',
         description: 'No funciona la iluminación del paseo',
         image: 'img/albufera5.jpg',
@@ -47,7 +42,6 @@
     }, {
         id: 5,
         categorie: 'GRAFFITI',
-        town: 'Valencia',
         date: '22-03-2015',
         description: 'Pintada en la pared este de la antigua estación',
         image: 'img/albufera3.jpg',
@@ -56,7 +50,6 @@
     {
         id: 6,
         categorie: 'FURNITURE',
-        town: 'El Perelló',
         date: '19-03-2015',
         description: 'Han destrozado los bancos del paseo',
         image: 'img/albufera2.jpg',
@@ -65,7 +58,6 @@
     {
         id: 7,
         categorie: 'LIGHTING',
-        town: 'El Perelló',
         date: '02-03-2015',
         description: 'No funciona la iluminación',
         image: 'img/albufera4.jpg',
@@ -74,7 +66,6 @@
     {
         id: 8,
         categorie: 'LIGHTING',
-        town: 'Valencia',
         date: '13-02-2015',
         description: 'No funciona la iluminación',
         image: 'img/albufera1.jpg',
