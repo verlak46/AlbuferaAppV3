@@ -10,42 +10,48 @@
         date: '06-11-2015',
         description: 'Obras en la CV-50',
         image: 'img/albufera1.jpg',
-        coords: ''
+        coords: '',
+        account:
     }, {
         id: 1,
         categorie: 'CLEANING',
         date: '12-08-2015',
         description: 'Alguien ha tirado basura',
         image: 'img/albufera2.jpg',
-        coords: ''
+        coords: '',
+        account:
     }, {
         id: 2,
         categorie: 'CLEANING',
         date: '28-07-2015',
         description: 'Alguien ha tirado basura',
         image: 'img/albufera3.jpg',
-        coords: ''
+        coords: '',
+        account:
     }, {
         id: 3,
         categorie: 'TRANSPORT',
         date: '15-07-2015',
         description: 'El autobús tarda más de media hora en pasar',
         image: 'img/albufera4.jpg',
-        coords: ''
+        coords: '',
+        account:
     }, {
         id: 4,
         categorie: 'LIGHTING',
         date: '02-04-2015',
         description: 'No funciona la iluminación del paseo',
         image: 'img/albufera5.jpg',
-        coords: ''
+        coords: '',
+        account:
     }, {
         id: 5,
         categorie: 'GRAFFITI',
         date: '22-03-2015',
         description: 'Pintada en la pared este de la antigua estación',
         image: 'img/albufera3.jpg',
-        coords: ''
+        coords: '',
+        account:
     },
     {
         id: 6,
@@ -53,7 +59,8 @@
         date: '19-03-2015',
         description: 'Han destrozado los bancos del paseo',
         image: 'img/albufera2.jpg',
-        coords: ''
+        coords: '',
+        account:
     },
     {
         id: 7,
@@ -61,7 +68,8 @@
         date: '02-03-2015',
         description: 'No funciona la iluminación',
         image: 'img/albufera4.jpg',
-        coords: ''
+        coords: '',
+        account:
     },
     {
         id: 8,
@@ -69,7 +77,8 @@
         date: '13-02-2015',
         description: 'No funciona la iluminación',
         image: 'img/albufera1.jpg',
-        coords: ''
+        coords: '',
+        account:
     }];
 
     return {

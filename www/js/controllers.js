@@ -269,6 +269,12 @@ angular.module('starter.controllers', [])
             coords: {
                 latitude: incidentCoords.latitude,
                 longitude: incidentCoords.longitude
+            },
+            account: {
+                name: $scope.newForm.name,
+                subname: $scope.newForm.subname,
+                email: $scope.newForm.email,
+                phone: $scope.newForm.phone
             }
         };
 
@@ -455,7 +461,7 @@ angular.module('starter.controllers', [])
 
         // Mark's incidents
         $scope.incidents = StorageService.getAllFavorites();
-        
+
         // Mark's user location
         $scope.marker = {
             id: 0,
