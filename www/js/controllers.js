@@ -1,4 +1,4 @@
-﻿var popup = false;
+﻿var showLanguagePopup = true;
 
 angular.module('starter.controllers', [])
 
@@ -9,8 +9,8 @@ angular.module('starter.controllers', [])
     if (StorageService.isFirstVisit()) {
         // Language Selection at first visit
 
-        if (popup === false) {
-            popup = true;
+        if (showLanguagePopup) {
+            showLanguagePopup = false;
             $ionicPopup.show({
                 template: 'El idioma elegido se usará por defecto',
                 title: 'Elija un idioma',
@@ -42,7 +42,6 @@ angular.module('starter.controllers', [])
                     StorageService.setLanguage('es');
                     $translate.use(StorageService.getLanguage());
                 }
-                popup = false;
             });  
         }
         // If is not first visit, set language
@@ -544,4 +543,44 @@ angular.module('starter.controllers', [])
         StorageService.setLanguage(key);
         $translate.use(key);
     };
+})
+
+// Set the state back to  the top of the tabs view stack whenever the tab is selected
+.controller('StateController', function($state) {
+    this.onTabSelected = function(_scope){
+    // if we are selecting the home title then 
+    // change the state back to the top state
+        switch (_scope.title) {
+        case 'Incidencias':
+            setTimeout(function() {
+                $state.go('tab.incidents', {});
+              },20);
+            break;
+        case 'Incidents':
+            setTimeout(function() {
+                $state.go('tab.incidents', {});
+              },20);
+            break;
+        case 'Mis incidencias':
+            setTimeout(function() {
+                $state.go('tab.my-incidents', {});
+              },20);
+            break;
+        case 'My incidents':
+            setTimeout(function() {
+                $state.go('tab.my-incidents', {});
+              },20);
+            break;
+        case 'Favoritas':
+            setTimeout(function() {
+                $state.go('tab.favorites', {});
+              },20);
+            break;
+        case 'Favorites':
+            setTimeout(function() {
+                $state.go('tab.favorites', {});
+              },20);
+            break;  
+        }
+    }
 });
