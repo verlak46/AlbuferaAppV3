@@ -79,7 +79,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation) {
+.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, Incidents, geolocation) {
 
     // Setup the loader
     $ionicLoading.show({

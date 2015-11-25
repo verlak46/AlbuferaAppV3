@@ -10,48 +10,66 @@
         date: '06-11-2015',
         description: 'Obras en la CV-50',
         image: 'img/albufera1.jpg',
-        coords: '',
-        account:
+        coords:  {
+            latitude: 39.3187009,
+            longitude: -0.3074812 
+        },
+        account: ''
     }, {
         id: 1,
         categorie: 'CLEANING',
         date: '12-08-2015',
         description: 'Alguien ha tirado basura',
         image: 'img/albufera2.jpg',
-        coords: '',
-        account:
+        coords:  {
+            latitude: 39.303859,
+            longitude: -0.3293276 
+        },
+        account: ''
     }, {
         id: 2,
         categorie: 'CLEANING',
         date: '28-07-2015',
         description: 'Alguien ha tirado basura',
         image: 'img/albufera3.jpg',
-        coords: '',
-        account:
+        coords:  {
+            latitude: 39.3024394,
+            longitude: -0.3249241
+        },
+        account: ''
     }, {
         id: 3,
         categorie: 'TRANSPORT',
         date: '15-07-2015',
         description: 'El autobús tarda más de media hora en pasar',
         image: 'img/albufera4.jpg',
-        coords: '',
-        account:
+        coords:  {
+            latitude: 39.3662953,
+            longitude: -0.3291161 
+        },
+        account: ''
     }, {
         id: 4,
         categorie: 'LIGHTING',
         date: '02-04-2015',
         description: 'No funciona la iluminación del paseo',
         image: 'img/albufera5.jpg',
-        coords: '',
-        account:
+        coords:  {
+            latitude: 39.3616838,
+            longitude: -0.3206441 
+        },
+        account: ''
     }, {
         id: 5,
         categorie: 'GRAFFITI',
         date: '22-03-2015',
         description: 'Pintada en la pared este de la antigua estación',
         image: 'img/albufera3.jpg',
-        coords: '',
-        account:
+        coords:  {
+            latitude: 39.3515948,
+            longitude: -0.3217262
+        },
+        account: ''
     },
     {
         id: 6,
@@ -59,8 +77,11 @@
         date: '19-03-2015',
         description: 'Han destrozado los bancos del paseo',
         image: 'img/albufera2.jpg',
-        coords: '',
-        account:
+        coords:  {
+            latitude: 39.3212054,
+            longitude: -0.342405 
+        },
+        account: ''
     },
     {
         id: 7,
@@ -68,8 +89,11 @@
         date: '02-03-2015',
         description: 'No funciona la iluminación',
         image: 'img/albufera4.jpg',
-        coords: '',
-        account:
+        coords:  {
+            latitude: 39.3062211,
+            longitude: -0.3722105 
+        },
+        account: ''
     },
     {
         id: 8,
@@ -77,8 +101,11 @@
         date: '13-02-2015',
         description: 'No funciona la iluminación',
         image: 'img/albufera1.jpg',
-        coords: '',
-        account:
+        coords:  {
+            latitude: 39.2967599,
+            longitude: -0.3448249 
+        },
+        account: ''
     }];
 
     return {
