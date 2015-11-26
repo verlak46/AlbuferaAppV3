@@ -16,34 +16,34 @@ angular.module('starter.controllers', [])
                 title: 'Elija un idioma',
                 scope: $scope,
                 buttons: [
-                  {
-                      text: 'Español',
-                      type: 'button-positive',
-                      onTap: function () {
-                          return 'es';
-                      }
-                  },
-                  {
-                      text: 'Inglés',
-                      type: 'button-positive',
-                      onTap: function () {
-                          return 'en';
-                      }
+                {
+                  text: 'Español',
+                  type: 'button-positive',
+                  onTap: function () {
+                      return 'es';
                   }
-                ]
-            }).then(function (res) {
+              },
+              {
+                  text: 'Inglés',
+                  type: 'button-positive',
+                  onTap: function () {
+                      return 'en';
+                  }
+              }
+              ]
+          }).then(function (res) {
 
-                StorageService.setFirstVisit();
+            StorageService.setFirstVisit();
 
-                if (res === 'en') {
-                    StorageService.setLanguage('en');
-                    $translate.use(StorageService.getLanguage());
-                } else {
-                    StorageService.setLanguage('es');
-                    $translate.use(StorageService.getLanguage());
-                }
-            });  
-        }
+            if (res === 'en') {
+                StorageService.setLanguage('en');
+                $translate.use(StorageService.getLanguage());
+            } else {
+                StorageService.setLanguage('es');
+                $translate.use(StorageService.getLanguage());
+            }
+        });  
+      }
         // If is not first visit, set language
     } else {
         $translate.use(StorageService.getLanguage());
@@ -92,10 +92,24 @@ angular.module('starter.controllers', [])
 
     geolocation.getLocation().then(function (data) {
         //Center's the map on Albufera coords
-        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12 };
-
-        // Mark's incidents
-        $scope.incidents = Incidents.all();
+        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12,
+            markers: Incidents.all(), // array of incidents to display
+            markersEvents: {
+                click: function(marker, eventName, model, arguments) {
+                    $scope.description = model.description;
+                    $scope.map.window.model = model.coords;
+                    $scope.map.window.show = true;
+                }
+            },
+            window: {
+                marker: {},
+                show: false,
+                closeClick: function() {
+                    this.show = false;
+                },
+                options: {} // define when map is ready
+            } 
+        };
 
         // Mark's user location
         $scope.marker = {
@@ -123,8 +137,6 @@ angular.module('starter.controllers', [])
             $scope.windowOptions.visible = false;
         };
 
-        $scope.title = "INFO";
-
         $ionicLoading.hide();
     });
 
@@ -141,9 +153,9 @@ angular.module('starter.controllers', [])
         .then(function(result) {
           // Success!
           console.log('sharing');
-        }, function(err) {
+      }, function(err) {
           // An error occured. Show a message to the user
-        });
+      });
     }
 
     $scope.addToFavorites = function () {
@@ -348,11 +360,26 @@ angular.module('starter.controllers', [])
     });
 
     geolocation.getLocation().then(function (data) {
-        // Center's the map on Albufera coords
-        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12 };
+        //Center's the map on Albufera coords
+        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12,
+            markers: StorageService.getAll(), // array of incidents to display
+            markersEvents: {
+                click: function(marker, eventName, model, arguments) {
+                    $scope.description = model.description;
+                    $scope.map.window.model = model.coords;
+                    $scope.map.window.show = true;
+                }
+            },
+            window: {
+                marker: {},
+                show: false,
+                closeClick: function() {
+                    this.show = false;
+                },
+                options: {} // define when map is ready
+            } 
+        };
 
-        // Mark's incidents
-        $scope.incidents = StorageService.getAll();
 
         //Mark's user location
         $scope.marker = {
@@ -380,11 +407,10 @@ angular.module('starter.controllers', [])
             $scope.windowOptions.visible = false;
         };
 
-        $scope.title = "Usted se encuentra aquí!";
+        $scope.title = "INFO";
 
         $ionicLoading.hide();
     });
-
 })
 
 .controller('MyIncidentDetailCtrl', function ($scope, $stateParams, StorageService, $cordovaSocialSharing, CategorieFilter) {
@@ -398,9 +424,9 @@ angular.module('starter.controllers', [])
         .then(function(result) {
           // Success!
           console.log('sharing');
-        }, function(err) {
+      }, function(err) {
           // An error occured. Show a message to the user
-        });
+      });
     }
 })
 
@@ -443,7 +469,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('FavoritesMapCtrl', function ($scope, $stateParams, $ionicLoading, StorageService, geolocation) {
+.controller('FavoritesMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, StorageService) {
 
     // Setup the loader
     $ionicLoading.show({
@@ -456,11 +482,25 @@ angular.module('starter.controllers', [])
 
 
     geolocation.getLocation().then(function (data) {
-        // Center's the map on Albufera coords
-        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12 };
-
-        // Mark's incidents
-        $scope.incidents = StorageService.getAllFavorites();
+        //Center's the map on Albufera coords
+        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12,
+            markers: StorageService.getAllFavorites(), // array of incidents to display
+            markersEvents: {
+                click: function(marker, eventName, model, arguments) {
+                    $scope.description = model.description;
+                    $scope.map.window.model = model.coords;
+                    $scope.map.window.show = true;
+                }
+            },
+            window: {
+                marker: {},
+                show: false,
+                closeClick: function() {
+                    this.show = false;
+                },
+                options: {} // define when map is ready
+            } 
+        };
 
         // Mark's user location
         $scope.marker = {
@@ -488,11 +528,10 @@ angular.module('starter.controllers', [])
             $scope.windowOptions.visible = false;
         };
 
-        $scope.title = "Usted se encuentra aquí!";
+        $scope.title = "INFO";
 
         $ionicLoading.hide();
     });
-
 })
 
 .controller('FavoriteDetailCtrl', function ($scope, $stateParams, $cordovaSocialSharing, StorageService) {
@@ -506,9 +545,9 @@ angular.module('starter.controllers', [])
         .then(function(result) {
           // Success!
           console.log('sharing');
-        }, function(err) {
+      }, function(err) {
           // An error occured. Show a message to the user
-        });
+      });
     }
 })
 
@@ -561,37 +600,37 @@ angular.module('starter.controllers', [])
     this.onTabSelected = function(_scope){
     // if we are selecting the home title then 
     // change the state back to the top state
-        switch (_scope.title) {
-            case 'Incidencias':
-                setTimeout(function() {
-                    $state.go('tab.incidents', {});
-                },20);
-            break;
-            case 'Incidents':
-                setTimeout(function() {
-                    $state.go('tab.incidents', {});
-                },20);
-            break;
-            case 'Mis incidencias':
-                setTimeout(function() {
-                    $state.go('tab.my-incidents', {});
-                },20);
-            break;
-            case 'My incidents':
-                setTimeout(function() {
-                    $state.go('tab.my-incidents', {});
-                },20);
-            break;
-            case 'Favoritas':
-                setTimeout(function() {
-                    $state.go('tab.favorites', {});
-                },20);
-            break;
-            case 'Favorites':
-                setTimeout(function() {
-                    $state.go('tab.favorites', {});
-                },20);
-            break;  
-        }
+    switch (_scope.title) {
+        case 'Incidencias':
+        setTimeout(function() {
+            $state.go('tab.incidents', {});
+        },20);
+        break;
+        case 'Incidents':
+        setTimeout(function() {
+            $state.go('tab.incidents', {});
+        },20);
+        break;
+        case 'Mis incidencias':
+        setTimeout(function() {
+            $state.go('tab.my-incidents', {});
+        },20);
+        break;
+        case 'My incidents':
+        setTimeout(function() {
+            $state.go('tab.my-incidents', {});
+        },20);
+        break;
+        case 'Favoritas':
+        setTimeout(function() {
+            $state.go('tab.favorites', {});
+        },20);
+        break;
+        case 'Favorites':
+        setTimeout(function() {
+            $state.go('tab.favorites', {});
+        },20);
+        break;  
     }
+}
 });
