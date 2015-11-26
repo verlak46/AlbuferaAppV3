@@ -449,7 +449,6 @@ angular.module('starter.controllers', [])
         showDelay: 0
     });
 
-
     geolocation.getLocation().then(function (data) {
         //Center's the map on Albufera coords
         $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
