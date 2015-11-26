@@ -6,7 +6,7 @@
                     <div>{{ 'INFO' | translate }}</div>
                 </ui-gmap-window>
             </ui-gmap-marker>
-            <ui-gmap-marker ng-repeat="incident in incidents"
+            <ui-gmap-marker ng-repeat="incident in incidents | filter:categorieFilter"
                    coords="incident.coords" idkey="marker.id">
                 <ui-gmap-window ng-cloak>
                     <a href="#/tab/favorites/{{incident.id}}" style="text-decoration:none; color:black;"><p style="font-weight: bold; text-align:center;">{{incident.categorie | translate}}</p>

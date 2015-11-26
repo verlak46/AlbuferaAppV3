@@ -79,7 +79,9 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, Incidents, geolocation) {
+.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, Incidents, CategorieFilter) {
+
+    $scope.incidents = Incidents.all();
 
     // Setup the loader
     $ionicLoading.show({
@@ -93,8 +95,6 @@ angular.module('starter.controllers', [])
     geolocation.getLocation().then(function (data) {
         //Center's the map on Albufera coords
         $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
-
-        $scope.incidents = Incidents.all();
 
         // Mark's user location
         $scope.marker = {
@@ -125,6 +125,15 @@ angular.module('starter.controllers', [])
         $ionicLoading.hide();
     });
 
+    // CategorieFilter //
+
+    $scope.includeCategorie = function (categorie) {
+        CategorieFilter.includeCategorie(categorie);
+    };
+
+    $scope.categorieFilter = function (incident) {
+        return CategorieFilter.filter(incident);
+    };
 })
 
 .controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, $cordovaSocialSharing, Incidents, StorageService) {
@@ -333,7 +342,9 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('MyIncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, StorageService) {
+.controller('MyIncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, StorageService, CategorieFilter) {
+
+    $scope.incidents = StorageService.getAll();
 
     // Setup the loader
     $ionicLoading.show({
@@ -347,8 +358,6 @@ angular.module('starter.controllers', [])
     geolocation.getLocation().then(function (data) {
         //Center's the map on Albufera coords
         $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
-
-        $scope.incidents = StorageService.getAll();
 
         //Mark's user location
         $scope.marker = {
@@ -380,6 +389,16 @@ angular.module('starter.controllers', [])
 
         $ionicLoading.hide();
     });
+
+    // CategorieFilter //
+
+    $scope.includeCategorie = function (categorie) {
+        CategorieFilter.includeCategorie(categorie);
+    };
+
+    $scope.categorieFilter = function (incident) {
+        return CategorieFilter.filter(incident);
+    };
 })
 
 .controller('MyIncidentDetailCtrl', function ($scope, $stateParams, StorageService, $cordovaSocialSharing, CategorieFilter) {
@@ -438,8 +457,10 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('FavoritesMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, StorageService) {
+.controller('FavoritesMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, StorageService, CategorieFilter) {
 
+    $scope.incidents = StorageService.getAllFavorites();
+    
     // Setup the loader
     $ionicLoading.show({
         content: 'Cargando...',
@@ -452,8 +473,6 @@ angular.module('starter.controllers', [])
     geolocation.getLocation().then(function (data) {
         //Center's the map on Albufera coords
         $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
-
-        $scope.incidents = StorageService.getAllFavorites();
 
         // Mark's user location
         $scope.marker = {
@@ -485,6 +504,16 @@ angular.module('starter.controllers', [])
 
         $ionicLoading.hide();
     });
+
+    // CategorieFilter //
+
+    $scope.includeCategorie = function (categorie) {
+        CategorieFilter.includeCategorie(categorie);
+    };
+
+    $scope.categorieFilter = function (incident) {
+        return CategorieFilter.filter(incident);
+    };
 })
 
 .controller('FavoriteDetailCtrl', function ($scope, $stateParams, $cordovaSocialSharing, StorageService) {
