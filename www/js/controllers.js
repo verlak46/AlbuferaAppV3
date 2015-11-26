@@ -44,7 +44,7 @@ angular.module('starter.controllers', [])
             }
         });  
       }
-        // If is not first visit, set language
+        // If not the first visit, set language
     } else {
         $translate.use(StorageService.getLanguage());
     }
@@ -92,24 +92,9 @@ angular.module('starter.controllers', [])
 
     geolocation.getLocation().then(function (data) {
         //Center's the map on Albufera coords
-        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12,
-            markers: Incidents.all(), // array of incidents to display
-            markersEvents: {
-                click: function(marker, eventName, model, arguments) {
-                    $scope.description = model.description;
-                    $scope.map.window.model = model.coords;
-                    $scope.map.window.show = true;
-                }
-            },
-            window: {
-                marker: {},
-                show: false,
-                closeClick: function() {
-                    this.show = false;
-                },
-                options: {} // define when map is ready
-            } 
-        };
+        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+
+        $scope.incidents = Incidents.all();
 
         // Mark's user location
         $scope.marker = {
@@ -361,25 +346,9 @@ angular.module('starter.controllers', [])
 
     geolocation.getLocation().then(function (data) {
         //Center's the map on Albufera coords
-        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12,
-            markers: StorageService.getAll(), // array of incidents to display
-            markersEvents: {
-                click: function(marker, eventName, model, arguments) {
-                    $scope.description = model.description;
-                    $scope.map.window.model = model.coords;
-                    $scope.map.window.show = true;
-                }
-            },
-            window: {
-                marker: {},
-                show: false,
-                closeClick: function() {
-                    this.show = false;
-                },
-                options: {} // define when map is ready
-            } 
-        };
+        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
 
+        $scope.incidents = StorageService.getAll();
 
         //Mark's user location
         $scope.marker = {
@@ -483,24 +452,9 @@ angular.module('starter.controllers', [])
 
     geolocation.getLocation().then(function (data) {
         //Center's the map on Albufera coords
-        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12,
-            markers: StorageService.getAllFavorites(), // array of incidents to display
-            markersEvents: {
-                click: function(marker, eventName, model, arguments) {
-                    $scope.description = model.description;
-                    $scope.map.window.model = model.coords;
-                    $scope.map.window.show = true;
-                }
-            },
-            window: {
-                marker: {},
-                show: false,
-                closeClick: function() {
-                    this.show = false;
-                },
-                options: {} // define when map is ready
-            } 
-        };
+        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+
+        $scope.incidents = StorageService.getAllFavorites();
 
         // Mark's user location
         $scope.marker = {
