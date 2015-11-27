@@ -54,12 +54,12 @@ angular.module('starter.controllers', [])
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
-        $scope.modal = modal
-    })
+        $scope.modal = modal;
+    });
 
     $scope.openModal = function () {
-        $scope.modal.show()
-    }
+        $scope.modal.show();
+    };
 
     $scope.closeModal = function () {
         $scope.modal.hide();
@@ -72,11 +72,11 @@ angular.module('starter.controllers', [])
     // CategorieFilter //
     $scope.includeCategorie = function (categorie) {
         CategorieFilter.includeCategorie(categorie);
-    }
+    };
 
     $scope.categorieFilter = function (incident) {
         return CategorieFilter.filter(incident);
-    }
+    };
 })
 
 .controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, Incidents, CategorieFilter) {
@@ -150,7 +150,7 @@ angular.module('starter.controllers', [])
       }, function(err) {
           // An error occured. Show a message to the user
       });
-    }
+    };
 
     $scope.addToFavorites = function () {
         if (StorageService.addToFavorites($scope.incident) === null) {
@@ -196,12 +196,12 @@ angular.module('starter.controllers', [])
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
-        $scope.modal = modal
-    })
+        $scope.modal = modal;
+    });
 
     $scope.openModal = function () {
-        $scope.modal.show()
-    }
+        $scope.modal.show();
+    };
 
     $scope.closeModal = function () {
         $scope.modal.hide();
@@ -220,7 +220,7 @@ angular.module('starter.controllers', [])
         }, function (err) {
             console.err(err);
         });
-    }
+    };
 
     // Choose photo from Gallery
     $scope.choosePhoto = function () {
@@ -231,7 +231,7 @@ angular.module('starter.controllers', [])
         }, function (err) {
             console.err(err);
         });
-    }
+    };
 
     // Geolocation
     $scope.getCoordenades = function () {
@@ -250,7 +250,7 @@ angular.module('starter.controllers', [])
             incidentCoords = data.coords;
             $ionicLoading.hide();
         });
-    }
+    };
 
     // Form Validation
     $scope.newForm = {};
@@ -303,7 +303,7 @@ angular.module('starter.controllers', [])
         };
 
         $scope.showAlert();
-    }
+    };
 
 })
 
@@ -316,12 +316,12 @@ angular.module('starter.controllers', [])
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
-        $scope.modal = modal
-    })
+        $scope.modal = modal;
+    });
 
     $scope.openModal = function () {
-        $scope.modal.show()
-    }
+        $scope.modal.show();
+    };
 
     $scope.closeModal = function () {
         $scope.modal.hide();
@@ -335,11 +335,11 @@ angular.module('starter.controllers', [])
 
     $scope.includeCategorie = function (categorie) {
         CategorieFilter.includeCategorie(categorie);
-    }
+    };
 
     $scope.categorieFilter = function (incident) {
         return CategorieFilter.filter(incident);
-    }
+    };
 })
 
 .controller('MyIncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, StorageService, CategorieFilter) {
@@ -415,7 +415,7 @@ angular.module('starter.controllers', [])
       }, function(err) {
           // An error occured. Show a message to the user
       });
-    }
+    };
 })
 
 .controller('FavoritesCtrl', function ($scope, $ionicModal, StorageService, Categories, CategorieFilter) {
@@ -424,19 +424,19 @@ angular.module('starter.controllers', [])
     $scope.categories = Categories.all();
     $scope.remove = function (incident) {
         StorageService.removeFavorite(incident);
-    }
+    };
 
     // Load the modal from the given template URL
     $ionicModal.fromTemplateUrl('templates/filter-modal.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
-        $scope.modal = modal
-    })
+        $scope.modal = modal;
+    });
 
     $scope.openModal = function () {
-        $scope.modal.show()
-    }
+        $scope.modal.show();
+    };
 
     $scope.closeModal = function () {
         $scope.modal.hide();
@@ -450,11 +450,11 @@ angular.module('starter.controllers', [])
 
     $scope.includeCategorie = function (categorie) {
         CategorieFilter.includeCategorie(categorie);
-    }
+    };
 
     $scope.categorieFilter = function (incident) {
         return CategorieFilter.filter(incident);
-    }
+    };
 })
 
 .controller('FavoritesMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, StorageService, CategorieFilter) {
@@ -530,7 +530,7 @@ angular.module('starter.controllers', [])
       }, function(err) {
           // An error occured. Show a message to the user
       });
-    }
+    };
 })
 
 .controller('AccountCtrl', function ($scope, $ionicPopup, $translate, StorageService) {
@@ -553,7 +553,7 @@ angular.module('starter.controllers', [])
             subname: $scope.account.subname,
             email: $scope.account.email,
             phone: $scope.account.phone
-        }
+        };
 
         StorageService.addAccount(newAccount);
 
@@ -569,7 +569,7 @@ angular.module('starter.controllers', [])
         };
 
         $scope.showAlert();
-    }
+    };
 
     $scope.changeLanguage = function (key) {
         StorageService.setLanguage(key);
@@ -614,5 +614,5 @@ angular.module('starter.controllers', [])
         },20);
         break;  
     }
-}
+};
 });

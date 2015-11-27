@@ -245,7 +245,7 @@
 
             return q.promise;
         }
-    }
+    };
 }])
 
 .factory('StorageService', function ($localStorage) {
@@ -327,7 +327,7 @@
 
         var _getRandomInt = function (min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
+        };
 
         this.generate = function () {
             var ts = this.timestamp.toString();
@@ -340,7 +340,7 @@
             }
 
             return id;
-        }
+        };
     }
 
     return {
@@ -348,7 +348,7 @@
             var generator = new IDGenerator();
             return generator.generate();
         }
-    }
+    };
 }).
 
 factory('CategorieFilter', function () {
@@ -371,5 +371,5 @@ factory('CategorieFilter', function () {
 
             return incident; // Else, show!
         }
-    }
+    };
 });
