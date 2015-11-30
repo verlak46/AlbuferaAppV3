@@ -15,6 +15,41 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
+/*$stable:                        #a1c692 !default;
+$stable-light:                  #489152 !default;
+$stable-dark:                   #385d28 !default;
+$grey-light2:                   #dadfe2 !default;
+$grey-dark1:                    #292f33 !default;
+$grey-dark2:                    #66757f !default;
+
+// Buttons
+// -------------------------------
+$button-stable-bg:                $stable-light !default;
+$button-stable-text:              $grey-dark1 !default;
+$button-stable-border:            $stable-dark !default;
+$button-stable-active-bg:         $stable-dark !default;
+$button-stable-active-border:     $stable-light !default;
+
+// Tabs
+// -------------------------------
+$tabs-stable-bg:                  $stable !default;
+$tabs-stable-border:              $button-stable-border !default;
+$tabs-stable-text:                $grey-dark1 !default;
+
+// Bars
+// -------------------------------
+$bar-transparency:                1 !default;
+$bar-stable-bg:                   rgba($stable, $bar-transparency) !default;
+$bar-stable-text:                 $button-stable-text !default;
+$bar-stable-border:               $button-stable-border !default;
+$bar-stable-active-bg:            $button-stable-active-bg !default;
+$bar-stable-active-border:        $button-stable-active-border !default;
+
+$input-bg-disabled:               white !default;
+
+$item-divider-bg:                 $stable !default;
+$item-divider-color:              #222 !default;
+$item-divider-padding:            5px 15px !default;*/
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
@@ -3905,11 +3940,11 @@ a.subdued {
       background-image: linear-gradient(180deg, #ddd, #ddd 50%, transparent 50%); }
   .bar.bar-stable {
     border-color: #385d28;
-    background-color: #a1c692;
+    background-color: #385d28;
     background-image: linear-gradient(0deg, #385d28, #385d28 50%, transparent 50%);
-    color: black; }
+    color: #a1c692; }
     .bar.bar-stable .title {
-      color: black; }
+      color: #a1c692; }
     .bar.bar-stable.bar-footer {
       background-image: linear-gradient(180deg, #385d28, #385d28 50%, transparent 50%); }
   .bar.bar-positive {
@@ -4095,20 +4130,20 @@ a.subdued {
 
 .bar-stable .button {
   border-color: #385d28;
-  background-color: #a1c692;
-  color: black; }
+  background-color: #385d28;
+  color: #a1c692; }
   .bar-stable .button:hover {
-    color: black;
+    color: #a1c692;
     text-decoration: none; }
   .bar-stable .button.active, .bar-stable .button.activated {
-    border-color: #385d28;
+    border-color: #a1c692;
     background-color: #385d28;
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
   .bar-stable .button.button-clear {
     border-color: transparent;
     background: none;
     box-shadow: none;
-    color: black;
+    color: #a1c692;
     font-size: 17px; }
   .bar-stable .button.button-icon {
     border-color: transparent;
@@ -4335,9 +4370,9 @@ a.subdued {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   border-color: #385d28;
-  background-color: #a1c692;
+  background-color: #385d28;
   background-image: linear-gradient(0deg, #385d28, #385d28 50%, transparent 50%);
-  color: black;
+  color: #a1c692;
   position: absolute;
   bottom: 0;
   z-index: 5;
@@ -4348,8 +4383,8 @@ a.subdued {
   background-size: 0;
   line-height: 49px; }
   .tabs .tab-item .badge {
-    background-color: black;
-    color: #a1c692; }
+    background-color: #a1c692;
+    color: #385d28; }
   @media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
     .tabs {
       padding-top: 2px;
@@ -4374,13 +4409,13 @@ a.subdued {
 .tabs-stable > .tabs,
 .tabs.tabs-stable {
   border-color: #385d28;
-  background-color: #a1c692;
+  background-color: #385d28;
   background-image: linear-gradient(0deg, #385d28, #385d28 50%, transparent 50%);
-  color: black; }
+  color: #a1c692; }
   .tabs-stable > .tabs .tab-item .badge,
   .tabs.tabs-stable .tab-item .badge {
-    background-color: black;
-    color: #a1c692; }
+    background-color: #a1c692;
+    color: #385d28; }
 
 .tabs-positive > .tabs,
 .tabs.tabs-positive {
@@ -5691,8 +5726,8 @@ ion-tabs.tabs-color-active-dark .tab-item {
     color: #444; }
   .item.item-stable {
     border-color: #385d28;
-    background-color: #489152;
-    color: black; }
+    background-color: #385d28;
+    color: #a1c692; }
   .item.item-positive {
     border-color: #0c60ee;
     background-color: #387ef5;
@@ -5750,7 +5785,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
   .item-complex.activated .item-content.item-stable,
   .item .item-content.active.item-stable,
   .item .item-content.activated.item-stable {
-    border-color: #385d28;
+    border-color: #a1c692;
     background-color: #385d28; }
   .item.active.item-positive,
   .item.activated.item-positive,
@@ -5904,10 +5939,10 @@ a.item-content {
 
 .item-complex.item-stable > .item-content {
   border-color: #385d28;
-  background-color: #489152;
-  color: black; }
+  background-color: #385d28;
+  color: #a1c692; }
   .item-complex.item-stable > .item-content.active, .item-complex.item-stable > .item-content:active {
-    border-color: #385d28;
+    border-color: #a1c692;
     background-color: #385d28; }
 
 .item-complex.item-positive > .item-content {
@@ -6559,8 +6594,8 @@ button.item.item-button-right {
 
 .tabs .tab-item .badge.badge-stable,
 .badge.badge-stable {
-  background-color: #489152;
-  color: black; }
+  background-color: #385d28;
+  color: #a1c692; }
 
 .tabs .tab-item .badge.badge-positive,
 .badge.badge-positive {
@@ -7148,7 +7183,7 @@ textarea[disabled],
 input[readonly]:not(.cloned-text-input),
 textarea[readonly]:not(.cloned-text-input),
 select[readonly] {
-  background-color: #a1c692;
+  background-color: white;
   cursor: not-allowed; }
 
 input[type="radio"][disabled],
@@ -7819,8 +7854,8 @@ input:checked + .checkbox-icon:after {
     background: #fff;
     color: #444; }
   .item-select.item-stable select {
-    background: #489152;
-    color: black; }
+    background: #385d28;
+    color: #a1c692; }
   .item-select.item-stable:after, .item-select.item-stable .input-label {
     color: black; }
   .item-select.item-positive select {
@@ -7877,8 +7912,8 @@ progress {
  */
 .button {
   border-color: #385d28;
-  background-color: #489152;
-  color: black;
+  background-color: #385d28;
+  color: #a1c692;
   position: relative;
   display: inline-block;
   margin: 0;
@@ -7895,10 +7930,10 @@ progress {
   line-height: 42px;
   cursor: pointer; }
   .button:hover {
-    color: black;
+    color: #a1c692;
     text-decoration: none; }
   .button.active, .button.activated {
-    border-color: #385d28;
+    border-color: #a1c692;
     background-color: #385d28;
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
   .button:after {
@@ -7958,13 +7993,13 @@ progress {
         color: #fff; }
   .button.button-stable {
     border-color: #385d28;
-    background-color: #489152;
-    color: black; }
+    background-color: #385d28;
+    color: #a1c692; }
     .button.button-stable:hover {
-      color: black;
+      color: #a1c692;
       text-decoration: none; }
     .button.button-stable.active, .button.button-stable.activated {
-      border-color: #385d28;
+      border-color: #a1c692;
       background-color: #385d28;
       box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
     .button.button-stable.button-clear {

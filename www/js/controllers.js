@@ -18,14 +18,14 @@ angular.module('starter.controllers', [])
                 buttons: [
                 {
                   text: 'Español',
-                  type: 'button-stable',
+                  type: 'button-balanced',
                   onTap: function () {
                       return 'es';
                   }
               },
               {
                   text: 'Inglés',
-                  type: 'button-stable',
+                  type: 'button-balanced',
                   onTap: function () {
                       return 'en';
                   }

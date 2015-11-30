@@ -22,20 +22,32 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // My custom color. I’ll override the default for $positive.
 // Note that it’s before we load the rest of Ionic.
 // This is important!
-$stable:                        #a1c692 !default;
+
+// Colors
+// -------------------------------
+/*$stable:                        #a1c692 !default;
 $stable-light:                  #489152 !default;
 $stable-dark:                   #385d28 !default;
+$grey-light2:                   #dadfe2 !default;
+$grey-dark1:                    #292f33 !default;
+$grey-dark2:                    #66757f !default;
 
+// Buttons
+// -------------------------------
 $button-stable-bg:                $stable-light !default;
-$button-stable-text:              black !default;
+$button-stable-text:              $grey-dark1 !default;
 $button-stable-border:            $stable-dark !default;
 $button-stable-active-bg:         $stable-dark !default;
-$button-stable-active-border:     $stable-dark !default;
+$button-stable-active-border:     $stable-light !default;
 
+// Tabs
+// -------------------------------
 $tabs-stable-bg:                  $stable !default;
 $tabs-stable-border:              $button-stable-border !default;
-$tabs-stable-text:                $button-stable-text !default;
+$tabs-stable-text:                $grey-dark1 !default;
 
+// Bars
+// -------------------------------
 $bar-transparency:                1 !default;
 $bar-stable-bg:                   rgba($stable, $bar-transparency) !default;
 $bar-stable-text:                 $button-stable-text !default;
@@ -43,7 +55,53 @@ $bar-stable-border:               $button-stable-border !default;
 $bar-stable-active-bg:            $button-stable-active-bg !default;
 $bar-stable-active-border:        $button-stable-active-border !default;
 
-$input-bg-disabled:               $stable !default;
+$input-bg-disabled:               white !default;
+
+$item-divider-bg:                 $stable !default;
+$item-divider-color:              #222 !default;
+$item-divider-padding:            5px 15px !default;*/
+
+
+///////////////////////////////////////////////////////////////////////////
+
+
+// Colors
+// -------------------------------
+$stable:                        #a1c692 !default;
+$stable-light:                  #489152 !default;
+$stable-dark:                   #385d28 !default;
+$grey-light2:                   #dadfe2 !default;
+$grey-dark1:                    #292f33 !default;
+$grey-dark2:                    #66757f !default;
+
+// Buttons
+// -------------------------------
+$button-stable-bg:                $stable-dark !default;
+$button-stable-text:              $stable !default;
+$button-stable-border:            $stable-dark !default;
+$button-stable-active-bg:         $stable-dark !default;
+$button-stable-active-border:     $stable !default;
+
+// Tabs
+// -------------------------------
+$tabs-stable-bg:                  $stable-dark !default;
+$tabs-stable-border:              $button-stable-border !default;
+$tabs-stable-text:                $stable !default;
+
+$tabs-off-opacity:                0.4 !default;
+$tabs-striped-off-opacity:        $tabs-off-opacity !default;
+$tabs-striped-off-color:          #000 !default;
+
+// Bars
+// -------------------------------
+$bar-transparency:                1 !default;
+$bar-stable-bg:                   rgba($stable-dark, $bar-transparency) !default;
+$bar-stable-text:                 $button-stable-text !default;
+$bar-stable-border:               $button-stable-border !default;
+$bar-stable-active-bg:            $button-stable-active-bg !default;
+$bar-stable-active-border:        $button-stable-active-border !default;
+
+$input-bg-disabled:               white !default;
 
 $item-divider-bg:                 $stable !default;
 $item-divider-color:              #222 !default;
