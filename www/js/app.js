@@ -167,7 +167,7 @@
     // Set tabs on top of the screen
     $ionicConfigProvider.tabs.position('top');
     // Set custom text to back button
-    //$ionicConfigProvider.backButton.previousTitleText(false).text('Atrás');
+    $ionicConfigProvider.backButton.previousTitleText(false).text('');
 
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router

@@ -19,3 +19,18 @@
 .popup-buttons .button {
 	background-color: #66cc33;
 }
+
+.tabs-stable > .tabs{
+	background-color: #385d28 !important;
+}
+
+a.tab-item {
+    color:  #a1c692 !important;
+}
+    
+a.tab-item-active {
+    color:  #dadfe2 !important;
+    opacity: 1;
+    border-top:   3px;
+    border-bottom: 3px;
+}
