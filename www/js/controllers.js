@@ -158,7 +158,8 @@ angular.module('starter.controllers', [])
             $scope.showAlert = function () {
                 var alertPopup = $ionicPopup.alert({
                     title: 'Aviso',
-                    template: 'La incidencia ya se encuentra en Favoritos'
+                    template: 'La incidencia ya se encuentra en Favoritos',
+                    okType: 'button-balanced'
                 });
                 alertPopup.then(function (res) {
                 });
@@ -170,7 +171,8 @@ angular.module('starter.controllers', [])
             $scope.showAlert = function () {
                 var alertPopup = $ionicPopup.alert({
                     title: 'Aviso',
-                    template: 'Incidencia agregada a Favoritos'
+                    template: 'Incidencia agregada a Favoritos',
+                    okType: 'button-balanced'
                 });
                 alertPopup.then(function (res) {
                 });
@@ -295,7 +297,8 @@ angular.module('starter.controllers', [])
         $scope.showAlert = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Incidencia Enviada',
-                template: 'Muchas gracias por su colaboración'
+                template: 'Muchas gracias por su colaboración',
+                okType: 'button-balanced'
             });
             alertPopup.then(function (res) {
                 window.history.back();
@@ -561,7 +564,8 @@ angular.module('starter.controllers', [])
         $scope.showAlert = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Datos guardados',
-                template: 'Sus datos se usarán al enviar una incidencia'
+                template: 'Sus datos se usarán al enviar una incidencia',
+                okType: 'button-balanced'
             });
             alertPopup.then(function (res) {
                 window.history.back();

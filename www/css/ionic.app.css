@@ -4332,9 +4332,9 @@ a.subdued {
   justify-content: center;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  border-color: #385d28;
+  border-color: #a1c692;
   background-color: #385d28;
-  background-image: linear-gradient(0deg, #385d28, #385d28 50%, transparent 50%);
+  background-image: linear-gradient(0deg, #a1c692, #a1c692 50%, transparent 50%);
   color: #a1c692;
   position: absolute;
   bottom: 0;
@@ -4371,9 +4371,9 @@ a.subdued {
 
 .tabs-stable > .tabs,
 .tabs.tabs-stable {
-  border-color: #385d28;
+  border-color: #a1c692;
   background-color: #385d28;
-  background-image: linear-gradient(0deg, #385d28, #385d28 50%, transparent 50%);
+  background-image: linear-gradient(0deg, #a1c692, #a1c692 50%, transparent 50%);
   color: #a1c692; }
   .tabs-stable > .tabs .tab-item .badge,
   .tabs.tabs-stable .tab-item .badge {
