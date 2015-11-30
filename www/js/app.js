@@ -168,6 +168,8 @@
     $ionicConfigProvider.tabs.position('top');
     // Set custom text to back button
     $ionicConfigProvider.backButton.previousTitleText(false).text('');
+    // Align view-title
+    $ionicConfigProvider.navBar.alignTitle('center');
 
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
