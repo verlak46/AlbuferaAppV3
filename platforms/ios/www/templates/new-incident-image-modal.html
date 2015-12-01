@@ -1,0 +1,12 @@
+﻿<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">{{'SELECT_ACTION' | translate}}</h1>
+        <button class="button button-clear button-primary" ng-click="closeModal()">{{'CANCEL' | translate}}</button>
+    </ion-header-bar>
+    <ion-content>
+        <ul class="list">
+            <li class="item" ng-click="takePhoto()">{{'TAKE_PHOTO' | translate}}</li>
+            <li class="item" ng-click="choosePhoto()">{{'CHOOSE_FROM_GALLERY' | translate}}</li>
+        </ul>
+    </ion-content>
+</ion-modal-view>

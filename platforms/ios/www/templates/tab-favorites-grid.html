@@ -1,0 +1,14 @@
+﻿<ion-view view-title="{{ 'FAVORITES' | translate }}">
+    <ion-content>
+        <div class="card" ng-show="incidents.length === 0">
+            <div class="item item-text-wrap">
+                {{ 'NOT_ADDED' | translate }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="collection-div" collection-repeat="incident in incidents | filter:categorieFilter" item-width="33%" item-height="200px">
+                <a href="#/tab/favorites/{{incident.id}}"><img class="img-grid" ng-src="{{incident.image}}"></a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

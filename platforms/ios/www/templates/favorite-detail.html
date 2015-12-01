@@ -1,0 +1,34 @@
+﻿<ion-view view-title="{{incident.categorie | translate}}">
+    <ion-content class="padding">
+        <div class="list card">
+
+            <div class="item item-avatar">
+                <img ng-src="{{incident.image}}" />
+                <h2>{{incident.categorie | translate}}</h2>
+                <p>{{incident.date}}</p>
+            </div>
+
+            <div class="item item-body">
+                <img ng-src="{{incident.image}}" style="width: 100%; height: 50%">
+                <p>
+                    {{incident.description}}
+                </p>
+                <p>
+                    <a href="#" class="subdued">1 {{ 'LIKE' | translate }} </a>
+                </p>
+            </div>
+
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" href="#">
+                    <i class="icon ion-thumbsup"></i>
+                    {{ 'LIKE' | translate }}
+                </a>
+                <a class="tab-item" href="#">
+                    <i class="icon ion-share"></i>
+                    {{ 'SHARE' | translate }}
+                </a>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

@@ -1,0 +1,48 @@
+﻿<ion-view view-title="{{ 'PROFILE' | translate }}">
+    <ion-content>
+        <ion-list>
+            <form name="accountForm" novalidate>
+                <div class="list card">
+                    <div class="item item-divider">{{ 'LANGUAGE' | translate }}</div>
+                    <div class="item item-body">
+                        <div class="row">
+                            <div class="col col-50">
+                                <button class="button button-block button-positive" ng-click="changeLanguage('es')">{{ 'SPANISH' | translate }}</button>
+                            </div>
+                            <div class="col">
+                                <button class="button button-block button-positive" ng-click="changeLanguage('en')">{{ 'ENGLISH' | translate }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list card">
+                    <div class="item item-divider">{{ 'CONTACT' | translate }}</div>
+                    <div class="item item-text-wrap">
+                        {{ 'THIS_INFO' | translate }}
+                    </div>
+                    <div class="item item-body">
+                        <div class="list">
+                            <label class="item item-input">
+                                <input type="text" name="name" placeholder="{{ 'NAME' | translate }}" ng-model="account.name" required>
+                            </label>
+                            <label class="item item-input">
+                                <input type="text" name="subname" placeholder="{{ 'SUBNAME' | translate }}" ng-model="account.subname" required>
+                            </label>
+                            <label class="item item-input">
+                                <input type="text" name="email" placeholder="{{ 'EMAIL' | translate }}" ng-model="account.email" required>
+                            </label>
+                            <label class="item item-input">
+                                <input type="text" name="phone" placeholder="{{ 'PHONE' | translate }}" ng-model="account.phone" required>
+                            </label>
+                            <div>
+                                <button class="button button-full button-positive" ng-disabled="accountForm.$invalid" ng-click="submit()">
+                                    {{ 'SAVE' | translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </ion-list>
+    </ion-content>
+</ion-view>
