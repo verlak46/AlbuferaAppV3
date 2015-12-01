@@ -51,6 +51,15 @@ $item-divider-bg:                 $stable !default;
 $item-divider-color:              #222 !default;
 $item-divider-padding:            5px 15px !default;
 
+// Fonts
+// -------------------------------
+$font-family-raleway-medium:          "RalewayMedium" !default;
+
+$font-family-base:                $font-family-raleway-medium !default;
+$font-size-base:                  15px !default;
+$font-size-large:                 17px !default;
+$font-size-small:                 11px !default;
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
