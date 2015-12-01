@@ -149,6 +149,13 @@ angular.module('starter.controllers', [])
           console.log('sharing');
       }, function(err) {
           // An error occured. Show a message to the user
+            var alertPopup = $ionicPopup.alert({
+                title: 'Error',
+                template: 'No pudo enviarse la incidencia',
+                okType: 'button-balanced'
+            });
+            alertPopup.then(function (res) {
+            });
       });
     };
 
@@ -417,6 +424,13 @@ angular.module('starter.controllers', [])
           console.log('sharing');
       }, function(err) {
           // An error occured. Show a message to the user
+            var alertPopup = $ionicPopup.alert({
+                title: 'Error',
+                template: 'No pudo enviarse la incidencia',
+                okType: 'button-balanced'
+            });
+            alertPopup.then(function (res) {
+            });
       });
     };
 })
@@ -532,6 +546,13 @@ angular.module('starter.controllers', [])
           console.log('sharing');
       }, function(err) {
           // An error occured. Show a message to the user
+            var alertPopup = $ionicPopup.alert({
+                title: 'Error',
+                template: 'No pudo enviarse la incidencia',
+                okType: 'button-balanced'
+            });
+            alertPopup.then(function (res) {
+            });
       });
     };
 })
