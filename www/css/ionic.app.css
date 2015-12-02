@@ -4099,8 +4099,8 @@ a.subdued {
     color: #dadfe2;
     text-decoration: none; }
   .bar-stable .button.active, .bar-stable .button.activated {
-    border-color: #a1c692;
-    background-color: #385d28;
+    border-color: #385d28;
+    background-color: #489152;
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
   .bar-stable .button.button-clear {
     border-color: transparent;
@@ -5748,8 +5748,8 @@ ion-tabs.tabs-color-active-dark .tab-item {
   .item-complex.activated .item-content.item-stable,
   .item .item-content.active.item-stable,
   .item .item-content.activated.item-stable {
-    border-color: #a1c692;
-    background-color: #385d28; }
+    border-color: #385d28;
+    background-color: #489152; }
   .item.active.item-positive,
   .item.activated.item-positive,
   .item-complex.active .item-content.item-positive,
@@ -5905,8 +5905,8 @@ a.item-content {
   background-color: #385d28;
   color: #a1c692; }
   .item-complex.item-stable > .item-content.active, .item-complex.item-stable > .item-content:active {
-    border-color: #a1c692;
-    background-color: #385d28; }
+    border-color: #385d28;
+    background-color: #489152; }
 
 .item-complex.item-positive > .item-content {
   border-color: #0c60ee;
@@ -7896,8 +7896,8 @@ progress {
     color: #a1c692;
     text-decoration: none; }
   .button.active, .button.activated {
-    border-color: #a1c692;
-    background-color: #385d28;
+    border-color: #385d28;
+    background-color: #489152;
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
   .button:after {
     position: absolute;
@@ -7962,8 +7962,8 @@ progress {
       color: #a1c692;
       text-decoration: none; }
     .button.button-stable.active, .button.button-stable.activated {
-      border-color: #a1c692;
-      background-color: #385d28;
+      border-color: #385d28;
+      background-color: #489152;
       box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
     .button.button-stable.button-clear {
       border-color: transparent;
