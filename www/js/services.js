@@ -1,6 +1,6 @@
 ﻿angular.module('starter.services', [])
 
-.factory('Incidents', function () {
+.factory('Incidents', function ($http) {
     // Might use a resource here that returns a JSON array
 
     // Some fake testing data
@@ -108,6 +108,42 @@
         account: ''
     }];
 
+    /*var incidents = [];
+    var categories = [];
+
+    $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/incidents').then(function(resp) {
+        console.log('Success', resp);
+        // For JSON responses, resp.data contains the result
+        incidents = resp.data;
+        console.log(incidents);
+    }, function(err) {
+        console.error('ERR', err);
+        // err.status will contain the status code
+        console.log(err.status);
+    });*/
+
+    /*$http.get('http://c2566322-0.web-hosting.es/albufera/index.php/categories').then(function(resp) {
+        console.log('Success', resp);
+        // For JSON responses, resp.data contains the result
+        categories = resp.data;
+    }, function(err) {
+        console.error('ERR', err);
+        // err.status will contain the status code
+        console.log(err.status);
+    });*/
+
+    /*for (var i=0; i < incidents.length; i++) {
+
+        var idCategorie = incidents[i].idCategorie;
+
+        for (var j=0; i < categories.length; j++) {
+            if (idCategorie === categories[j].id) {
+                incidents[i].categorie = categories[j].name;
+                console.log(incidents[i].categorie);
+            }
+        }
+    }*/
+
     return {
         all: function () {
             return incidents;
@@ -126,7 +162,7 @@
     };
 })
 
-.factory('Categories', function () {
+.factory('Categories', function ($http) {
     // Might use a resource here that returns a JSON array
 
     // Some fake testing data
@@ -179,6 +215,18 @@
         name: 'OTHERS',
         icon: 'ion-alert-circled'
     }];
+
+    /*var categories = [];
+
+    $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/categories').then(function(resp) {
+        console.log('Success', resp);
+        // For JSON responses, resp.data contains the result
+        categories = resp.data;
+    }, function(err) {
+        console.error('ERR', err);
+        // err.status will contain the status code
+        console.log(err.status);
+    });*/
 
     return {
         all: function () {

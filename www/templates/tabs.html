@@ -6,45 +6,52 @@ navigation history that also transitions its views in and out.
 <ion-tabs class="tabs-icon-top tabs-stable">
 
     <!-- INCIDENTS Tab -->
-    <ion-tab title="{{ 'INCIDENTS' | translate }}" icon-off="ion-clock" icon-on="ion-clock" href="#/tab/incidents" ng-controller="StateController as state" on-select="state.onTabSelected(this)">
+    <ion-tab title="{{ 'INCIDENTS' | translate }}" icon-off="ion-clock" icon-on="ion-clock" href="#/tab/incidents" ng-controller="StateCtrl as state" on-select="state.onTabSelected(this)">
+    <div ng-controller="IncidentsCtrl">
         <ion-nav-view name="tab-incidents">
-            <ion-footer-bar class="bar-stable footer-button">
+        </ion-nav-view>
+        <ion-footer-bar class="bar-stable footer-button">
                 <button class="button button-stable icon-left ion-ios-list" onclick="window.location.href='#/tab/incidents'"></button>
                 <button class="button button-stable icon-left ion-ios-location" onclick="window.location.href='#/tab/incidents-map'"></button>
                 <button class="button button-stable icon-left ion-grid" onclick="window.location.href='#/tab/incidents-grid'"></button>
                 <button class="button button-stable icon-left ion-plus-circled" onclick="window.location.href='#/tab/new'"></button>
-                <button class="button button-stable icon-left ion-funnel" ng-click="openModal()" ng-controller="IncidentsCtrl">{{ 'FILTER' | translate }}</button>
-            </ion-footer-bar>
-        </ion-nav-view>
+                <button class="button button-stable icon-left ion-funnel" ng-click="openModal()">{{ 'FILTER' | translate }}</button>
+        </ion-footer-bar>
+    </div>
     </ion-tab>
 
     <!-- MY INCIDENTS Tab -->
-    <ion-tab title="{{ 'MY_INCIDENTS' | translate }}" icon-off="ion-pin" icon-on="ion-pin" href="#/tab/my-incidents" ng-controller="StateController as state" on-select="state.onTabSelected(this)">
+    <ion-tab title="{{ 'MY_INCIDENTS' | translate }}" icon-off="ion-pin" icon-on="ion-pin" href="#/tab/my-incidents" ng-controller="StateCtrl as state" on-select="state.onTabSelected(this)">
+    <div ng-controller="MyIncidentsCtrl">
         <ion-nav-view name="tab-my-incidents">
-            <ion-footer-bar class="bar-stable footer-button">
+        </ion-nav-view>
+        <ion-footer-bar class="bar-stable footer-button">
                 <button class="button button-stable icon-left ion-ios-list" onclick="window.location.href='#/tab/my-incidents'"></button>
                 <button class="button button-stable icon-left ion-ios-location" onclick="window.location.href='#/tab/my-incidents-map'"></button>
                 <button class="button button-stable icon-left ion-grid" onclick="window.location.href='#/tab/my-incidents-grid'"></button>
-                <button class="button button-stable icon-left ion-funnel" ng-click="openModal()" ng-controller="MyIncidentsCtrl">{{ 'FILTER' | translate }}</button>
-            </ion-footer-bar>
-        </ion-nav-view>
+                <button class="button button-stable icon-left ion-funnel" ng-click="openModal()">{{ 'FILTER' | translate }}</button>
+        </ion-footer-bar>
+    </div>
     </ion-tab>
 
     <!-- FAVORITES Tab -->
-    <ion-tab title="{{ 'FAVORITES' | translate }}" icon-off="ion-star" icon-on="ion-star" href="#/tab/favorites" ng-controller="StateController as state" on-select="state.onTabSelected(this)">
+    <ion-tab title="{{ 'FAVORITES' | translate }}" icon-off="ion-star" icon-on="ion-star" href="#/tab/favorites" ng-controller="StateCtrl as state" on-select="state.onTabSelected(this)">
+    <div ng-controller="FavoritesCtrl">
         <ion-nav-view name="tab-favorites">
-            <ion-footer-bar class="bar-stable footer-button">
+        </ion-nav-view>
+        <ion-footer-bar class="bar-stable footer-button">
                 <button class="button button-stable icon-left ion-ios-list" onclick="window.location.href='#/tab/favorites'"></button>
                 <button class="button button-stable icon-left ion-ios-location" onclick="window.location.href='#/tab/favorites-map'"></button>
                 <button class="button button-stable icon-left ion-grid" onclick="window.location.href='#/tab/favorites-grid'"></button>
-                <button class="button button-stable icon-left ion-funnel" ng-click="openModal()" ng-controller="FavoritesCtrl">{{ 'FILTER' | translate }}</button>
-            </ion-footer-bar>
-        </ion-nav-view>
+                <button class="button button-stable icon-left ion-funnel" ng-click="openModal()">{{ 'FILTER' | translate }}</button>
+        </ion-footer-bar>
+    </div>
     </ion-tab>
 
     <!-- PROFILE Tab -->
     <ion-tab title="{{ 'PROFILE' | translate }}" icon-off="ion-person" icon-on="ion-person" href="#/tab/account">
-        <ion-nav-view name="tab-account"></ion-nav-view>
+        <ion-nav-view name="tab-account">
+        </ion-nav-view>
     </ion-tab>
 
 </ion-tabs>
