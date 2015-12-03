@@ -1,89 +1,165 @@
 ﻿angular.module('starter.services', [])
 
-.factory('Incidents', function () {
+.factory('Incidents', function ($http) {
     // Might use a resource here that returns a JSON array
 
     // Some fake testing data
-    var incidents = [{
+    /*var incidents = [{
         id: 0,
         categorie: 'PUBLIC_ROAD',
-        town: 'Valencia',
         date: '06-11-2015',
         description: 'Obras en la CV-50',
         image: 'img/albufera1.jpg',
-        coords: ''
+        coords:  {
+            latitude: 39.3187009,
+            longitude: -0.3074812 
+        },
+        account: ''
     }, {
         id: 1,
         categorie: 'CLEANING',
-        town: 'El Palmar',
         date: '12-08-2015',
         description: 'Alguien ha tirado basura',
         image: 'img/albufera2.jpg',
-        coords: ''
+        coords:  {
+            latitude: 39.303859,
+            longitude: -0.3293276 
+        },
+        account: ''
     }, {
         id: 2,
         categorie: 'CLEANING',
-        town: 'Valencia',
         date: '28-07-2015',
         description: 'Alguien ha tirado basura',
         image: 'img/albufera3.jpg',
-        coords: ''
+        coords:  {
+            latitude: 39.3024394,
+            longitude: -0.3249241
+        },
+        account: ''
     }, {
         id: 3,
         categorie: 'TRANSPORT',
-        town: 'El Perellonet',
         date: '15-07-2015',
         description: 'El autobús tarda más de media hora en pasar',
         image: 'img/albufera4.jpg',
-        coords: ''
+        coords:  {
+            latitude: 39.3662953,
+            longitude: -0.3291161 
+        },
+        account: ''
     }, {
         id: 4,
         categorie: 'LIGHTING',
-        town: 'El Palmar',
         date: '02-04-2015',
         description: 'No funciona la iluminación del paseo',
         image: 'img/albufera5.jpg',
-        coords: ''
+        coords:  {
+            latitude: 39.3616838,
+            longitude: -0.3206441 
+        },
+        account: ''
     }, {
         id: 5,
         categorie: 'GRAFFITI',
-        town: 'Valencia',
         date: '22-03-2015',
         description: 'Pintada en la pared este de la antigua estación',
         image: 'img/albufera3.jpg',
-        coords: ''
+        coords:  {
+            latitude: 39.3515948,
+            longitude: -0.3217262
+        },
+        account: ''
     },
     {
         id: 6,
         categorie: 'FURNITURE',
-        town: 'El Perelló',
         date: '19-03-2015',
         description: 'Han destrozado los bancos del paseo',
         image: 'img/albufera2.jpg',
-        coords: ''
+        coords:  {
+            latitude: 39.3212054,
+            longitude: -0.342405 
+        },
+        account: ''
     },
     {
         id: 7,
         categorie: 'LIGHTING',
-        town: 'El Perelló',
         date: '02-03-2015',
         description: 'No funciona la iluminación',
         image: 'img/albufera4.jpg',
-        coords: ''
+        coords:  {
+            latitude: 39.3062211,
+            longitude: -0.3722105 
+        },
+        account: ''
     },
     {
         id: 8,
         categorie: 'LIGHTING',
-        town: 'Valencia',
         date: '13-02-2015',
         description: 'No funciona la iluminación',
         image: 'img/albufera1.jpg',
-        coords: ''
-    }];
+        coords:  {
+            latitude: 39.2967599,
+            longitude: -0.3448249 
+        },
+        account: ''
+    }];*/
+
+    //var incidents = [];
+    //var categories = [];
+
+    /*$http.get('http://c2566322-0.web-hosting.es/albufera/index.php/incidents').then(function(resp) {
+        //console.log('Success', resp);
+        // For JSON responses, resp.data contains the result
+        incidents = resp.data;
+        console.log(incidents);
+    }, function(err) {
+        console.error('ERR', err);
+        // err.status will contain the status code
+        console.log(err.status);
+    });*/
+
+    /*$http.get('http://c2566322-0.web-hosting.es/albufera/index.php/categories').then(function(resp) {
+        console.log('Success', resp);
+        // For JSON responses, resp.data contains the result
+        categories = resp.data;
+    }, function(err) {
+        console.error('ERR', err);
+        // err.status will contain the status code
+        console.log(err.status);
+    });
+
+    for (var i=0; i < incidents.length; i++) {
+
+        var idCategorie = incidents[i].idCategorie;
+
+        for (var j=0; i < categories.length; j++) {
+            if (idCategorie === categories[j].id) {
+                incidents[i].categorie = categories[j].name;
+                console.log(incidents[i].categorie);
+            }
+        }
+    }*/
+
+    var incidents = [];
 
     return {
-        all: function () {
-            return incidents;
+        all: function (callback) {
+            $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/incidents').then(function(resp) {
+                console.log('Success', resp);
+                // For JSON responses, resp.data contains the result
+                incidents = resp.data;
+                if (callback) {
+                    callback(incidents);
+                }
+
+            }, function(err) {
+                console.error('ERR', err);
+                // err.status will contain the status code
+            });
         },
         get: function (incidentId) {
             for (var i = 0; i < incidents.length; i++) {
@@ -93,17 +169,17 @@
             }
             return null;
         },
-        last: function () {
-            return incidents[0];
+        getAll: function () {
+            return incidents;
         }
     };
 })
 
-.factory('Categories', function () {
+.factory('Categories', function ($http) {
     // Might use a resource here that returns a JSON array
 
     // Some fake testing data
-    var categories = [{
+    /*var categories = [{
         id: 0,
         name: 'CLEANING',
         icon: 'ion-trash-a',
@@ -151,11 +227,21 @@
         id: 11,
         name: 'OTHERS',
         icon: 'ion-alert-circled'
-    }];
+    }];*/
+
+    var categories = [];
 
     return {
         all: function () {
-            return categories;
+            $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/categories').then(function(resp) {
+                console.log('Success', resp);
+                // For JSON responses, resp.data contains the result
+                categories = resp.data;
+                return categories;
+            }, function(err) {
+                console.error('ERR', err);
+                // err.status will contain the status code
+            });
         },
         get: function (categorieId) {
             for (var i = 0; i < categories.length; i++) {
@@ -218,7 +304,7 @@
 
             return q.promise;
         }
-    }
+    };
 }])
 
 .factory('StorageService', function ($localStorage) {
@@ -300,7 +386,7 @@
 
         var _getRandomInt = function (min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
+        };
 
         this.generate = function () {
             var ts = this.timestamp.toString();
@@ -313,7 +399,7 @@
             }
 
             return id;
-        }
+        };
     }
 
     return {
@@ -321,7 +407,7 @@
             var generator = new IDGenerator();
             return generator.generate();
         }
-    }
+    };
 }).
 
 factory('CategorieFilter', function () {
@@ -344,5 +430,5 @@ factory('CategorieFilter', function () {
 
             return incident; // Else, show!
         }
-    }
+    };
 });

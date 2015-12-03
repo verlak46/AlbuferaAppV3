@@ -1,10 +1,10 @@
 ﻿angular.module('starter.services', [])
 
-.factory('Incidents', function ($http) {
+.factory('Incidents', function ($http, $q) {
     // Might use a resource here that returns a JSON array
 
     // Some fake testing data
-    var incidents = [{
+    /*var incidents = [{
         id: 0,
         categorie: 'PUBLIC_ROAD',
         date: '06-11-2015',
@@ -106,13 +106,13 @@
             longitude: -0.3448249 
         },
         account: ''
-    }];
+    }];*/
 
-    /*var incidents = [];
-    var categories = [];
+    //var incidents = [];
+    //var categories = [];
 
-    $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/incidents').then(function(resp) {
-        console.log('Success', resp);
+    /*$http.get('http://c2566322-0.web-hosting.es/albufera/index.php/incidents').then(function(resp) {
+        //console.log('Success', resp);
         // For JSON responses, resp.data contains the result
         incidents = resp.data;
         console.log(incidents);
@@ -130,9 +130,9 @@
         console.error('ERR', err);
         // err.status will contain the status code
         console.log(err.status);
-    });*/
+    });
 
-    /*for (var i=0; i < incidents.length; i++) {
+    for (var i=0; i < incidents.length; i++) {
 
         var idCategorie = incidents[i].idCategorie;
 
@@ -144,9 +144,22 @@
         }
     }*/
 
+    var incidents = [];
+
     return {
         all: function () {
-            return incidents;
+            var defer = $q.defer();
+
+            $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/incidents').then(function(resp) {
+                console.log('Success', resp);
+                // For JSON responses, resp.data contains the result
+                incidents = resp.data;
+                defer.resolve(resp.data);
+            }, function(err) {
+                console.error('ERR', err);
+                // err.status will contain the status code
+            });
+            return defer.promise;
         },
         get: function (incidentId) {
             for (var i = 0; i < incidents.length; i++) {
@@ -156,17 +169,17 @@
             }
             return null;
         },
-        last: function () {
-            return incidents[0];
-        }
+        getAll: function () {
+            return incidents;
+        } 
     };
 })
 
-.factory('Categories', function ($http) {
+.factory('Categories', function ($http, $q) {
     // Might use a resource here that returns a JSON array
 
     // Some fake testing data
-    var categories = [{
+    /*var categories = [{
         id: 0,
         name: 'CLEANING',
         icon: 'ion-trash-a',
@@ -214,23 +227,24 @@
         id: 11,
         name: 'OTHERS',
         icon: 'ion-alert-circled'
-    }];
+    }];*/
 
-    /*var categories = [];
-
-    $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/categories').then(function(resp) {
-        console.log('Success', resp);
-        // For JSON responses, resp.data contains the result
-        categories = resp.data;
-    }, function(err) {
-        console.error('ERR', err);
-        // err.status will contain the status code
-        console.log(err.status);
-    });*/
+    var categories = [];
 
     return {
         all: function () {
-            return categories;
+            var defer = $q.defer();
+
+            $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/categories').then(function(resp) {
+                console.log('Success', resp);
+                // For JSON responses, resp.data contains the result
+                categories = resp.data;
+                defer.resolve(resp.data);
+            }, function(err) {
+                console.error('ERR', err);
+                // err.status will contain the status code
+            });
+            return defer.promise;
         },
         get: function (categorieId) {
             for (var i = 0; i < categories.length; i++) {
@@ -239,6 +253,9 @@
                 }
             }
             return null;
+        },
+        getAll: function () {
+            return categories;
         }
     };
 })

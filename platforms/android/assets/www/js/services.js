@@ -1,10 +1,10 @@
 ﻿angular.module('starter.services', [])
 
-.factory('Incidents', function () {
+.factory('Incidents', function ($http) {
     // Might use a resource here that returns a JSON array
 
     // Some fake testing data
-    var incidents = [{
+    /*var incidents = [{
         id: 0,
         categorie: 'PUBLIC_ROAD',
         date: '06-11-2015',
@@ -106,11 +106,60 @@
             longitude: -0.3448249 
         },
         account: ''
-    }];
+    }];*/
+
+    //var incidents = [];
+    //var categories = [];
+
+    /*$http.get('http://c2566322-0.web-hosting.es/albufera/index.php/incidents').then(function(resp) {
+        //console.log('Success', resp);
+        // For JSON responses, resp.data contains the result
+        incidents = resp.data;
+        console.log(incidents);
+    }, function(err) {
+        console.error('ERR', err);
+        // err.status will contain the status code
+        console.log(err.status);
+    });*/
+
+    /*$http.get('http://c2566322-0.web-hosting.es/albufera/index.php/categories').then(function(resp) {
+        console.log('Success', resp);
+        // For JSON responses, resp.data contains the result
+        categories = resp.data;
+    }, function(err) {
+        console.error('ERR', err);
+        // err.status will contain the status code
+        console.log(err.status);
+    });
+
+    for (var i=0; i < incidents.length; i++) {
+
+        var idCategorie = incidents[i].idCategorie;
+
+        for (var j=0; i < categories.length; j++) {
+            if (idCategorie === categories[j].id) {
+                incidents[i].categorie = categories[j].name;
+                console.log(incidents[i].categorie);
+            }
+        }
+    }*/
+
+    var incidents = [];
 
     return {
-        all: function () {
-            return incidents;
+        all: function (callback) {
+            $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/incidents').then(function(resp) {
+                console.log('Success', resp);
+                // For JSON responses, resp.data contains the result
+                incidents = resp.data;
+                if (callback) {
+                    callback(incidents);
+                }
+
+            }, function(err) {
+                console.error('ERR', err);
+                // err.status will contain the status code
+            });
         },
         get: function (incidentId) {
             for (var i = 0; i < incidents.length; i++) {
@@ -120,17 +169,17 @@
             }
             return null;
         },
-        last: function () {
-            return incidents[0];
+        getAll: function () {
+            return incidents;
         }
     };
 })
 
-.factory('Categories', function () {
+.factory('Categories', function ($http) {
     // Might use a resource here that returns a JSON array
 
     // Some fake testing data
-    var categories = [{
+    /*var categories = [{
         id: 0,
         name: 'CLEANING',
         icon: 'ion-trash-a',
@@ -178,11 +227,21 @@
         id: 11,
         name: 'OTHERS',
         icon: 'ion-alert-circled'
-    }];
+    }];*/
+
+    var categories = [];
 
     return {
         all: function () {
-            return categories;
+            $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/categories').then(function(resp) {
+                console.log('Success', resp);
+                // For JSON responses, resp.data contains the result
+                categories = resp.data;
+                return categories;
+            }, function(err) {
+                console.error('ERR', err);
+                // err.status will contain the status code
+            });
         },
         get: function (categorieId) {
             for (var i = 0; i < categories.length; i++) {

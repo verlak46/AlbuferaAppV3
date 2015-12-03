@@ -1,37 +1,33 @@
-﻿var showLanguagePopup = true;
-
-angular.module('starter.controllers', [])
+﻿angular.module('starter.controllers', [])
 
 .controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $translate, Incidents, Categories, CategorieFilter, StorageService) {
-    $scope.incidents = Incidents.all();
+    $scope.incidents = Incidents.getAll();
+    console.log($scope.incidents);
+    //Incidents.all(function(data){$scope.incidents = data;});
     $scope.categories = Categories.all();
 
     if (StorageService.isFirstVisit()) {
         // Language Selection at first visit
-
-        if (showLanguagePopup) {
-            showLanguagePopup = false;
-            $ionicPopup.show({
-                template: 'El idioma elegido se usará por defecto',
-                title: 'Elija un idioma',
-                scope: $scope,
-                buttons: [
-                {
-                  text: 'Español',
-                  type: 'button-balanced',
-                  onTap: function () {
-                      return 'es';
-                  }
-              },
-              {
-                  text: 'Inglés',
-                  type: 'button-balanced',
-                  onTap: function () {
-                      return 'en';
-                  }
+        $ionicPopup.show({
+            template: 'El idioma elegido se usará por defecto',
+            title: 'Elija un idioma',
+            scope: $scope,
+            buttons: [
+            {
+              text: 'Español',
+              type: 'button-balanced',
+              onTap: function () {
+                return 'es';
               }
-              ]
-          }).then(function (res) {
+          },
+          {
+              text: 'Inglés',
+              type: 'button-balanced',
+              onTap: function () {
+                return 'en';
+              }
+          }]
+        }).then(function (res) {
 
             StorageService.setFirstVisit();
 
@@ -42,9 +38,8 @@ angular.module('starter.controllers', [])
                 StorageService.setLanguage('es');
                 $translate.use(StorageService.getLanguage());
             }
-        });  
-      }
-        // If not the first visit, set language
+        });    
+    // If not the first visit, set stored language
     } else {
         $translate.use(StorageService.getLanguage());
     }
@@ -149,6 +144,13 @@ angular.module('starter.controllers', [])
           console.log('sharing');
       }, function(err) {
           // An error occured. Show a message to the user
+            var alertPopup = $ionicPopup.alert({
+                title: 'Error',
+                template: 'No pudo enviarse la incidencia',
+                okType: 'button-balanced'
+            });
+            alertPopup.then(function (res) {
+            });
       });
     };
 
@@ -417,6 +419,13 @@ angular.module('starter.controllers', [])
           console.log('sharing');
       }, function(err) {
           // An error occured. Show a message to the user
+            var alertPopup = $ionicPopup.alert({
+                title: 'Error',
+                template: 'No pudo enviarse la incidencia',
+                okType: 'button-balanced'
+            });
+            alertPopup.then(function (res) {
+            });
       });
     };
 })
@@ -532,6 +541,13 @@ angular.module('starter.controllers', [])
           console.log('sharing');
       }, function(err) {
           // An error occured. Show a message to the user
+            var alertPopup = $ionicPopup.alert({
+                title: 'Error',
+                template: 'No pudo enviarse la incidencia',
+                okType: 'button-balanced'
+            });
+            alertPopup.then(function (res) {
+            });
       });
     };
 })
@@ -582,41 +598,41 @@ angular.module('starter.controllers', [])
 })
 
 // Set the state back to  the top of the tabs view stack whenever the tab is selected
-.controller('StateController', function($state) {
+.controller('StateCtrl', function($state) {
     this.onTabSelected = function(_scope){
     // if we are selecting the home title then 
     // change the state back to the top state
-    switch (_scope.title) {
-        case 'Incidencias':
-        setTimeout(function() {
-            $state.go('tab.incidents', {});
-        },20);
-        break;
-        case 'Incidents':
-        setTimeout(function() {
-            $state.go('tab.incidents', {});
-        },20);
-        break;
-        case 'Mis incidencias':
-        setTimeout(function() {
-            $state.go('tab.my-incidents', {});
-        },20);
-        break;
-        case 'My incidents':
-        setTimeout(function() {
-            $state.go('tab.my-incidents', {});
-        },20);
-        break;
-        case 'Favoritas':
-        setTimeout(function() {
-            $state.go('tab.favorites', {});
-        },20);
-        break;
-        case 'Favorites':
-        setTimeout(function() {
-            $state.go('tab.favorites', {});
-        },20);
-        break;  
-    }
-};
+        switch (_scope.title) {
+            case 'Incidencias':
+            setTimeout(function() {
+                $state.go('tab.incidents', {});
+            },20);
+            break;
+            case 'Incidents':
+            setTimeout(function() {
+                $state.go('tab.incidents', {});
+            },20);
+            break;
+            case 'Mis incidencias':
+            setTimeout(function() {
+                $state.go('tab.my-incidents', {});
+            },20);
+            break;
+            case 'My incidents':
+            setTimeout(function() {
+                $state.go('tab.my-incidents', {});
+            },20);
+            break;
+            case 'Favoritas':
+            setTimeout(function() {
+                $state.go('tab.favorites', {});
+            },20);
+            break;
+            case 'Favorites':
+            setTimeout(function() {
+                $state.go('tab.favorites', {});
+            },20);
+            break;  
+        }
+    };
 });

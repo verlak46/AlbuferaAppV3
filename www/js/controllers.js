@@ -1,9 +1,35 @@
 ﻿angular.module('starter.controllers', [])
 
-.controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $translate, Incidents, Categories, CategorieFilter, StorageService) {
-    $scope.incidents = Incidents.all();
-    $scope.categories = Categories.all();
-    console.log("hola");
+.controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $ionicLoading, $translate, Incidents, Categories, CategorieFilter, StorageService) {
+    
+     // Setup the loader
+    $ionicLoading.show({
+        content: 'Cargando...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+    });
+
+    Incidents.all().then(function(_response) {
+            // hide the loading UI, and process the data here
+            $scope.incidents = _response;
+            $ionicLoading.hide();
+        }, function(_error) {
+            // hide the loading UI, and process the ERROR here
+            $ionicLoading.hide();
+        }
+    );
+
+    Categories.all().then(function(_response) {
+            // hide the loading UI, and process the data here
+            $scope.categories = _response;
+            $ionicLoading.hide();
+        }, function(_error) {
+            // hide the loading UI, and process the ERROR here
+            $ionicLoading.hide();
+        }
+    );
 
     if (StorageService.isFirstVisit()) {
         // Language Selection at first visit
@@ -16,14 +42,14 @@
               text: 'Español',
               type: 'button-balanced',
               onTap: function () {
-                  return 'es';
+                return 'es';
               }
           },
           {
               text: 'Inglés',
               type: 'button-balanced',
               onTap: function () {
-                  return 'en';
+                return 'en';
               }
           }]
         }).then(function (res) {
@@ -38,7 +64,7 @@
                 $translate.use(StorageService.getLanguage());
             }
         });    
-    // If not the first visit, set language
+    // If not the first visit, set stored language
     } else {
         $translate.use(StorageService.getLanguage());
     }
@@ -75,7 +101,7 @@
 
 .controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, Incidents, CategorieFilter) {
 
-    $scope.incidents = Incidents.all();
+    $scope.incidents = Incidents.getAll();
 
     // Setup the loader
     $ionicLoading.show({
@@ -187,7 +213,7 @@
 })
 
 .controller('CategoriesCtrl', function ($scope, Categories) {
-    $scope.categories = Categories.all();
+    $scope.categories = Categories.getAll();
 })
 
 .controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $ionicPopup, $ionicLoading, geolocation, Images, Categories, StorageService, IDGenerator) {
@@ -313,7 +339,7 @@
 
 .controller('MyIncidentsCtrl', function ($scope, $ionicModal, StorageService, Categories, CategorieFilter) {
     $scope.incidents = StorageService.getAll();
-    $scope.categories = Categories.all();
+    $scope.categories = Categories.getAll();
 
     // Load the modal from the given template URL
     $ionicModal.fromTemplateUrl('templates/filter-modal.html', {
@@ -432,7 +458,7 @@
 .controller('FavoritesCtrl', function ($scope, $ionicModal, StorageService, Categories, CategorieFilter) {
 
     $scope.incidents = StorageService.getAllFavorites();
-    $scope.categories = Categories.all();
+    $scope.categories = Categories.getAll();
     $scope.remove = function (incident) {
         StorageService.removeFavorite(incident);
     };

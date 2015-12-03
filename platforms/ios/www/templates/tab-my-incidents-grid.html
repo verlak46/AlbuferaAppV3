@@ -5,8 +5,10 @@
                 {{ 'STILL' | translate }}
             </div>
         </div>
-        <div class="collection-div" collection-repeat="incident in incidents | filter:categorieFilter" item-width="33%" item-height="200px">
-            <a href="#/tab/my-incidents/{{incident.id}}"><img class="img-grid" ng-src="{{incident.image}}"></a>
-        </div>
+        <ion-item collection-repeat="incident in incidents | filter:categorieFilter"
+                collection-item-height="200"
+                collection-item-width="'50%'">
+                <a href="#/tab/my-incidents/{{incident.id}}"><img class="img-grid" ng-src="{{incident.image}}"></a>
+            </ion-item>
     </ion-content>
 </ion-view>

@@ -1,6 +1,11 @@
-﻿angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.translate', 'geolocation', 'uiGmapgoogle-maps', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.translate', 'geolocation', 'uiGmapgoogle-maps', 'starter.controllers', 'starter.services'])
 
-.run(function ($ionicPlatform) {
+.run(function ($ionicPlatform, $cordovaSplashscreen, Incidents) {
+
+    Incidents.all(function(data){});
+
+    $cordovaSplashscreen.hide();
+
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -51,7 +56,6 @@
         LOCATION: 'Location',
         GET_COORDS: 'Get coordinates',
         COORDS: 'Coordinates',
-        TOWN: 'Town',
         DESCRIPTION: 'Description',
         DATA: 'Personal data',
         NEVER: 'They will never be published',
@@ -119,7 +123,6 @@
         LOCATION: 'Localización',
         GET_COORDS: 'Obtener coordenadas',
         COORDS: 'Coordenadas',
-        TOWN: 'Municipio',
         DESCRIPTION: 'Descripción',
         DATA: 'Datos personales',
         NEVER: 'Nunca serán publicados',
@@ -169,7 +172,9 @@
     // Set tabs on top of the screen
     $ionicConfigProvider.tabs.position('top');
     // Set custom text to back button
-    //$ionicConfigProvider.backButton.previousTitleText(false).text('Atrás');
+    $ionicConfigProvider.backButton.previousTitleText(false).text('');
+    // Align view-title
+    $ionicConfigProvider.navBar.alignTitle('center');
 
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
@@ -190,8 +195,8 @@
         url: '/incidents',
         views: {
             'tab-incidents': {
-                templateUrl: 'templates/tab-incidents.html',
-                controller: 'IncidentsCtrl'
+                templateUrl: 'templates/tab-incidents.html'
+                // controller: is called on tabs.html
             }
         }
     })
@@ -208,8 +213,8 @@
             url: '/incidents-grid',
             views: {
                 'tab-incidents': {
-                    templateUrl: 'templates/tab-incidents-grid.html',
-                    controller: 'IncidentsCtrl'
+                    templateUrl: 'templates/tab-incidents-grid.html'
+                    // controller: is called on tabs.html
                 }
             }
         })
@@ -245,8 +250,8 @@
         url: '/my-incidents',
         views: {
             'tab-my-incidents': {
-                templateUrl: 'templates/tab-my-incidents.html',
-                controller: 'MyIncidentsCtrl'
+                templateUrl: 'templates/tab-my-incidents.html'
+                // controller: is called on tabs.html
             }
         }
     })
@@ -263,8 +268,8 @@
             url: '/my-incidents-grid',
             views: {
                 'tab-my-incidents': {
-                    templateUrl: 'templates/tab-my-incidents-grid.html',
-                    controller: 'MyIncidentsCtrl'
+                    templateUrl: 'templates/tab-my-incidents-grid.html'
+                    // controller: is called on tabs.html
                 }
             }
         })
@@ -282,8 +287,8 @@
         url: '/favorites',
         views: {
             'tab-favorites': {
-                templateUrl: 'templates/tab-favorites.html',
-                controller: 'FavoritesCtrl'
+                templateUrl: 'templates/tab-favorites.html'
+                // controller: is called on tabs.html
             }
         }
     })
@@ -300,8 +305,8 @@
             url: '/favorites-grid',
             views: {
                 'tab-favorites': {
-                    templateUrl: 'templates/tab-favorites-grid.html',
-                    controller: 'FavoritesCtrl'
+                    templateUrl: 'templates/tab-favorites-grid.html'
+                    // controller: is called on tabs.html
                 }
             }
         })
