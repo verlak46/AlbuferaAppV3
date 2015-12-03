@@ -1,6 +1,25 @@
 ﻿angular.module('starter.services', [])
 
-.factory('Incidents', function ($http) {
+.factory('Init', function ($http, $q) {
+
+    return {
+        all: function () {
+            var defer = $q.defer();
+
+            $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/init').then(function(resp) {
+                console.log('Success', resp);
+                // For JSON responses, resp.data contains the result
+                defer.resolve(resp.data);
+            }, function(err) {
+                console.error('ERR', err);
+                // err.status will contain the status code
+            });
+            return defer.promise;
+        }
+    };
+})
+
+.factory('Incidents', function ($http, $q) {
     // Might use a resource here that returns a JSON array
 
     // Some fake testing data
@@ -147,35 +166,38 @@
     var incidents = [];
 
     return {
-        all: function (callback) {
+        all: function () {
+            var defer = $q.defer();
+
             $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/incidents').then(function(resp) {
                 console.log('Success', resp);
                 // For JSON responses, resp.data contains the result
                 incidents = resp.data;
-                if (callback) {
-                    callback(incidents);
-                }
-
+                defer.resolve(resp.data);
             }, function(err) {
                 console.error('ERR', err);
                 // err.status will contain the status code
             });
+            return defer.promise;
         },
         get: function (incidentId) {
             for (var i = 0; i < incidents.length; i++) {
-                if (incidents[i].id === parseInt(incidentId)) {
+                if (incidents[i].id === incidentId) {
                     return incidents[i];
                 }
             }
             return null;
         },
+        post: function(data) {
+            incidents = data;
+        },
         getAll: function () {
             return incidents;
-        }
+        } 
     };
 })
 
-.factory('Categories', function ($http) {
+.factory('Categories', function ($http, $q) {
     // Might use a resource here that returns a JSON array
 
     // Some fake testing data
@@ -233,23 +255,32 @@
 
     return {
         all: function () {
+            var defer = $q.defer();
+
             $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/categories').then(function(resp) {
                 console.log('Success', resp);
                 // For JSON responses, resp.data contains the result
                 categories = resp.data;
-                return categories;
+                defer.resolve(resp.data);
             }, function(err) {
                 console.error('ERR', err);
                 // err.status will contain the status code
             });
+            return defer.promise;
         },
         get: function (categorieId) {
             for (var i = 0; i < categories.length; i++) {
-                if (categories[i].id === parseInt(categorieId)) {
+                if (categories[i].id === categorieId) {
                     return categories[i];
                 }
             }
             return null;
+        },
+        post: function(data) {
+            categories = data;
+        },
+        getAll: function () {
+            return categories;
         }
     };
 })
@@ -319,7 +350,7 @@
     return {
         get: function (incidentId) {
             for (var i = 0; i < $localStorage.incidents.length; i++) {
-                if (parseInt($localStorage.incidents[i].id) === parseInt(incidentId)) {
+                if ($localStorage.incidents[i].id === incidentId) {
                     return $localStorage.incidents[i];
                 }
             }
@@ -340,7 +371,7 @@
         addToFavorites: function (favorite) {
             // Check if incident is in array yet
             for (var i = 0; i < $localStorage.favorites.length; i++) {
-                if (parseInt($localStorage.favorites[i].id) === parseInt(favorite.id)) {
+                if ($localStorage.favorites[i].id === favorite.id) {
                     return null;
                 }
             }
@@ -352,7 +383,7 @@
         },
         getFavorite: function (incidentId) {
             for (var i = 0; i < $localStorage.favorites.length; i++) {
-                if (parseInt($localStorage.favorites[i].id) === parseInt(incidentId)) {
+                if ($localStorage.favorites[i].id === incidentId) {
                     return $localStorage.favorites[i];
                 }
             }
@@ -405,7 +436,7 @@
     return {
         generate: function () {
             var generator = new IDGenerator();
-            return generator.generate();
+            return generator.generate().toString();
         }
     };
 }).

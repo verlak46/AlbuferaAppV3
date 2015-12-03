@@ -1,10 +1,27 @@
 ﻿angular.module('starter.controllers', [])
 
-.controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $translate, Incidents, Categories, CategorieFilter, StorageService) {
-    $scope.incidents = Incidents.getAll();
-    console.log($scope.incidents);
-    //Incidents.all(function(data){$scope.incidents = data;});
-    $scope.categories = Categories.all();
+.controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $ionicLoading, $translate, Init, Incidents, Categories, CategorieFilter, StorageService) {
+    
+     // Setup the loader
+    $ionicLoading.show({
+        content: 'Cargando...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+    });
+
+    // Data initialization
+    Init.all().then(function(data) {
+        console.log(data);
+
+        Incidents.post(data.incidents);
+        $scope.incidents = Incidents.getAll();
+        Categories.post(data.categories);
+        $scope.categories = Categories.getAll();
+
+        $ionicLoading.hide();
+    });
 
     if (StorageService.isFirstVisit()) {
         // Language Selection at first visit
@@ -76,7 +93,7 @@
 
 .controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, Incidents, CategorieFilter) {
 
-    $scope.incidents = Incidents.all();
+    $scope.incidents = Incidents.getAll();
 
     // Setup the loader
     $ionicLoading.show({
@@ -133,6 +150,7 @@
 
 .controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, $cordovaSocialSharing, Incidents, StorageService) {
     $scope.incident = Incidents.get($stateParams.incidentId);
+    console.log($scope.incident);
 
     // Social Sharing
     $scope.share = function() {
@@ -182,13 +200,11 @@
 
             $scope.showAlert();
         }
-
     };
-
 })
 
-.controller('CategoriesCtrl', function ($scope, Categories) {
-    $scope.categories = Categories.all();
+.controller('CategoriesCtrl', function ($scope, $rootScope, Categories) {
+    $scope.categories = Categories.getAll();
 })
 
 .controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $ionicPopup, $ionicLoading, geolocation, Images, Categories, StorageService, IDGenerator) {
@@ -273,7 +289,7 @@
         var newIncident = {
             id: IDGenerator.generate(),
             categorie: $scope.categorie.name,
-            date: new Date().toLocaleString(),
+            datetime: new Date().toLocaleString(),
             description: $scope.newForm.description,
             image: $scope.imgURI,
             coords: {
@@ -314,7 +330,7 @@
 
 .controller('MyIncidentsCtrl', function ($scope, $ionicModal, StorageService, Categories, CategorieFilter) {
     $scope.incidents = StorageService.getAll();
-    $scope.categories = Categories.all();
+    $scope.categories = Categories.getAll();
 
     // Load the modal from the given template URL
     $ionicModal.fromTemplateUrl('templates/filter-modal.html', {
@@ -433,7 +449,7 @@
 .controller('FavoritesCtrl', function ($scope, $ionicModal, StorageService, Categories, CategorieFilter) {
 
     $scope.incidents = StorageService.getAllFavorites();
-    $scope.categories = Categories.all();
+    $scope.categories = Categories.getAll();
     $scope.remove = function (incident) {
         StorageService.removeFavorite(incident);
     };
