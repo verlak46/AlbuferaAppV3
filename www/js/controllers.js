@@ -19,6 +19,7 @@
         $scope.incidents = Incidents.getAll();
         Categories.post(data.categories);
         $scope.categories = Categories.getAll();
+
         $ionicLoading.hide();
     });
 
@@ -149,6 +150,7 @@
 
 .controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, $cordovaSocialSharing, Incidents, StorageService) {
     $scope.incident = Incidents.get($stateParams.incidentId);
+    console.log($scope.incident);
 
     // Social Sharing
     $scope.share = function() {
@@ -198,14 +200,11 @@
 
             $scope.showAlert();
         }
-
     };
-
 })
 
 .controller('CategoriesCtrl', function ($scope, $rootScope, Categories) {
     $scope.categories = Categories.getAll();
-    console.log($rootScope.categories);
 })
 
 .controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $ionicPopup, $ionicLoading, geolocation, Images, Categories, StorageService, IDGenerator) {
@@ -290,7 +289,7 @@
         var newIncident = {
             id: IDGenerator.generate(),
             categorie: $scope.categorie.name,
-            date: new Date().toLocaleString(),
+            datetime: new Date().toLocaleString(),
             description: $scope.newForm.description,
             image: $scope.imgURI,
             coords: {

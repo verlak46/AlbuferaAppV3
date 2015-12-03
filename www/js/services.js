@@ -182,7 +182,7 @@
         },
         get: function (incidentId) {
             for (var i = 0; i < incidents.length; i++) {
-                if (incidents[i].id === parseInt(incidentId)) {
+                if (incidents[i].id === incidentId) {
                     return incidents[i];
                 }
             }
@@ -270,7 +270,7 @@
         },
         get: function (categorieId) {
             for (var i = 0; i < categories.length; i++) {
-                if (categories[i].id === parseInt(categorieId)) {
+                if (categories[i].id === categorieId) {
                     return categories[i];
                 }
             }
@@ -350,7 +350,7 @@
     return {
         get: function (incidentId) {
             for (var i = 0; i < $localStorage.incidents.length; i++) {
-                if (parseInt($localStorage.incidents[i].id) === parseInt(incidentId)) {
+                if ($localStorage.incidents[i].id === incidentId) {
                     return $localStorage.incidents[i];
                 }
             }
@@ -371,7 +371,7 @@
         addToFavorites: function (favorite) {
             // Check if incident is in array yet
             for (var i = 0; i < $localStorage.favorites.length; i++) {
-                if (parseInt($localStorage.favorites[i].id) === parseInt(favorite.id)) {
+                if ($localStorage.favorites[i].id === favorite.id) {
                     return null;
                 }
             }
@@ -383,7 +383,7 @@
         },
         getFavorite: function (incidentId) {
             for (var i = 0; i < $localStorage.favorites.length; i++) {
-                if (parseInt($localStorage.favorites[i].id) === parseInt(incidentId)) {
+                if ($localStorage.favorites[i].id === incidentId) {
                     return $localStorage.favorites[i];
                 }
             }
@@ -436,7 +436,7 @@
     return {
         generate: function () {
             var generator = new IDGenerator();
-            return generator.generate();
+            return generator.generate().toString();
         }
     };
 }).
