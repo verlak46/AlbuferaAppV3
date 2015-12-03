@@ -13,7 +13,7 @@
                         <i class="ion-images"></i>
                         {{'IMAGE' | translate}}
                     </div>
-                    <a class="item item-list-detail" ng-click="openModal()" style="height:150px; text-align:center">
+                    <a class="item item-list-detail" ng-click="openModal(1)" style="height:150px; text-align:center">
                         <div class="bar bar-footer bar-balanced" ng-show="imgURI === undefined">
                             <div class="title">{{'ADD_IMAGE' | translate}}</div>
                         </div>
@@ -39,13 +39,13 @@
                             <ion-item class="item item-icon-left" ng-click="getCoordenades()">
                             <i class="icon ion-ios-location"></i>
                             {{'GET_COORDS' | translate}}
-                        </ion-item>
-                        <label class="item item-input">
+                            </ion-item>
+                            <label class="item item-input">
                             <input type="text" name="coords" readonly placeholder="{{'COORDS' | translate}}" ng-model="newForm.coords" required>
-                        </label>
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </div>
 
             <div class="list card">
                 <div class="item item-divider">{{'DATA' | translate}}</div>
