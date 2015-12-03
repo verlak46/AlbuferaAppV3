@@ -185,7 +185,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
         templateUrl: "templates/tabs.html"
         }
     )
-    
+
     // Each tab has its own nav history stack:
 
     .state('tab.incidents', {

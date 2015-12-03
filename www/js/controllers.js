@@ -1,6 +1,6 @@
 ﻿angular.module('starter.controllers', [])
 
-.controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $ionicLoading, $translate, Incidents, Categories, CategorieFilter, StorageService) {
+.controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $ionicLoading, $translate, Init, Incidents, Categories, CategorieFilter, StorageService) {
     
      // Setup the loader
     $ionicLoading.show({
@@ -11,25 +11,16 @@
         showDelay: 0
     });
 
-    Incidents.all().then(function(_response) {
-            // hide the loading UI, and process the data here
-            $scope.incidents = _response;
-            $ionicLoading.hide();
-        }, function(_error) {
-            // hide the loading UI, and process the ERROR here
-            $ionicLoading.hide();
-        }
-    );
+    // Data initialization
+    Init.all().then(function(data) {
+        console.log(data);
 
-    Categories.all().then(function(_response) {
-            // hide the loading UI, and process the data here
-            $scope.categories = _response;
-            $ionicLoading.hide();
-        }, function(_error) {
-            // hide the loading UI, and process the ERROR here
-            $ionicLoading.hide();
-        }
-    );
+        Incidents.post(data.incidents);
+        $scope.incidents = Incidents.getAll();
+        Categories.post(data.categories);
+        $scope.categories = Categories.getAll();
+        $ionicLoading.hide();
+    });
 
     if (StorageService.isFirstVisit()) {
         // Language Selection at first visit
@@ -212,8 +203,9 @@
 
 })
 
-.controller('CategoriesCtrl', function ($scope, Categories) {
+.controller('CategoriesCtrl', function ($scope, $rootScope, Categories) {
     $scope.categories = Categories.getAll();
+    console.log($rootScope.categories);
 })
 
 .controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $ionicPopup, $ionicLoading, geolocation, Images, Categories, StorageService, IDGenerator) {

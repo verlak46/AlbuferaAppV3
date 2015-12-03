@@ -1,5 +1,24 @@
 ﻿angular.module('starter.services', [])
 
+.factory('Init', function ($http, $q) {
+
+    return {
+        all: function () {
+            var defer = $q.defer();
+
+            $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/init').then(function(resp) {
+                console.log('Success', resp);
+                // For JSON responses, resp.data contains the result
+                defer.resolve(resp.data);
+            }, function(err) {
+                console.error('ERR', err);
+                // err.status will contain the status code
+            });
+            return defer.promise;
+        }
+    };
+})
+
 .factory('Incidents', function ($http, $q) {
     // Might use a resource here that returns a JSON array
 
@@ -169,6 +188,9 @@
             }
             return null;
         },
+        post: function(data) {
+            incidents = data;
+        },
         getAll: function () {
             return incidents;
         } 
@@ -253,6 +275,9 @@
                 }
             }
             return null;
+        },
+        post: function(data) {
+            categories = data;
         },
         getAll: function () {
             return categories;
