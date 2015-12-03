@@ -1,10 +1,27 @@
 ﻿angular.module('starter.controllers', [])
 
-.controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $translate, Incidents, Categories, CategorieFilter, StorageService) {
-    $scope.incidents = Incidents.getAll();
-    console.log($scope.incidents);
-    //Incidents.all(function(data){$scope.incidents = data;});
-    $scope.categories = Categories.all();
+.controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $ionicLoading, $translate, Init, Incidents, Categories, CategorieFilter, StorageService) {
+    
+     // Setup the loader
+    $ionicLoading.show({
+        content: 'Cargando...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+    });
+
+    // Data initialization
+    Init.all().then(function(data) {
+        console.log(data);
+
+        Incidents.post(data.incidents);
+        $scope.incidents = Incidents.getAll();
+        Categories.post(data.categories);
+        $scope.categories = Categories.getAll();
+
+        $ionicLoading.hide();
+    });
 
     if (StorageService.isFirstVisit()) {
         // Language Selection at first visit
@@ -76,7 +93,7 @@
 
 .controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, Incidents, CategorieFilter) {
 
-    $scope.incidents = Incidents.all();
+    $scope.incidents = Incidents.getAll();
 
     // Setup the loader
     $ionicLoading.show({
@@ -133,6 +150,7 @@
 
 .controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, $cordovaSocialSharing, Incidents, StorageService) {
     $scope.incident = Incidents.get($stateParams.incidentId);
+    console.log($scope.incident);
 
     // Social Sharing
     $scope.share = function() {
@@ -182,45 +200,71 @@
 
             $scope.showAlert();
         }
-
     };
-
 })
 
-.controller('CategoriesCtrl', function ($scope, Categories) {
-    $scope.categories = Categories.all();
+.controller('CategoriesCtrl', function ($scope, $rootScope, Categories) {
+    $scope.categories = Categories.getAll();
 })
 
-.controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $ionicPopup, $ionicLoading, geolocation, Images, Categories, StorageService, IDGenerator) {
+.controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $log, $ionicPopup, $ionicLoading, $timeout, geolocation, Images, Categories, StorageService, IDGenerator) {
     $scope.categorie = Categories.get($stateParams.categorieId);
     var incidentCoords;
 
-    // Load the modal from the given template URL
+    // Modal 1
     $ionicModal.fromTemplateUrl('templates/new-incident-image-modal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.modal = modal;
+      id: '1', // We need to use and ID to identify the modal that is firing the event!
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.oModal1 = modal;
     });
 
-    $scope.openModal = function () {
-        $scope.modal.show();
-    };
-
-    $scope.closeModal = function () {
-        $scope.modal.hide();
-    };
-
-    $scope.$on('$destroy', function () {
-        $scope.modal.remove();
+    // Modal 2
+    $ionicModal.fromTemplateUrl('templates/map-modal.html', {
+      id: '2', // We need to use and ID to identify the modal that is firing the event!
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.oModal2 = modal;
     });
+
+    $scope.openModal = function(index) {
+      if (index == 1) $scope.oModal1.show();
+      else $scope.oModal2.show();
+    };
+
+    $scope.closeModal = function(index) {
+      if (index == 1) $scope.oModal1.hide();
+      else $scope.oModal2.hide();
+    };
+
+    /* Listen for broadcasted messages */
+
+    $scope.$on('modal.shown', function(event, modal) {
+      console.log('Modal ' + modal.id + ' is shown!');
+    });
+
+    $scope.$on('modal.hidden', function(event, modal) {
+      console.log('Modal ' + modal.id + ' is hidden!');
+    });
+
+    // Cleanup the modals when we're done with them (i.e: state change)
+    // Angular will broadcast a $destroy event just before tearing down a scope 
+    // and removing the scope from its parent.
+    $scope.$on('$destroy', function() {
+      console.log('Destroying modals...');
+      $scope.oModal1.remove();
+      $scope.oModal2.remove();
+    });
+  
 
     // Take photo from Camera
     $scope.takePhoto = function () {
         Images.GetPicture().then(function (data) {
             console.log(data);
             $scope.imgURI = "data:image/jpeg;base64," + data;
-            $scope.closeModal();
+            $scope.closeModal(1);
         }, function (err) {
             console.err(err);
         });
@@ -231,7 +275,7 @@
         Images.ChoosePicture().then(function (data) {
             console.log(data);
             $scope.imgURI = "data:image/jpeg;base64," + data;
-            $scope.closeModal();
+            $scope.closeModal(1);
         }, function (err) {
             console.err(err);
         });
@@ -239,6 +283,8 @@
 
     // Geolocation
     $scope.getCoordenades = function () {
+
+        $scope.openModal(2);
 
         // Setup the loader
         $ionicLoading.show({
@@ -250,8 +296,52 @@
         });
 
         geolocation.getLocation().then(function (data) {
-            $scope.newForm.coords = data.coords.latitude + ", " + data.coords.longitude;
-            incidentCoords = data.coords;
+            //Center's the map on Albufera coords
+            $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 12};
+
+            // Mark's user location
+            $scope.marker = {
+                id: 0,
+                show: false,
+                coords: {
+                    latitude: data.coords.latitude,
+                    longitude: data.coords.longitude
+                },
+                options: {
+                    draggable: true
+                }
+            };
+
+            $scope.coordsUpdates = 0;
+            $scope.dynamicMoveCtr = 0;
+            $scope.marker = {
+              id: 0,
+              coords: {
+                latitude: data.coords.latitude,
+                longitude: data.coords.longitude
+              },
+              options: { draggable: true },
+              events: {
+                dragend: function (marker, eventName, args) {
+                  $log.log('marker dragend');
+                  var lat = marker.getPosition().lat();
+                  var lon = marker.getPosition().lng();
+                  $scope.newForm.coords =  lat + ", " + lon;
+                  incidentCoords = marker.getPosition();
+
+                  $log.log(lat);
+                  $log.log(lon);
+
+                  $scope.marker.options = {
+                    draggable: true,
+                    labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
+                    labelAnchor: "100 0",
+                    labelClass: "marker-labels"
+                  };
+                }
+              }
+            };
+
             $ionicLoading.hide();
         });
     };
@@ -273,7 +363,7 @@
         var newIncident = {
             id: IDGenerator.generate(),
             categorie: $scope.categorie.name,
-            date: new Date().toLocaleString(),
+            datetime: new Date().toLocaleString(),
             description: $scope.newForm.description,
             image: $scope.imgURI,
             coords: {
@@ -314,7 +404,7 @@
 
 .controller('MyIncidentsCtrl', function ($scope, $ionicModal, StorageService, Categories, CategorieFilter) {
     $scope.incidents = StorageService.getAll();
-    $scope.categories = Categories.all();
+    $scope.categories = Categories.getAll();
 
     // Load the modal from the given template URL
     $ionicModal.fromTemplateUrl('templates/filter-modal.html', {
@@ -433,7 +523,7 @@
 .controller('FavoritesCtrl', function ($scope, $ionicModal, StorageService, Categories, CategorieFilter) {
 
     $scope.incidents = StorageService.getAllFavorites();
-    $scope.categories = Categories.all();
+    $scope.categories = Categories.getAll();
     $scope.remove = function (incident) {
         StorageService.removeFavorite(incident);
     };

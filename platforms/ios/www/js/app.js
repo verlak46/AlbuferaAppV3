@@ -1,10 +1,6 @@
 angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.translate', 'geolocation', 'uiGmapgoogle-maps', 'starter.controllers', 'starter.services'])
 
-.run(function ($ionicPlatform, $cordovaSplashscreen, Incidents) {
-
-    Incidents.all(function(data){});
-
-    $cordovaSplashscreen.hide();
+.run(function ($ionicPlatform) {
 
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -183,11 +179,12 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
     $stateProvider
 
     // setup an abstract state for the tabs directive
-      .state('tab', {
-          url: "/tab",
-          abstract: true,
-          templateUrl: "templates/tabs.html"
-      })
+    .state('tab', {
+        url: "/tab",
+        abstract: true,
+        templateUrl: "templates/tabs.html"
+        }
+    )
 
     // Each tab has its own nav history stack:
 
