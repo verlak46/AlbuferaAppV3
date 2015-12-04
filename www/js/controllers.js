@@ -298,7 +298,8 @@
         geolocation.getLocation().then(function (data) {
             //Center's the map on Albufera coords
             $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 12};
-
+            $scope.newForm.coords = data.coords.latitude + ", " + data.coords.longitude;
+            incidentCoords = data.coords;
             // Mark's user location
             $scope.marker = {
                 id: 0,
