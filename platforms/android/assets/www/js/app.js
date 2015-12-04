@@ -160,10 +160,11 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
     });*/
 
     $translateProvider.useStaticFilesLoader({
-    prefix: '../languages/',
+    prefix: 'languages/',
     suffix: '.json'
     });
 
+    //$translateProvider.useLocalStorage();
     $translateProvider.preferredLanguage('es');
     $translateProvider.useSanitizeValueStrategy('escape');
 })
