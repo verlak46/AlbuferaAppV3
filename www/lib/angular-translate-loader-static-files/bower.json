@@ -1,8 +1,8 @@
 {
-  "name": "angular-translate-loader-url",
+  "name": "angular-translate-loader-static-files",
   "description": "A plugin for Angular Translate",
   "version": "2.8.1",
-  "main": "./angular-translate-loader-url.js",
+  "main": "./angular-translate-loader-static-files.js",
   "ignore": [],
   "author": "Pascal Precht",
   "license": "MIT",

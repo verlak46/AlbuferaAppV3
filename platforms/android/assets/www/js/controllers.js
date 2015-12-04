@@ -203,11 +203,11 @@
     };
 })
 
-.controller('CategoriesCtrl', function ($scope, $rootScope, Categories) {
+.controller('CategoriesCtrl', function ($scope, Categories) {
     $scope.categories = Categories.getAll();
 })
 
-.controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $log, $ionicPopup, $ionicLoading, $timeout, geolocation, Images, Categories, StorageService, IDGenerator) {
+.controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $log, $ionicPopup, $ionicLoading, geolocation, Images, Categories, StorageService, IDGenerator) {
     $scope.categorie = Categories.get($stateParams.categorieId);
     var incidentCoords;
 
@@ -311,9 +311,7 @@
                     draggable: true
                 }
             };
-
-            $scope.coordsUpdates = 0;
-            $scope.dynamicMoveCtr = 0;
+            
             $scope.marker = {
               id: 0,
               coords: {
@@ -328,6 +326,7 @@
                   var lon = marker.getPosition().lng();
                   $scope.newForm.coords =  lat + ", " + lon;
                   incidentCoords = marker.getPosition();
+                  console.log(incidentCoords);
 
                   $log.log(lat);
                   $log.log(lon);
@@ -340,6 +339,18 @@
                   };
                 }
               }
+            };
+
+            $scope.windowOptions = {
+                visible: true
+            };
+
+            $scope.onClick = function () {
+                $scope.windowOptions.visible = !$scope.windowOptions.visible;
+            };
+
+            $scope.closeClick = function () {
+                $scope.windowOptions.visible = false;
             };
 
             $ionicLoading.hide();
@@ -367,8 +378,8 @@
             description: $scope.newForm.description,
             image: $scope.imgURI,
             coords: {
-                latitude: incidentCoords.latitude,
-                longitude: incidentCoords.longitude
+                latitude: incidentCoords.G,
+                longitude: incidentCoords.K
             },
             account: {
                 name: $scope.newForm.name,

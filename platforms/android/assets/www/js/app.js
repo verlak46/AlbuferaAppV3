@@ -24,7 +24,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
     });
 
     // Translate Dictionary
-    $translateProvider.translations('en', { // ENGLISH
+    /*$translateProvider.translations('en', { // ENGLISH
         // tabs
         STATUS: 'Status',
         NEW_INCIDENT: 'New incident',
@@ -157,6 +157,11 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
         LANGUAGE: 'Idioma',
         SPANISH: 'Español',
         ENGLISH: 'Inglés'
+    });*/
+
+    $translateProvider.useStaticFilesLoader({
+    prefix: '../languages/',
+    suffix: '.json'
     });
 
     $translateProvider.preferredLanguage('es');
