@@ -299,6 +299,7 @@
             //Center's the map on Albufera coords
             $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 12};
             $scope.newForm.coords = data.coords.latitude + ", " + data.coords.longitude;
+            userCoords = data.coords;
             incidentCoords = data.coords;
             // Mark's user location
             $scope.marker = {
@@ -326,7 +327,8 @@
                   var lat = marker.getPosition().lat();
                   var lon = marker.getPosition().lng();
                   $scope.newForm.coords =  lat + ", " + lon;
-                  incidentCoords = marker.getPosition();
+                  incidentCoords.coords.latitude = marker.getPosition().lat();
+                  incidentCoords.coords.longitude = marker.getPosition().lng();
                   console.log(incidentCoords);
 
                   $log.log(lat);
