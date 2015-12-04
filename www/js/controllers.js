@@ -209,6 +209,7 @@
 
 .controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $log, $ionicPopup, $ionicLoading, geolocation, Images, Categories, StorageService, IDGenerator) {
     $scope.categorie = Categories.get($stateParams.categorieId);
+    $scope.newForm = {};
     var incidentCoords;
 
     // Modal 1
@@ -361,8 +362,6 @@
     };
 
     // Form Validation
-    $scope.newForm = {};
-
     var account = StorageService.getAccount();
 
     if (account !== undefined) {
@@ -381,8 +380,8 @@
             description: $scope.newForm.description,
             image: $scope.imgURI,
             coords: {
-                latitude: incidentCoords.G,
-                longitude: incidentCoords.K
+                latitude: incidentCoords.coords.latitude,
+                longitude: incidentCoords.coords.longitude
             },
             account: {
                 name: $scope.newForm.name,
