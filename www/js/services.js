@@ -35,6 +35,7 @@
                 defer.resolve(resp.data);
             }, function(err) {
                 console.error('ERR', err);
+                defer.resolve(err.status);
                 // err.status will contain the status code
             });
             return defer.promise;
@@ -71,6 +72,7 @@
                 defer.resolve(resp.data);
             }, function(err) {
                 console.error('ERR', err);
+                defer.resolve(err.status);
                 // err.status will contain the status code
             });
             return defer.promise;
