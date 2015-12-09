@@ -91,12 +91,12 @@
     };
 })
 
-.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, Incidents, CategorieFilter) {
+.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, Incidents, CategorieFilter) {
 
     $scope.incidents = Incidents.getAll();
 
     // Setup the loader
-    $ionicLoading.show({
+    /*$ionicLoading.show({
         content: 'Cargando...',
         animation: 'fade-in',
         showBackdrop: true,
@@ -135,7 +135,29 @@
         };
 
         $ionicLoading.hide();
-    });
+    });*/
+
+    var map;
+    
+    document.addEventListener("deviceready", function() {
+      var div = document.getElementById("map_canvas");
+
+      // Initialize the map view
+      map = plugin.google.maps.Map.getMap(div);
+      console.log(map);
+
+      // Wait until the map is ready status.
+      map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
+    }, false);
+
+    function onMapReady() {
+      var button = document.getElementById("button");
+      button.addEventListener("click", onBtnClicked, false);
+    }
+
+    function onBtnClicked() {
+      map.showDialog();
+    }
 
     // CategorieFilter //
 
@@ -207,7 +229,7 @@
     $scope.categories = Categories.getAll();
 })
 
-.controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $log, $ionicPopup, $ionicLoading, geolocation, Images, Categories, StorageService, IDGenerator) {
+.controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $log, $ionicPopup, $ionicLoading, Images, Categories, StorageService, IDGenerator) {
     $scope.categorie = Categories.get($stateParams.categorieId);
     $scope.newForm = {};
     var incidentCoords;
@@ -283,7 +305,7 @@
     };
 
     // Geolocation
-    $scope.getCoordenades = function () {
+    /*$scope.getCoordenades = function () {
 
         $scope.openModal(2);
 
@@ -359,7 +381,7 @@
 
             $ionicLoading.hide();
         });
-    };
+    };*/
 
     // Form Validation
     var account = StorageService.getAccount();
@@ -379,10 +401,10 @@
             datetime: new Date().toLocaleString(),
             description: $scope.newForm.description,
             image: $scope.imgURI,
-            coords: {
+            /*coords: {
                 latitude: incidentCoords.coords.latitude,
                 longitude: incidentCoords.coords.longitude
-            },
+            },*/
             account: {
                 name: $scope.newForm.name,
                 subname: $scope.newForm.subname,
@@ -450,7 +472,7 @@
     };
 })
 
-.controller('MyIncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, StorageService, CategorieFilter) {
+.controller('MyIncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, StorageService, CategorieFilter) {
 
     $scope.incidents = StorageService.getAll();
 
@@ -463,7 +485,7 @@
         showDelay: 0
     });
 
-    geolocation.getLocation().then(function (data) {
+    /*geolocation.getLocation().then(function (data) {
         //Center's the map on Albufera coords
         $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
 
@@ -496,7 +518,7 @@
         $scope.title = "INFO";
 
         $ionicLoading.hide();
-    });
+    });*/
 
     // CategorieFilter //
 
@@ -572,12 +594,12 @@
     };
 })
 
-.controller('FavoritesMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, StorageService, CategorieFilter) {
+.controller('FavoritesMapCtrl', function ($scope, $stateParams, $ionicLoading, StorageService, CategorieFilter) {
 
     $scope.incidents = StorageService.getAllFavorites();
     
     // Setup the loader
-    $ionicLoading.show({
+    /*$ionicLoading.show({
         content: 'Cargando...',
         animation: 'fade-in',
         showBackdrop: true,
@@ -618,7 +640,7 @@
         $scope.title = "INFO";
 
         $ionicLoading.hide();
-    });
+    });*/
 
     // CategorieFilter //
 

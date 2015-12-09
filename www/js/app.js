@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.translate', 'geolocation', 'uiGmapgoogle-maps', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.translate', 'starter.controllers', 'starter.services'])
 
 .run(function ($ionicPlatform) {
 
@@ -15,14 +15,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
     });
 })
 
-.config(function (uiGmapGoogleMapApiProvider, $translateProvider) {
-    // Google Maps Configuration
-    uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyAayzuHxlfJUmzMRkBRHIxvXOen2dTYUyU',
-        v: '3.20', //defaults to latest 3.X anyhow
-        libraries: 'weather,geometry,visualization'
-    });
-
+.config(function ($translateProvider) {
     // Translate Configuration
     $translateProvider.useStaticFilesLoader({
     prefix: 'languages/',
