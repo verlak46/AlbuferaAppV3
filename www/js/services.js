@@ -12,6 +12,7 @@
                 defer.resolve(resp.data);
             }, function(err) {
                 console.error('ERR', err);
+                defer.resolve(err.statusText);
                 // err.status will contain the status code
             });
             return defer.promise;
@@ -182,7 +183,7 @@
         },
         get: function (incidentId) {
             for (var i = 0; i < incidents.length; i++) {
-                if (incidents[i].id === incidentId) {
+                if (parseInt(incidents[i].id) === parseInt(incidentId)) {
                     return incidents[i];
                 }
             }
@@ -270,7 +271,7 @@
         },
         get: function (categorieId) {
             for (var i = 0; i < categories.length; i++) {
-                if (categories[i].id === categorieId) {
+                if (parseInt(categories[i].id) === parseInt(categorieId)) {
                     return categories[i];
                 }
             }
@@ -350,7 +351,7 @@
     return {
         get: function (incidentId) {
             for (var i = 0; i < $localStorage.incidents.length; i++) {
-                if ($localStorage.incidents[i].id === incidentId) {
+                if (parseInt($localStorage.incidents[i].id) === parseInt(incidentId)) {
                     return $localStorage.incidents[i];
                 }
             }
@@ -371,7 +372,7 @@
         addToFavorites: function (favorite) {
             // Check if incident is in array yet
             for (var i = 0; i < $localStorage.favorites.length; i++) {
-                if ($localStorage.favorites[i].id === favorite.id) {
+                if (parseInt($localStorage.favorites[i].id) === parseInt(favorite.id)) {
                     return null;
                 }
             }
@@ -383,7 +384,7 @@
         },
         getFavorite: function (incidentId) {
             for (var i = 0; i < $localStorage.favorites.length; i++) {
-                if ($localStorage.favorites[i].id === incidentId) {
+                if (parseInt($localStorage.favorites[i].id) === parseInt(incidentId)) {
                     return $localStorage.favorites[i];
                 }
             }
@@ -436,7 +437,7 @@
     return {
         generate: function () {
             var generator = new IDGenerator();
-            return generator.generate().toString();
+            return generator.generate();
         }
     };
 }).

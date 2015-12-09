@@ -4,11 +4,20 @@
             {{'SELECT' | translate}}
         </div>
 
-        <div class="list card">
+        <!--<div class="list card">
             <a class="item item-icon-left" ng-repeat="categorie in categories" href="#/tab/new/{{categorie.id}}">
-                <i class="{{categorie.icon}}"></i>
+                <img ng-src="{{categorie.icon}}">
                 {{categorie.name | translate}}
             </a>
-        </div>
+        </div>-->
+
+        <ion-list>
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="categorie in categories" type="item-text-wrap" href="#/tab/new/{{categorie.id}}">
+                <img ng-src="{{categorie.icon}}">
+                <!--<h2>{{incident.categorie | translate}}</h2>-->
+                {{categorie.name | translate}}
+                <i class="icon ion-chevron-right"></i>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>
