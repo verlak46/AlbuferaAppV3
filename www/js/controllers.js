@@ -15,6 +15,17 @@
     Init.all().then(function(data) {
         console.log(data);
 
+        if (data === 404) {
+            // An error occured. Show a message to the user
+            var alertPopup = $ionicPopup.alert({
+                title: 'Error',
+                template: 'No puedieron recuperarse las incidencias. Inténtelo de nuevo más tarde.',
+                okType: 'button-balanced'
+            });
+            alertPopup.then(function (res) {
+            });
+        }
+
         Incidents.post(data.incidents);
         $scope.incidents = Incidents.getAll();
         Categories.post(data.categories);
