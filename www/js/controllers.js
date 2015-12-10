@@ -224,7 +224,7 @@
     
     $scope.categorie = Categories.get($stateParams.categorieId);
     $scope.newForm = {};
-    var incidentCoords;
+    var incidentCoords, userCoords;
 
     // Modal 1
     $ionicModal.fromTemplateUrl('templates/new-incident-image-modal.html', {
@@ -314,21 +314,20 @@
             //Center's the map on Albufera coords
             $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 12};
             $scope.newForm.coords = data.coords.latitude + ", " + data.coords.longitude;
-            userCoords = data.coords;
-            incidentCoords = data.coords;
-            // Mark's user location
-            $scope.marker = {
-                id: 0,
-                show: false,
+            userCoords = {
                 coords: {
                     latitude: data.coords.latitude,
                     longitude: data.coords.longitude
-                },
-                options: {
-                    draggable: true
                 }
             };
-            
+
+            incidentCoords = {
+                coords: {
+                    latitude: data.coords.latitude,
+                    longitude: data.coords.longitude
+                }
+            };
+                        
             $scope.marker = {
               id: 0,
               coords: {
@@ -342,8 +341,8 @@
                   var lat = marker.getPosition().lat();
                   var lon = marker.getPosition().lng();
                   $scope.newForm.coords =  lat + ", " + lon;
-                  incidentCoords.coords.latitude = marker.getPosition().lat();
-                  incidentCoords.coords.longitude = marker.getPosition().lng();
+                  incidentCoords.coords.latitude = lat;
+                  incidentCoords.coords.longitude = lon;
                   console.log(incidentCoords);
 
                   $log.log(lat);
@@ -388,8 +387,8 @@
     $scope.submit = function () {
 
         var newIncident = {
-            id: IDGenerator.generate(),
-            categorie: $scope.categorie.name,
+            id: parseInt(IDGenerator.generate()),
+            categorie: $scope.categorie.id,
             datetime: new Date().toLocaleString(),
             description: $scope.newForm.description,
             image: $scope.imgURI,
@@ -401,7 +400,11 @@
                 name: $scope.newForm.name,
                 subname: $scope.newForm.subname,
                 email: $scope.newForm.email,
-                phone: $scope.newForm.phone
+                phone: $scope.newForm.phone,
+                coords: {
+                    latitude: userCoords.coords.latitude,
+                    longitude: userCoords.coords.latitude
+                }
             }
         };
 
