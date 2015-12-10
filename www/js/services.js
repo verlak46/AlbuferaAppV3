@@ -48,12 +48,33 @@
             }
             return null;
         },
-        post: function(data) {
+        save: function(data) {
             incidents = data;
         },
         getAll: function () {
             return incidents;
-        } 
+        },
+        post: function(data) {
+            
+            console.log(JSON.stringify(data));
+            
+            $http({
+                url: 'http://c2566322-0.web-hosting.es/albufera/index.php/incidents',
+                method: "POST",
+                data: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                }
+                /*withCredentials: true,
+                headers: {
+                    'Authorization': 'Basic bashe64usename:password'
+                }*/
+            }).then(function (response) {
+                console.log("response: " + response);
+                console.log(response);
+                return response;
+            });
+        }
     };
 })
 
@@ -85,7 +106,7 @@
             }
             return null;
         },
-        post: function(data) {
+        save: function(data) {
             categories = data;
         },
         getAll: function () {

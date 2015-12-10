@@ -15,7 +15,15 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
     });
 })
 
-.config(function (uiGmapGoogleMapApiProvider, $translateProvider) {
+.config(function (uiGmapGoogleMapApiProvider, $translateProvider, $httpProvider) {
+
+    //Enable cross domain calls
+    $httpProvider.defaults.useXDomain = true;
+
+    /*$httpProvider.defaults.headers.post['Accept'] = 'application/json, text/javascript';
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+    $httpProvider.defaults.headers.post['Access-Control-Max-Age'] = '1728000';*/
+
     // Google Maps Configuration
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyAayzuHxlfJUmzMRkBRHIxvXOen2dTYUyU',

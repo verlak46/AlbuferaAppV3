@@ -26,9 +26,9 @@
             });
         }
 
-        Incidents.post(data.incidents);
+        Incidents.save(data.incidents);
         $scope.incidents = Incidents.getAll();
-        Categories.post(data.categories);
+        Categories.save(data.categories);
         $scope.categories = Categories.getAll();
 
         $ionicLoading.hide();
@@ -220,7 +220,7 @@
 
 })
 
-.controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $filter, $log, $ionicPopup, $ionicLoading, geolocation, Images, Categories, StorageService, IDGenerator) {
+.controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $filter, $log, $ionicPopup, $ionicLoading, geolocation, Images, Incidents, Categories, StorageService, IDGenerator) {
     
     $scope.categorie = Categories.get($stateParams.categorieId);
     $scope.newForm = {};
@@ -388,7 +388,7 @@
 
         var newIncident = {
             id: parseInt(IDGenerator.generate()),
-            categorie: $scope.categorie.id,
+            categorie: parseInt($scope.categorie.id),
             datetime: new Date().toLocaleString(),
             description: $scope.newForm.description,
             image: $scope.imgURI,
@@ -408,12 +408,25 @@
             }
         };
 
+        var newIncidentLocal = {
+            id: parseInt(IDGenerator.generate()),
+            categorie: $scope.categorie.name,
+            datetime: new Date().toLocaleString(),
+            description: $scope.newForm.description,
+            image: $scope.imgURI,
+            coords: {
+                latitude: incidentCoords.coords.latitude,
+                longitude: incidentCoords.coords.longitude
+            }
+        };
+
         console.log(newIncident);
 
         // Save Local Incident
-        StorageService.add(newIncident);
+        StorageService.add(newIncidentLocal);
 
         // Send remote Incident...
+        Incidents.post(newIncident);
 
         // An alert dialog
         $scope.showAlert = function () {
