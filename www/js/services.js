@@ -12,7 +12,7 @@
                 defer.resolve(resp.data);
             }, function(err) {
                 console.error('ERR', err);
-                defer.resolve(err.status);
+                defer.resolve('error');
                 // err.status will contain the status code
             });
             return defer.promise;

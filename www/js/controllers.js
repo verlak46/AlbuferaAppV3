@@ -15,7 +15,7 @@
     Init.all().then(function(data) {
         console.log(data);
 
-        if (data === 404) {
+        if (data === 'error') {
             // An error occured. Show a message to the user
             var alertPopup = $ionicPopup.alert({
                 title: 'Error',
