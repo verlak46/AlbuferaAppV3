@@ -44,4 +44,16 @@
 "SPANISH": "Español",
 "ENGLISH": "Inglés",
 "ADD_COORDS": "Añadir coordenadas",
-"DRAG": "Arrastre hasta la localización aproximada de la incidencia"}
+"DRAG": "Arrastre hasta la localización aproximada de la incidencia",
+"ERROR_RECOVERY": "No pudieron recuperarse las incidencias. Inténtelo de nuevo más tarde.",
+"CHOOSE_LANGUAGE": "Elija un idioma",
+"SELECTED_LANGUAGE": "El idioma elegido se usará por defecto",
+"ERROR_SHARE": "No se pudo compartir la incidencia",
+"WARNING": "Advertencia",
+"ALREADY": "La incidencia ya se encuentra en favoritos",
+"ADDED": "Incidencia agregada a Favoritos",
+"NOTICE": "Aviso",
+"INCIDENT_SENT": "Incidencia enviada",
+"THANKS": "Muchas gracias por su colaboración",
+"DATA_SAVED": "Datos guardados",
+"YOUR_DATA": "Sus datos nunca serán publicados"}

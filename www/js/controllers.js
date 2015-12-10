@@ -1,6 +1,6 @@
 ﻿angular.module('starter.controllers', [])
 
-.controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $ionicLoading, $translate, Init, Incidents, Categories, CategorieFilter, StorageService) {
+.controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $ionicLoading, $filter, $translate, Init, Incidents, Categories, CategorieFilter, StorageService) {
     
      // Setup the loader
     $ionicLoading.show({
@@ -19,7 +19,7 @@
             // An error occured. Show a message to the user
             var alertPopup = $ionicPopup.alert({
                 title: 'Error',
-                template: 'No puedieron recuperarse las incidencias. Inténtelo de nuevo más tarde.',
+                template: $filter('translate')('ERROR_RECOVERY'),
                 okType: 'button-balanced'
             });
             alertPopup.then(function (res) {
@@ -37,19 +37,19 @@
     if (StorageService.isFirstVisit()) {
         // Language Selection at first visit
         $ionicPopup.show({
-            template: 'El idioma elegido se usará por defecto',
-            title: 'Elija un idioma',
+            template: $filter('translate')('SELECTED_LANGUAGE'),
+            title: $filter('translate')('CHOOSE_LANGUAGE'),
             scope: $scope,
             buttons: [
             {
-              text: 'Español',
+              text: $filter('translate')('SPANISH'),
               type: 'button-balanced',
               onTap: function () {
                 return 'es';
               }
           },
           {
-              text: 'Inglés',
+              text: $filter('translate')('ENGLISH'),
               type: 'button-balanced',
               onTap: function () {
                 return 'en';
@@ -159,9 +159,9 @@
     };
 })
 
-.controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, $cordovaSocialSharing, Incidents, StorageService) {
+.controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, $filter, $cordovaSocialSharing, Incidents, StorageService) {
+    
     $scope.incident = Incidents.get($stateParams.incidentId);
-    console.log($scope.incident);
 
     // Social Sharing
     $scope.share = function() {
@@ -175,7 +175,7 @@
           // An error occured. Show a message to the user
             var alertPopup = $ionicPopup.alert({
                 title: 'Error',
-                template: 'No pudo enviarse la incidencia',
+                template: $filter('translate')('ERROR_SHARE'),
                 okType: 'button-balanced'
             });
             alertPopup.then(function (res) {
@@ -188,8 +188,8 @@
             // An alert dialog
             $scope.showAlert = function () {
                 var alertPopup = $ionicPopup.alert({
-                    title: 'Aviso',
-                    template: 'La incidencia ya se encuentra en Favoritos',
+                    title: $filter('translate')('WARNING'),
+                    template: $filter('translate')('ALREADY'),
                     okType: 'button-balanced'
                 });
                 alertPopup.then(function (res) {
@@ -201,8 +201,8 @@
             // An alert dialog
             $scope.showAlert = function () {
                 var alertPopup = $ionicPopup.alert({
-                    title: 'Aviso',
-                    template: 'Incidencia agregada a Favoritos',
+                    title: $filter('translate')('NOTICE'),
+                    template: $filter('translate')('ADDED'),
                     okType: 'button-balanced'
                 });
                 alertPopup.then(function (res) {
@@ -215,10 +215,13 @@
 })
 
 .controller('CategoriesCtrl', function ($scope, Categories) {
+
     $scope.categories = Categories.getAll();
+
 })
 
-.controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $log, $ionicPopup, $ionicLoading, geolocation, Images, Categories, StorageService, IDGenerator) {
+.controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $filter, $log, $ionicPopup, $ionicLoading, geolocation, Images, Categories, StorageService, IDGenerator) {
+    
     $scope.categorie = Categories.get($stateParams.categorieId);
     $scope.newForm = {};
     var incidentCoords;
@@ -412,8 +415,8 @@
         // An alert dialog
         $scope.showAlert = function () {
             var alertPopup = $ionicPopup.alert({
-                title: 'Incidencia Enviada',
-                template: 'Muchas gracias por su colaboración',
+                title: $filter('translate')('INCIDENT_SENT'),
+                template: $filter('translate')('THANKS'),
                 okType: 'button-balanced'
             });
             alertPopup.then(function (res) {
@@ -427,6 +430,7 @@
 })
 
 .controller('MyIncidentsCtrl', function ($scope, $ionicModal, StorageService, Categories, CategorieFilter) {
+    
     $scope.incidents = StorageService.getAll();
     $scope.categories = Categories.getAll();
 
@@ -520,7 +524,8 @@
     };
 })
 
-.controller('MyIncidentDetailCtrl', function ($scope, $stateParams, StorageService, $cordovaSocialSharing, CategorieFilter) {
+.controller('MyIncidentDetailCtrl', function ($scope, $stateParams, $filter, StorageService, $cordovaSocialSharing, CategorieFilter) {
+    
     $scope.incident = StorageService.get($stateParams.incidentId);
 
     // Social Sharing
@@ -535,7 +540,7 @@
           // An error occured. Show a message to the user
             var alertPopup = $ionicPopup.alert({
                 title: 'Error',
-                template: 'No pudo enviarse la incidencia',
+                template: $filter('translate')('ERROR_SHARE'),
                 okType: 'button-balanced'
             });
             alertPopup.then(function (res) {
@@ -642,7 +647,8 @@
     };
 })
 
-.controller('FavoriteDetailCtrl', function ($scope, $stateParams, $cordovaSocialSharing, StorageService) {
+.controller('FavoriteDetailCtrl', function ($scope, $stateParams, $filter, $cordovaSocialSharing, StorageService) {
+    
     $scope.incident = StorageService.getFavorite($stateParams.incidentId);
 
     // Social Sharing
@@ -657,7 +663,7 @@
           // An error occured. Show a message to the user
             var alertPopup = $ionicPopup.alert({
                 title: 'Error',
-                template: 'No pudo enviarse la incidencia',
+                template: $filter('translate')('ERROR_SHARE'),
                 okType: 'button-balanced'
             });
             alertPopup.then(function (res) {
@@ -666,7 +672,7 @@
     };
 })
 
-.controller('AccountCtrl', function ($scope, $ionicPopup, $translate, StorageService) {
+.controller('AccountCtrl', function ($scope, $ionicPopup, $filter, $translate, StorageService) {
 
     var account = StorageService.getAccount();
 
@@ -693,8 +699,8 @@
         // An alert dialog
         $scope.showAlert = function () {
             var alertPopup = $ionicPopup.alert({
-                title: 'Datos guardados',
-                template: 'Sus datos se usarán al enviar una incidencia',
+                title: $filter('translate')('DATA_SAVED'),
+                template: $filter('translate')('YOUR_DATA'),
                 okType: 'button-balanced'
             });
             alertPopup.then(function (res) {
@@ -713,6 +719,7 @@
 
 // Set the state back to  the top of the tabs view stack whenever the tab is selected
 .controller('StateCtrl', function($state) {
+    
     this.onTabSelected = function(_scope){
     // if we are selecting the home title then 
     // change the state back to the top state
