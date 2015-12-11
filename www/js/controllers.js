@@ -1,6 +1,6 @@
-﻿angular.module('starter.controllers', [])
+angular.module('starter.controllers', [])
 
-.controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $ionicLoading, $filter, $translate, Init, Incidents, Categories, CategorieFilter, StorageService) {
+.controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $ionicLoading, $filter, $translate, Init, Incidents, Categories, CategorieFilter, StorageService, Scopes) {
     
      // Setup the loader
     $ionicLoading.show({
@@ -94,11 +94,26 @@
 
     // On pull refresh
     $scope.doRefresh = function() {
-        Incidents.all();
-        // Stop the ion-refresher from spinning
-        $scope.incidents = Incidents.getAll();
-        $scope.$broadcast('scroll.refreshComplete');
+        Incidents.all().then(function(data) {
+            console.log(data);
+
+            if (data === 'error') {
+                // An error occured. Show a message to the user
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: $filter('translate')('ERROR_RECOVERY'),
+                    okType: 'button-balanced'
+                });
+                alertPopup.then(function (res) {
+                });
+            }
+
+            $scope.incidents = Incidents.getAll();
+            $scope.$broadcast('scroll.refreshComplete');
+        });
     };
+
+    Scopes.store('IncidentsCtrl', $scope);
 
     // CategorieFilter //
     $scope.includeCategorie = function (categorie) {
@@ -228,7 +243,7 @@
 
 })
 
-.controller('NewIncidentCtrl', function ($scope, $stateParams, $ionicModal, $filter, $log, $ionicPopup, $ionicLoading, geolocation, Images, Incidents, Categories, StorageService, IDGenerator) {
+.controller('NewIncidentCtrl', function ($scope, $stateParams, $state, $ionicModal, $filter, $log, $ionicPopup, $ionicLoading, geolocation, Images, Incidents, Categories, Scopes, StorageService, IDGenerator) {
     
     $scope.categorie = Categories.get($stateParams.categorieId);
     $scope.newForm = {};
@@ -392,6 +407,7 @@
         $scope.newForm.phone = account.phone;
     }
 
+    // Send incident
     $scope.submit = function () {
 
         var newIncident = {
@@ -434,23 +450,39 @@
         StorageService.add(newIncidentLocal);
 
         // Send remote Incident...
-        Incidents.post(newIncident);
+        Incidents.post(newIncident).then(function(data) {
+            console.log(data);
 
-        // An alert dialog
-        $scope.showAlert = function () {
-            var alertPopup = $ionicPopup.alert({
-                title: $filter('translate')('INCIDENT_SENT'),
-                template: $filter('translate')('THANKS'),
-                okType: 'button-balanced'
-            });
-            alertPopup.then(function (res) {
-                window.history.back();
-            });
-        };
+            if (data === 'error') {
+                // An error occured. Show a message to the user
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: $filter('translate')('ERROR_POST'),
+                    okType: 'button-balanced'
+                });
+                alertPopup.then(function (res) {
+                });
+                return;
+            }
 
-        $scope.showAlert();
+            // An alert dialog
+            $scope.showAlert = function () {
+                var alertPopup = $ionicPopup.alert({
+                    title: $filter('translate')('INCIDENT_SENT'),
+                    template: $filter('translate')('THANKS'),
+                    okType: 'button-balanced'
+                });
+                alertPopup.then(function (res) {
+                });
+            };
+            $scope.showAlert();
+
+            setTimeout(function() {
+                Scopes.get('IncidentsCtrl').incidents = Incidents.getAll();
+                $state.go('tab.incidents', {}, { reload: true });
+            },20);
+        });
     };
-
 })
 
 .controller('MyIncidentsCtrl', function ($scope, $ionicModal, StorageService, Categories, CategorieFilter) {

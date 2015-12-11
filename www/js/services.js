@@ -20,30 +20,26 @@
     };
 })
 
-.factory('Incidents', function ($http) {
+.factory('Incidents', function ($http, $q) {
 
     var incidents = [];
 
     return {
         all: function () {
-            /*var defer = $q.defer();
+            var defer = $q.defer();
 
             $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/incidents').then(function(resp) {
                 console.log('Success', resp);
-                // For JSON responses, resp.data contains the result
                 incidents = resp.data;
+                // For JSON responses, resp.data contains the result
                 defer.resolve(resp.data);
             }, function(err) {
                 console.error('ERR', err);
-                defer.resolve(err.status);
+                defer.resolve('error');
                 // err.status will contain the status code
             });
-            return defer.promise;*/
 
-            $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/incidents')
-            .success(function(data) {
-                incidents = data;
-            });
+            return defer.promise;
         },
         get: function (incidentId) {
             for (var i = 0; i < incidents.length; i++) {
@@ -60,8 +56,7 @@
             return incidents;
         },
         post: function(data) {
-            
-            console.log(JSON.stringify(data));
+            var defer = $q.defer();
             
             $http({
                 url: 'http://c2566322-0.web-hosting.es/albufera/index.php/incidents',
@@ -74,11 +69,19 @@
                 headers: {
                     'Authorization': 'Basic bashe64usename:password'
                 }*/
-            }).then(function (response) {
-                console.log("response: " + response);
-                console.log(response);
-                return response;
+            }).then(function(resp) {
+                console.log('Success', resp);
+                incidents = resp.data;
+                defer.resolve(resp.data);
+                // For JSON responses, resp.data contains the result
+                defer.resolve(resp.data);
+            }, function(err) {
+                console.error('ERR', err);
+                defer.resolve('error');
+                // err.status will contain the status code
             });
+
+            return defer.promise;
         }
     };
 })
@@ -295,6 +298,19 @@ factory('CategorieFilter', function () {
             }
 
             return incident; // Else, show!
+        }
+    };
+}).
+
+factory('Scopes', function ($rootScope) {
+    var mem = {};
+ 
+    return {
+        store: function (key, value) {
+            mem[key] = value;
+        },
+        get: function (key) {
+            return mem[key];
         }
     };
 });

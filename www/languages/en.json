@@ -57,4 +57,5 @@
 "THANKS": "Thank you for your help",
 "DATA_SAVED": "Data saved",
 "YOUR_DATA": "Your data will never be published",
-"REFRESH": "Pull to refresh..."}
+"REFRESH": "Pull to refresh...",
+"ERROR_POST": "There was an error sending the incident"}
