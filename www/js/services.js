@@ -20,13 +20,13 @@
     };
 })
 
-.factory('Incidents', function ($http, $q) {
+.factory('Incidents', function ($http) {
 
     var incidents = [];
 
     return {
         all: function () {
-            var defer = $q.defer();
+            /*var defer = $q.defer();
 
             $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/incidents').then(function(resp) {
                 console.log('Success', resp);
@@ -38,7 +38,12 @@
                 defer.resolve(err.status);
                 // err.status will contain the status code
             });
-            return defer.promise;
+            return defer.promise;*/
+
+            $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/incidents')
+            .success(function(data) {
+                incidents = data;
+            });
         },
         get: function (incidentId) {
             for (var i = 0; i < incidents.length; i++) {
@@ -120,13 +125,13 @@
     return {
         GetPicture: function (options) {
             var cameraOptions = {
-                quality: 75,
+                quality: 90,
                 destinationType: Camera.DestinationType.DATA_URL,
                 sourceType: Camera.PictureSourceType.CAMERA,
                 allowEdit: false,
                 encodingType: Camera.EncodingType.JPEG,
-                targetWidth: 300,
-                targetHeight: 300,
+                targetWidth: 800,
+                targetHeight: 800,
                 popoverOptions: CameraPopoverOptions,
                 saveToPhotoAlbum: false
             };
@@ -144,13 +149,13 @@
 
         ChoosePicture: function (options) {
             var cameraOptions = {
-                quality: 75,
+                quality: 90,
                 destinationType: Camera.DestinationType.DATA_URL,
                 sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
                 allowEdit: false,
                 encodingType: Camera.EncodingType.JPEG,
-                targetWidth: 300,
-                targetHeight: 300,
+                targetWidth: 800,
+                targetHeight: 800,
                 popoverOptions: CameraPopoverOptions,
                 saveToPhotoAlbum: false
             };

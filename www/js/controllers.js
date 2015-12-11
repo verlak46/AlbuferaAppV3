@@ -92,6 +92,14 @@
         $scope.modal.remove();
     });
 
+    // On pull refresh
+    $scope.doRefresh = function() {
+        Incidents.all();
+        // Stop the ion-refresher from spinning
+        $scope.incidents = Incidents.getAll();
+        $scope.$broadcast('scroll.refreshComplete');
+    };
+
     // CategorieFilter //
     $scope.includeCategorie = function (categorie) {
         CategorieFilter.includeCategorie(categorie);
@@ -387,7 +395,7 @@
     $scope.submit = function () {
 
         var newIncident = {
-            id: parseInt(IDGenerator.generate()),
+            //id: parseInt(IDGenerator.generate()),
             categorie: parseInt($scope.categorie.id),
             datetime: new Date().toLocaleString(),
             description: $scope.newForm.description,

@@ -1,5 +1,9 @@
 ﻿<ion-view view-title="{{'INCIDENTS' | translate}}">
     <ion-content>
+        <ion-refresher
+            pulling-text="{{'REFRESH' | translate}}"
+            on-refresh="doRefresh()">
+        </ion-refresher>
         <ion-list>
             <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="incident in incidents | filter:categorieFilter" type="item-text-wrap" href="#/tab/incidents/{{incident.id}}">
                 <img ng-src="{{incident.image}}">
