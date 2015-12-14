@@ -485,10 +485,20 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('MyIncidentsCtrl', function ($scope, $ionicModal, StorageService, Categories, CategorieFilter) {
-    
+.controller('MyIncidentsCtrl', function ($scope, $ionicModal, $ionicLoading, StorageService, Categories, CategorieFilter) {
+    // Setup the loader
+    $ionicLoading.show({
+        content: 'Cargando...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+    });
+
     $scope.incidents = StorageService.getAll();
     $scope.categories = Categories.getAll();
+
+    $ionicLoading.hide();
 
     // Load the modal from the given template URL
     $ionicModal.fromTemplateUrl('templates/filter-modal.html', {
@@ -605,10 +615,22 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('FavoritesCtrl', function ($scope, $ionicModal, StorageService, Categories, CategorieFilter) {
+.controller('FavoritesCtrl', function ($scope, $ionicModal, $ionicLoading, StorageService, Categories, CategorieFilter) {
+
+    // Setup the loader
+    $ionicLoading.show({
+        content: 'Cargando...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+    });
 
     $scope.incidents = StorageService.getAllFavorites();
     $scope.categories = Categories.getAll();
+
+    $ionicLoading.hide();
+
     $scope.remove = function (incident) {
         StorageService.removeFavorite(incident);
     };
