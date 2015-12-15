@@ -454,28 +454,34 @@ angular.module('starter.controllers', [])
             console.log(data);
 
             if (data === 'error') {
-                // An error occured. Show a message to the user
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Error',
-                    template: $filter('translate')('ERROR_POST'),
-                    okType: 'button-balanced'
-                });
-                alertPopup.then(function (res) {
-                });
-                return;
-            }
+                $scope.showErrorAlert = function () {
+                    // An error occured. Show a message to the user
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Error',
+                        template: $filter('translate')('ERROR_POST'),
+                        okType: 'button-balanced'
+                    });
+                    alertPopup.then(function (res) {
+                    });
+                };
 
-            // An alert dialog
-            $scope.showAlert = function () {
-                var alertPopup = $ionicPopup.alert({
-                    title: $filter('translate')('INCIDENT_SENT'),
-                    template: $filter('translate')('THANKS'),
-                    okType: 'button-balanced'
-                });
-                alertPopup.then(function (res) {
-                });
-            };
-            $scope.showAlert();
+                $scope.showErrorAlert();
+
+                return;
+            } else {
+                // An alert dialog on success
+                $scope.showSuccessAlert = function () {
+                    var alertPopup = $ionicPopup.alert({
+                        title: $filter('translate')('INCIDENT_SENT'),
+                        template: $filter('translate')('THANKS'),
+                        okType: 'button-balanced'
+                    });
+                    alertPopup.then(function (res) {
+                    });
+                };
+
+                $scope.showSuccessAlert();
+            }
 
             setTimeout(function() {
                 Scopes.get('IncidentsCtrl').incidents = Incidents.getAll();
