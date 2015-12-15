@@ -1,4 +1,6 @@
-﻿angular.module('starter.services', [])
+﻿var baseApiUrl = 'http://c2566322-0.web-hosting.es/albufera/index.php/';
+
+angular.module('starter.services', [])
 
 .factory('Init', function ($http, $q) {
 
@@ -6,7 +8,7 @@
         all: function () {
             var defer = $q.defer();
 
-            $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/init').then(function(resp) {
+            $http.get(baseApiUrl + 'init').then(function(resp) {
                 console.log('Success', resp);
                 // For JSON responses, resp.data contains the result
                 defer.resolve(resp.data);
@@ -28,7 +30,7 @@
         all: function () {
             var defer = $q.defer();
 
-            $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/incidents').then(function(resp) {
+            $http.get(baseApiUrl + 'incidents').then(function(resp) {
                 console.log('Success', resp);
                 incidents = resp.data;
                 // For JSON responses, resp.data contains the result
@@ -59,7 +61,7 @@
             var defer = $q.defer();
             
             $http({
-                url: 'http://c2566322-0.web-hosting.es/albufera/index.php/incidents',
+                url: baseApiUrl + 'incidents',
                 method: "POST",
                 data: JSON.stringify(data),
                 headers: {
@@ -94,7 +96,7 @@
         all: function () {
             var defer = $q.defer();
 
-            $http.get('http://c2566322-0.web-hosting.es/albufera/index.php/categories').then(function(resp) {
+            $http.get(baseApiUrl + 'categories').then(function(resp) {
                 console.log('Success', resp);
                 // For JSON responses, resp.data contains the result
                 categories = resp.data;
