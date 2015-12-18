@@ -34,3 +34,20 @@ a.tab-item-active {
     border-top:   3px;
     border-bottom: 3px;
 }
+
+@media(max-width: 350px) {
+    .footer-button .button {
+        margin-right: 3px;
+    }
+    .bar .button.icon-left::before {
+        font-size: 20px;
+    }
+}
+
+.ion-person {
+    font-size: 25px;
+}
+
+.ion-ios-arrow-back {
+    font-size: 25px;
+}

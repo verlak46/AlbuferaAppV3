@@ -756,10 +756,36 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('AccountCtrl', function ($scope, $ionicPopup, $filter, $translate, StorageService) {
+.controller('AccountCtrl', function ($scope, $ionicPopup, $filter, $translate, $ionicHistory, StorageService) {
 
     var account = StorageService.getAccount();
 
+    // Show BackButton control
+    $scope.showBackButton = function() {
+        if ($ionicHistory.currentView() !== null) {
+            if ($ionicHistory.currentView().url === "/account") {
+                console.log($ionicHistory.currentView().url);
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;  
+    };
+
+    // Show AccountButton control
+    $scope.showAccountButton = function() {
+        if ($ionicHistory.currentView() !== null) {
+            if ($ionicHistory.currentView().url === "/account") {
+                console.log($ionicHistory.currentView().url);
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return true;  
+    };
+    
     // Form Validation
     $scope.account = {};
 

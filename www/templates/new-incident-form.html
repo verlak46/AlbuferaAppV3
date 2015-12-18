@@ -70,7 +70,7 @@
             </div>
 
             <div>
-                <button class="button button-full button-balanced" ng-disabled="incidentForm.$invalid" ng-click="submit()">
+                <button class="button button-full button-balanced" ng-disabled="incidentForm.$invalid || imgURI===undefined" ng-click="submit()">
                     {{'SEND' | translate}}
                 </button>
             </div>

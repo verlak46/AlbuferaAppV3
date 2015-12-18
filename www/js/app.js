@@ -196,17 +196,22 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
             }
         })
 
-    .state('tab.account', {
-        url: '/account',
+    .state('tab.activities', {
+        url: '/activities',
         views: {
-            'tab-account': {
-                templateUrl: 'templates/tab-account.html',
-                controller: 'AccountCtrl'
+            'tab-activities': {
+                templateUrl: 'templates/tab-activities.html'
+                // controller: is called on tabs.html
             }
         }
+    })
+
+    .state('account', {
+        url: '/account',
+        templateUrl: 'templates/account.html',
+        controller: 'AccountCtrl'
     });
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/incidents');
-
 });

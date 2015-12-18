@@ -1,4 +1,4 @@
-﻿var baseApiUrl = 'http://c2566322-0.web-hosting.es/albufera2/index.php/';
+﻿var baseApiUrl = 'http://c2566322-0.web-hosting.es/albufera/index.php/';
 
 angular.module('starter.services', [])
 
