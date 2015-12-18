@@ -764,7 +764,6 @@ angular.module('starter.controllers', [])
     $scope.showBackButton = function() {
         if ($ionicHistory.currentView() !== null) {
             if ($ionicHistory.currentView().url === "/account") {
-                console.log($ionicHistory.currentView().url);
                 return true;
             } else {
                 return false;
@@ -777,7 +776,6 @@ angular.module('starter.controllers', [])
     $scope.showAccountButton = function() {
         if ($ionicHistory.currentView() !== null) {
             if ($ionicHistory.currentView().url === "/account") {
-                console.log($ionicHistory.currentView().url);
                 return false;
             } else {
                 return true;
