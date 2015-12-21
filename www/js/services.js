@@ -88,6 +88,72 @@ angular.module('starter.services', [])
     };
 })
 
+.factory('Activities', function ($http, $q) {
+
+    var activities = [];
+
+    return {
+        all: function () {
+            var defer = $q.defer();
+
+            $http.get(baseApiUrl + 'activities').then(function(resp) {
+                console.log('Success', resp);
+                activities = resp.data;
+                // For JSON responses, resp.data contains the result
+                defer.resolve(resp.data);
+            }, function(err) {
+                console.error('ERR', err);
+                defer.resolve('error');
+                // err.status will contain the status code
+            });
+
+            return defer.promise;
+        },
+        get: function (activitieId) {
+            for (var i = 0; i < activities.length; i++) {
+                if (parseInt(activities[i].id) === parseInt(activitieId)) {
+                    return activities[i];
+                }
+            }
+            return null;
+        },
+        save: function(data) {
+            activities = data;
+        },
+        getAll: function () {
+            return activities;
+        },
+        post: function(data) {
+            var defer = $q.defer();
+            
+            $http({
+                url: baseApiUrl + 'activities',
+                method: "POST",
+                data: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                }
+                /*withCredentials: true,
+                headers: {
+                    'Authorization': 'Basic bashe64usename:password'
+                }*/
+            }).then(function(resp) {
+                console.log('Success', resp);
+                activities = resp.data;
+                defer.resolve(resp.data);
+                // For JSON responses, resp.data contains the result
+                defer.resolve(resp.data);
+            }, function(err) {
+                console.error('ERR', err);
+                defer.resolve('error');
+                // err.status will contain the status code
+            });
+
+            return defer.promise;
+        }
+    };
+})
+
 .factory('Categories', function ($http, $q) {
 
     var categories = [];

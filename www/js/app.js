@@ -67,6 +67,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
 
     // Each tab has its own nav history stack:
 
+    // INCIDENTS TABS
     .state('tab.incidents', {
         url: '/incidents',
         views: {
@@ -196,6 +197,8 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
             }
         })
 
+
+    /// ACTIVITIES TABS
     .state('tab.activities', {
         url: '/activities',
         views: {
@@ -206,6 +209,53 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
         }
     })
 
+    .state('tab.activities-map', {
+            url: '/activities-map',
+            views: {
+                'tab-activities': {
+                    templateUrl: 'templates/tab-activities-map.html',
+                    controller: 'activitiesMapCtrl'
+                }
+            }
+        })
+        .state('tab.activities-grid', {
+            url: '/activities-grid',
+            views: {
+                'tab-activities': {
+                    templateUrl: 'templates/tab-activities-grid.html'
+                    // controller: is called on tabs.html
+                }
+            }
+        })
+        .state('tab.new-activitie', {
+            url: '/new-activitie',
+            views: {
+                'tab-activities': {
+                    templateUrl: 'templates/tab-new-activitie.html',
+                    controller: 'CategoriesCtrl'
+                }
+            }
+        })
+        .state('tab.new-activitie-form', {
+            url: '/new/:categorieId',
+            views: {
+                'tab-activities': {
+                    templateUrl: 'templates/new-activitie-form.html',
+                    controller: 'NewActivitieCtrl'
+                }
+            }
+        })
+      .state('tab.activitie-detail', {
+          url: '/activities/:activitieId',
+          views: {
+              'tab-activities': {
+                  templateUrl: 'templates/activitie-detail.html',
+                  controller: 'ActivitieDetailCtrl'
+              }
+          }
+      })
+
+    // ACCOUNT TAB
     .state('account', {
         url: '/account',
         templateUrl: 'templates/account.html',
