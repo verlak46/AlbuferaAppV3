@@ -1,0 +1,14 @@
+﻿<ion-view view-title="{{ 'MY_INCIDENTS' | translate }}">
+    <ion-content>
+        <div class="card"  ng-show="incidents.length === 0">
+            <div class="item item-text-wrap" >
+                {{ 'STILL' | translate }}
+            </div>
+        </div>
+        <ion-item collection-repeat="incident in incidents | filter:categorieFilter"
+                collection-item-height="200"
+                collection-item-width="'50%'">
+                <a href="#/tab/my-incidents/{{incident.id}}"><img class="img-grid" ng-src="{{incident.image}}"></a>
+            </ion-item>
+    </ion-content>
+</ion-view>
