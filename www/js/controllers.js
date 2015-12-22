@@ -1,10 +1,9 @@
 angular.module('starter.controllers', [])
 
-.controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $ionicLoading, $filter, $translate, Init, Incidents, Activities, Categories, ActivityTypes, CategorieFilter, StorageService, Scopes) {
-    
-    $scope.incidents = '';
-    $scope.categories = '';
+.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, $ionicModal, $filter, $translate, geolocation, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
 
+    $scope.incidents = '';
+    
     // Setup the loader
     $ionicLoading.show({
         content: 'Cargando...',
@@ -77,70 +76,6 @@ angular.module('starter.controllers', [])
         $translate.use(StorageService.getLanguage());
     }
 
-    // Load the modal from the given template URL
-    $ionicModal.fromTemplateUrl('templates/incidents/filter-modal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.modal = modal;
-    });
-
-    $scope.openModal = function () {
-        $scope.modal.show();
-    };
-
-    $scope.closeModal = function () {
-        $scope.modal.hide();
-    };
-
-    $scope.$on('$destroy', function () {
-        $scope.modal.remove();
-    });
-
-    // On pull refresh
-    $scope.doRefresh = function() {
-        Incidents.all().then(function(data) {
-            console.log(data);
-
-            if (data === 'error') {
-                // An error occured. Show a message to the user
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Error',
-                    template: $filter('translate')('ERROR_RECOVERY'),
-                    okType: 'button-balanced'
-                });
-                alertPopup.then(function (res) {
-                });
-            }
-
-            $scope.incidents = Incidents.getAll();
-            $scope.$broadcast('scroll.refreshComplete');
-        });
-
-        Categories.all().then(function(data) {
-
-            $scope.categories = Categories.getAll();
-
-            $scope.$broadcast('scroll.refreshComplete');
-        });
-    };
-
-    Scopes.store('IncidentsCtrl', $scope);
-
-    // CategorieFilter //
-    $scope.includeCategorie = function (categorie) {
-        CategorieFilter.includeCategorie(categorie);
-    };
-
-    $scope.categorieFilter = function (incident) {
-        return CategorieFilter.filter(incident);
-    };
-})
-
-.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, Incidents, CategorieFilter) {
-
-    $scope.incidents = Incidents.getAll();
-
     // Setup the loader
     $ionicLoading.show({
         content: 'Cargando...',
@@ -183,8 +118,71 @@ angular.module('starter.controllers', [])
         $ionicLoading.hide();
     });
 
+    // Load the modal from the given template URL
+    $ionicModal.fromTemplateUrl('templates/incidents/filter-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.openModal = function () {
+        $scope.modal.show();
+    };
+
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+
+    $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
+
     // CategorieFilter //
 
+    $scope.includeCategorie = function (categorie) {
+        CategorieFilter.includeCategorie(categorie);
+    };
+
+    $scope.categorieFilter = function (incident) {
+        return CategorieFilter.filter(incident);
+    };
+})
+
+.controller('IncidentsCtrl', function ($scope, $ionicPopup, $ionicLoading, $filter, $translate, Incidents, Categories, CategorieFilter) {
+    
+    $scope.incidents = Incidents.getAll();
+    $scope.categories = Categories.getAll();
+
+    // On pull refresh
+    $scope.doRefresh = function() {
+        Incidents.all().then(function(data) {
+            console.log(data);
+
+            if (data === 'error') {
+                // An error occured. Show a message to the user
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: $filter('translate')('ERROR_RECOVERY'),
+                    okType: 'button-balanced'
+                });
+                alertPopup.then(function (res) {
+                });
+            }
+
+            $scope.incidents = Incidents.getAll();
+            $scope.$broadcast('scroll.refreshComplete');
+        });
+
+        Categories.all().then(function(data) {
+
+            $scope.categories = Categories.getAll();
+
+            $scope.$broadcast('scroll.refreshComplete');
+        });
+    };
+
+    // CategorieFilter //
     $scope.includeCategorie = function (categorie) {
         CategorieFilter.includeCategorie(categorie);
     };
@@ -255,7 +253,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('NewIncidentCtrl', function ($scope, $stateParams, $state, $ionicModal, $filter, $log, $ionicPopup, $ionicLoading, geolocation, Images, Incidents, Categories, Scopes, StorageService, IDGenerator) {
+.controller('NewIncidentCtrl', function ($scope, $stateParams, $state, $ionicModal, $filter, $log, $ionicPopup, $ionicLoading, geolocation, Images, Incidents, Categories, StorageService, IDGenerator) {
     
     $scope.categorie = Categories.get($stateParams.categorieId);
     $scope.newForm = {};
@@ -496,7 +494,6 @@ angular.module('starter.controllers', [])
             }
 
             setTimeout(function() {
-                Scopes.get('IncidentsCtrl').incidents = Incidents.getAll();
                 $state.go('tab.incidents', {}, { reload: true });
             },20);
         });
@@ -768,7 +765,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivitiesCtrl', function ($scope, $filter, $cordovaSocialSharing, $ionicModal, Activities, ActivityTypes, ActivityTypeFilter, StorageService, Scopes) {
+.controller('ActivitiesCtrl', function ($scope, $filter, $cordovaSocialSharing, $ionicModal, Activities, ActivityTypes, ActivityTypeFilter, StorageService) {
 
     $scope.activities = Activities.getAll();
     $scope.activityTypes = ActivityTypes.getAll();
@@ -832,8 +829,6 @@ angular.module('starter.controllers', [])
             $scope.$broadcast('scroll.refreshComplete');
         });
     };
-
-    Scopes.store('ActivitiesCtrl', $scope);
 
     // TypeFilter //
     $scope.includeType = function (type) {
@@ -926,36 +921,6 @@ angular.module('starter.controllers', [])
             });
       });
     };
-
-    $scope.addToFavorites = function () {
-        if (StorageService.addActivityToFavorites($scope.activity) === null) {
-            // An alert dialog
-            $scope.showAlert = function () {
-                var alertPopup = $ionicPopup.alert({
-                    title: $filter('translate')('WARNING'),
-                    template: $filter('translate')('ALREADY_ACTIVITY'),
-                    okType: 'button-balanced'
-                });
-                alertPopup.then(function (res) {
-                });
-            };
-
-            $scope.showAlert();
-        } else {
-            // An alert dialog
-            $scope.showAlert = function () {
-                var alertPopup = $ionicPopup.alert({
-                    title: $filter('translate')('NOTICE'),
-                    template: $filter('translate')('ADDED_ACTIVITY'),
-                    okType: 'button-balanced'
-                });
-                alertPopup.then(function (res) {
-                });
-            };
-
-            $scope.showAlert();
-        }
-    };
 })
 
 .controller('AccountCtrl', function ($scope, $ionicPopup, $filter, $translate, $ionicHistory, StorageService) {
@@ -1033,7 +998,6 @@ angular.module('starter.controllers', [])
     this.onTabSelected = function(_scope){
     // if we are selecting the home title then 
     // change the state back to the top state
-    console.log(_scope.title);
         switch (_scope.title) {
             case 'Incidencias':
                 $state.go('tab.incidents-map', {});

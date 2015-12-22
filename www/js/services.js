@@ -1,4 +1,4 @@
-﻿var baseApiUrl = 'http://c2566322-0.web-hosting.es/albufera/index.php/';
+﻿var baseApiUrl = 'http://c2566322-0.web-hosting.es/albufera/api/app.php/';
 
 angular.module('starter.services', [])
 
@@ -427,19 +427,6 @@ factory('ActivityTypeFilter', function () {
             }
 
             return activity; // Else, show!
-        }
-    };
-}).
-
-factory('Scopes', function ($rootScope) {
-    var mem = {};
- 
-    return {
-        store: function (key, value) {
-            mem[key] = value;
-        },
-        get: function (key) {
-            return mem[key];
         }
     };
 });

@@ -7,7 +7,7 @@ navigation history that also transitions its views in and out.
 
     <!-- INCIDENTS Tab -->
     <ion-tab title="{{ 'INCIDENTS' | translate }}" ng-controller="StateCtrl as state" icon-off="ion-clock" icon-on="ion-clock" href="#/tab/incidents-map" on-select="state.onTabSelected(this)">
-    <div ng-controller="IncidentsCtrl">
+    <div ng-controller="IncidentsMapCtrl">
         <ion-nav-view name="tab-incidents">
         </ion-nav-view>
         <ion-footer-bar class="bar-stable footer-button">

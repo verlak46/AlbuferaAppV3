@@ -13,8 +13,6 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
-@import "button.scss";
-
 // Colors
 // -------------------------------
 $stable:                        #a1c692 !default;
@@ -23,6 +21,7 @@ $stable-dark:                   #385d28 !default;
 $grey-light2:                   #dadfe2 !default;
 $grey-dark1:                    #292f33 !default;
 $grey-dark2:                    #66757f !default;
+$balanced:                      #489152 !default;
 
 // Buttons
 // -------------------------------
@@ -31,6 +30,10 @@ $button-stable-text:              $stable !default;
 $button-stable-border:            $stable-dark !default;
 $button-stable-active-bg:         $stable-light !default;
 $button-stable-active-border:     $stable-dark !default;
+/*$button-balanced-bg:              $stable-light !default;
+$button-balanced-border:          $stable-light !default;
+$button-balanced-active-bg:       $stable-light !default;
+$button-balanced-active-border:   $stable-light !default;*/
 
 // Tabs
 // -------------------------------
