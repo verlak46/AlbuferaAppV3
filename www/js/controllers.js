@@ -2,7 +2,10 @@ angular.module('starter.controllers', [])
 
 .controller('IncidentsCtrl', function ($scope, $ionicModal, $ionicPopup, $ionicLoading, $filter, $translate, Init, Incidents, Activities, Categories, ActivityTypes, CategorieFilter, StorageService, Scopes) {
     
-     // Setup the loader
+    $scope.incidents = '';
+    $scope.categories = '';
+
+    // Setup the loader
     $ionicLoading.show({
         content: 'Cargando...',
         animation: 'fade-in',
@@ -111,6 +114,13 @@ angular.module('starter.controllers', [])
             }
 
             $scope.incidents = Incidents.getAll();
+            $scope.$broadcast('scroll.refreshComplete');
+        });
+
+        Categories.all().then(function(data) {
+
+            $scope.categories = Categories.getAll();
+
             $scope.$broadcast('scroll.refreshComplete');
         });
     };
@@ -1026,28 +1036,28 @@ angular.module('starter.controllers', [])
     console.log(_scope.title);
         switch (_scope.title) {
             case 'Incidencias':
-                $state.go('tab.incidents', {}, {reload: true});
+                $state.go('tab.incidents-map', {});
             break;
             case 'Incidents':
-                $state.go('tab.incidents', {}, {reload: true});
+                $state.go('tab.incidents-map', {});
             break;
             case 'Mis incidencias':
-                $state.go('tab.my-incidents', {});
+                $state.go('tab.my-incidents-map', {});
             break;
             case 'My incidents':
-                $state.go('tab.my-incidents', {});
+                $state.go('tab.my-incidents-map', {});
             break;
             case 'Favoritas':
-                $state.go('tab.favorites', {});
+                $state.go('tab.favorites-map', {});
             break;
             case 'Favorites':
-                $state.go('tab.favorites', {});
+                $state.go('tab.favorites-map', {});
             break;
             case 'Actividades':
-                $state.go('tab.activities', {}, {reload: true});
+                $state.go('tab.activities-map', {});
             break;
             case 'Activities':
-                $state.go('tab.activities', {}, {reload: true});
+                $state.go('tab.activities-map', {});
             break;
         }
     };

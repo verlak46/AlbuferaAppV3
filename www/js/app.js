@@ -69,21 +69,21 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
     // Each tab has its own nav history stack:
 
     // INCIDENTS TABS
-    .state('tab.incidents', {
-        url: '/incidents',
+    .state('tab.incidents-map', {
+        url: '/incidents-map',
         views: {
             'tab-incidents': {
-                templateUrl: 'templates/incidents/tab-incidents.html'
-                // controller: is called on tabs.html
+                templateUrl: 'templates/incidents/tab-incidents-map.html',
+                controller: 'IncidentsMapCtrl'
             }
         }
     })
-        .state('tab.incidents-map', {
-            url: '/incidents-map',
+        .state('tab.incidents', {
+            url: '/incidents',
             views: {
                 'tab-incidents': {
-                    templateUrl: 'templates/incidents/tab-incidents-map.html',
-                    controller: 'IncidentsMapCtrl'
+                    templateUrl: 'templates/incidents/tab-incidents.html'
+                    // controller: is called on tabs.html
                 }
             }
         })
@@ -124,24 +124,25 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
           }
       })
 
-    .state('tab.my-incidents', {
-        url: '/my-incidents',
+    .state('tab.my-incidents-map', {
+        url: '/my-incidents-map',
         views: {
             'tab-my-incidents': {
-                templateUrl: 'templates/incidents/tab-my-incidents.html'
-                // controller: is called on tabs.html
+                templateUrl: 'templates/incidents/tab-my-incidents-map.html',
+                controller: 'MyIncidentsMapCtrl'
             }
         }
     })
-        .state('tab.my-incidents-map', {
-            url: '/my-incidents-map',
+        .state('tab.my-incidents', {
+            url: '/my-incidents',
             views: {
                 'tab-my-incidents': {
-                    templateUrl: 'templates/incidents/tab-my-incidents-map.html',
-                    controller: 'MyIncidentsMapCtrl'
+                    templateUrl: 'templates/incidents/tab-my-incidents.html'
+                    // controller: is called on tabs.html
                 }
             }
         })
+        
         .state('tab.my-incidents-grid', {
             url: '/my-incidents-grid',
             views: {
@@ -161,24 +162,25 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
             }
         })
 
-    .state('tab.favorites', {
-        url: '/favorites',
+    .state('tab.favorites-map', {
+        url: '/favorites-map',
         views: {
             'tab-favorites': {
-                templateUrl: 'templates/incidents/tab-favorites.html'
-                // controller: is called on tabs.html
+                templateUrl: 'templates/incidents/tab-favorites-map.html',
+                controller: 'FavoritesMapCtrl'
             }
         }
     })
-        .state('tab.favorites-map', {
-            url: '/favorites-map',
+        .state('tab.favorites', {
+            url: '/favorites',
             views: {
                 'tab-favorites': {
-                    templateUrl: 'templates/incidents/tab-favorites-map.html',
-                    controller: 'FavoritesMapCtrl'
+                    templateUrl: 'templates/incidents/tab-favorites.html'
+                    // controller: is called on tabs.html
                 }
             }
         })
+        
         .state('tab.favorites-grid', {
             url: '/favorites-grid',
             views: {
@@ -199,25 +201,25 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
         })
 
     /// ACTIVITIES TABS
-    .state('tab.activities', {
-        url: '/activities',
+    .state('tab.activities-map', {
+        url: '/activities-map',
         views: {
             'tab-activities': {
-                templateUrl: 'templates/activities/tab-activities.html'
-                // controller: is called on tabs.html
+                templateUrl: 'templates/activities/tab-activities-map.html',
+                controller: 'ActivitiesMapCtrl'
             }
         }
     })
-
-        .state('tab.activities-map', {
-            url: '/activities-map',
+        .state('tab.activities', {
+            url: '/activities',
             views: {
                 'tab-activities': {
-                    templateUrl: 'templates/activities/tab-activities-map.html',
-                    controller: 'ActivitiesMapCtrl'
+                    templateUrl: 'templates/activities/tab-activities.html'
+                    // controller: is called on tabs.html
                 }
             }
         })
+
         .state('tab.activities-grid', {
             url: '/activities-grid',
             views: {
@@ -244,5 +246,5 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
     });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/incidents');
+    $urlRouterProvider.otherwise('/tab/incidents-map');
 });
