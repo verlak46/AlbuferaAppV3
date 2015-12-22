@@ -1,9 +1,13 @@
 {"STATUS": "Estado",
 "NEW_INCIDENT": "Nueva incidencia",
 "INCIDENTS": "Incidencias",
+"NO_INCIDENTS": "Todavía no se ha agregado ninguna incidencia",
 "MY_INCIDENTS": "Mis incidencias",
-"FAVORITES": "Favoritas",
-"PROFILE": "Perfil",
+"FAVORITES":"Favoritas",
+"PROFILE":"Perfil",
+"ACTIVITIES":"Actividades",
+"MY_ACTIVITIES":"Mis actividades",
+"BACK":"Volver",
 "SELECT": "Seleccione la categoría:",
 "Residuos sólidos": "Residuos sólidos",
 "Tuberías rotas:": "Tuberías rotas",
@@ -58,6 +62,4 @@
 "DATA_SAVED": "Datos guardados",
 "YOUR_DATA": "Sus datos nunca serán publicados",
 "REFRESH": "Arrastre para actualizar...",
-"ERROR_POST": "Hubo un error al enviar la incidencia, se enviará automáticamente más tarde.",
-"ACTIVITIES": "Actividades",
-"MY_ACTIVITIES": "Mis actividades"}
+"ERROR_POST": "Hubo un error al enviar la incidencia, se enviará automáticamente más tarde."}

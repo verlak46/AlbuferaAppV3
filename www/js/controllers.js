@@ -1,5 +1,5 @@
 // Global variables
-var tabSelected = 'Incidents';
+var showActivities = false;
 
 angular.module('starter.controllers', [])
 
@@ -1458,48 +1458,75 @@ angular.module('starter.controllers', [])
 })
 
 // Set the state back to  the top of the tabs view stack whenever the tab is selected
-.controller('StateCtrl', function($state) {
-    
+.controller('StateCtrl', function($scope, $state) {
+
+
     this.onTabSelected = function(_scope){
     // if we are selecting the home title then 
     // change the state back to the top state
+    console.log(_scope.title);
         switch (_scope.title) {
-            case 'Incidencias' || 'Incidents':
-            setTimeout(function() {
+            case 'Incidencias':
                 $state.go('tab.incidents', {}, {reload: true});
-                tabSelected = 'Incidents';
-            },20);
+                showActivities = false;
             break;
-            case 'Mis incidencias' || 'My incidents':
-            setTimeout(function() {
+            case 'Incidents':
+                $state.go('tab.incidents', {}, {reload: true});
+                showActivities = false;
+            break;
+            case 'Mis incidencias':
                 $state.go('tab.my-incidents', {});
-            },20);
             break;
-            case 'Favoritas' || 'Favorites':
-            setTimeout(function() {
+            case 'My incidents':
+                $state.go('tab.my-incidents', {});
+            break;
+            case 'Favoritas':
                 $state.go('tab.favorites', {});
-            },20);
             break;
-            case 'Actividades' || 'Activities':
-            setTimeout(function() {
+            case 'Favorites':
+                $state.go('tab.favorites', {});
+            break;
+            case 'Actividades':
                 $state.go('tab.activities', {}, {reload: true});
-                tabSelected = 'Activities';
-            },20);
+                showActivities = true;
+            break;
+            case 'Activities':
+                $state.go('tab.activities', {}, {reload: true});
+                showActivities = true;
+            break;
+            case 'Volver':
+                $state.go('tab.incidents', {}, {reload: true});
+                showActivities = false;
+            break;
+            case 'Back':
+                $state.go('tab.incidents', {}, {reload: true});
+                showActivities = false;
             break;
         }
     };
-})
 
-// Change between Incidents Tab and Activities Tab
-.controller('TabsCtrl', function($scope) {
-
-    $scope.showIncidentsTab = function() {
-        if (tabSelected === 'Incidents') return true;
-        return false;  
-    };
-
-    $scope.showActivitiesTab = function() {
-        if (tabSelected === 'Activities') return true;
-        return false;  
+    $scope.showTab = function(tab) {
+        switch (tab) {
+            case "incidents":
+                if (!showActivities) return "ng-show";
+                return "ng-hide";
+            case "my_incidents":
+                if (!showActivities) return "ng-show";
+                return "ng-hide";
+            case "favorites":
+                if (!showActivities) return "ng-show";
+                return "ng-hide";
+            case "activities":
+                return "ng-show";
+            case "my_activities":
+                if (showActivities) return "ng-show";
+                return "ng-hide";
+            case "favorites_activities":
+                if (showActivities) return "ng-show";
+                return "ng-hide";
+            case "back":
+                if (showActivities) return "ng-show";
+                return "ng-hide";
+        }
     };
 });

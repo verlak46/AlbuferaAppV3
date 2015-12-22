@@ -4,6 +4,11 @@
             pulling-text="{{'REFRESH' | translate}}"
             on-refresh="doRefresh()">
         </ion-refresher>
+        <div class="card" ng-show="incidents.length === 0">
+            <div class="item item-text-wrap">
+                {{ 'NO_INCIDENTS' | translate }}
+            </div>
+        </div>
         <ion-list>
             <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="incident in incidents | filter:categorieFilter" type="item-text-wrap" href="#/tab/incidents/{{incident.id}}">
                 <img ng-src="{{incident.image}}">
