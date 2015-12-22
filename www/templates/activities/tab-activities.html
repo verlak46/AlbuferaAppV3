@@ -1,19 +1,19 @@
-﻿<ion-view view-title="{{'INCIDENTS' | translate}}">
+﻿<ion-view view-title="{{'ACTIVITIES' | translate}}">
     <ion-content>
         <ion-refresher
             pulling-text="{{'REFRESH' | translate}}"
             on-refresh="doRefresh()">
         </ion-refresher>
-        <div class="card" ng-show="incidents.length === 0">
+        <div class="card" ng-show="activities.length === 0">
             <div class="item item-text-wrap">
-                {{ 'NO_INCIDENTS' | translate }}
+                {{ 'NO_ACTIVITIES' | translate }}
             </div>
         </div>
         <ion-list>
-            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="incident in incidents | filter:categorieFilter" type="item-text-wrap" href="#/tab/incidents/{{incident.id}}">
-                <img ng-src="{{incident.image}}">
-                <h2>{{incident.categorie | translate}}
-                <p>{{incident.description}}</p>
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="activity in activities | filter:typeFilter" type="item-text-wrap" href="#/tab/activities/{{activity.id}}">
+                <img ng-src="{{activity.image}}">
+                <h2>{{activity.activityType | translate}}
+                <p>{{activity.description}}</p>
                 <i class="icon ion-chevron-right"></i>
             </ion-item>
         </ion-list>

@@ -1,4 +1,4 @@
-﻿<ion-view view-title="{{ 'MY_INCIDENTS' | translate }}">
+﻿<ion-view view-title="{{ 'MY_ACTIVITIES' | translate }}">
     <ion-content scroll="false" data-tap-disabled="true">
         <ui-gmap-google-map center='map.center' zoom='map.zoom'>
             <ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id" click="onClick()">
@@ -6,11 +6,11 @@
                     <div>{{ 'INFO' | translate }}</div>
                 </ui-gmap-window>
             </ui-gmap-marker>
-            <ui-gmap-marker ng-repeat="incident in incidents | filter:categorieFilter"
-                   coords="incident.coords" idkey="marker.id">
+            <ui-gmap-marker ng-repeat="activity in activities | filter:typeFilter"
+                   coords="activity.coords" idkey="marker.id">
                 <ui-gmap-window ng-cloak>
-                    <a href="#/tab/my-incidents/{{incident.id}}" style="text-decoration:none; color:black;"><p style="font-weight: bold; text-align:center;">{{incident.categorie | translate}}</p>
-                    {{incident.description}}</a>
+                    <a href="#/tab/my-activities/{{activity.id}}" style="text-decoration:none; color:black;"><p style="font-weight: bold; text-align:center;">{{activity.activityType | translate}}</p>
+                    {{activity.description}}</a>
                 </ui-gmap-window>
             </ui-gmap-marker>
         </ui-gmap-google-map>

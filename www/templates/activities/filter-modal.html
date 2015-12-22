@@ -5,11 +5,11 @@
     </ion-header-bar>
     <ion-content>
         <ul class="list">
-            <li class="item item-icon-left item-checkbox" ng-repeat="categorie in categories">
-                <i class="{{categorie.icon}}"></i>
-                {{categorie.name | translate}}
+            <li class="item item-icon-left item-checkbox" ng-repeat="type in activityTypes">
+                <i class="{{type.icon}}"></i>
+                {{type.name | translate}}
                 <label class="checkbox checkbox-stable">
-                    <input type="checkbox" ng-click="includeCategorie('{{categorie.name}}')"/>
+                    <input type="checkbox" ng-click="includeType('{{type.name}}')"/>
                 </label>
             </li>
         </ul>

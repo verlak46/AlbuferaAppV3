@@ -109,9 +109,9 @@ angular.module('starter.services', [])
 
             return defer.promise;
         },
-        get: function (activitieId) {
+        get: function (activityId) {
             for (var i = 0; i < activities.length; i++) {
-                if (parseInt(activities[i].id) === parseInt(activitieId)) {
+                if (parseInt(activities[i].id) === parseInt(activityId)) {
                     return activities[i];
                 }
             }
@@ -122,8 +122,8 @@ angular.module('starter.services', [])
         },
         getAll: function () {
             return activities;
-        },
-        post: function(data) {
+        }
+        /*post: function(data) {
             var defer = $q.defer();
             
             $http({
@@ -137,7 +137,7 @@ angular.module('starter.services', [])
                 headers: {
                     'Authorization': 'Basic bashe64usename:password'
                 }*/
-            }).then(function(resp) {
+            /*}).then(function(resp) {
                 console.log('Success', resp);
                 activities = resp.data;
                 defer.resolve(resp.data);
@@ -150,7 +150,7 @@ angular.module('starter.services', [])
             });
 
             return defer.promise;
-        }
+        }*/
     };
 })
 
@@ -187,6 +187,43 @@ angular.module('starter.services', [])
         },
         getAll: function () {
             return categories;
+        }
+    };
+})
+
+.factory('ActivityTypes', function ($http, $q) {
+
+    var activityTypes = [];
+
+    return {
+        all: function () {
+            var defer = $q.defer();
+
+            $http.get(baseApiUrl + 'activity_types').then(function(resp) {
+                console.log('Success', resp);
+                // For JSON responses, resp.data contains the result
+                activityTypes = resp.data;
+                defer.resolve(resp.data);
+            }, function(err) {
+                console.error('ERR', err);
+                defer.resolve(err.status);
+                // err.status will contain the status code
+            });
+            return defer.promise;
+        },
+        get: function (activityTypeId) {
+            for (var i = 0; i < activityTypes.length; i++) {
+                if (parseInt(activityTypes[i].id) === parseInt(activityTypeId)) {
+                    return activityTypes[i];
+                }
+            }
+            return null;
+        },
+        save: function(data) {
+            activityTypes = data;
+        },
+        getAll: function () {
+            return activityTypes;
         }
     };
 })
@@ -249,6 +286,7 @@ angular.module('starter.services', [])
     $localStorage = $localStorage.$default({
         incidents: [],
         favorites: [],
+        favoritesActivities: [],
         firstVisit: true,
         language: ''
     });
@@ -366,6 +404,29 @@ factory('CategorieFilter', function () {
             }
 
             return incident; // Else, show!
+        }
+    };
+}).
+
+factory('ActivityTypeFilter', function () {
+    activityTypeIncludes = []; // This array contains the types to filter
+
+    return {
+        includeType: function (type) {
+            var i = activityTypeIncludes.indexOf(type);
+            if (i > -1) {
+                activityTypeIncludes.splice(i, 1); // Remove type from array
+            } else {
+                activityTypeIncludes.push(type); // Add type to array
+            }
+        },
+        filter: function (activity) { // Receive the activity passed by the angularjs filter and checks if the type is in the array
+            if (activityTypeIncludes.length > 0) {
+                if (activityTypeIncludes.indexOf(activity.activityType) < 0) // If the type of the activity is in the array...
+                    return; // .. don't show.
+            }
+
+            return activity; // Else, show!
         }
     };
 }).

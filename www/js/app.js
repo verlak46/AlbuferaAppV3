@@ -209,7 +209,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
         }
     })
 
-    .state('tab.activities-map', {
+        .state('tab.activities-map', {
             url: '/activities-map',
             views: {
                 'tab-activities': {
@@ -227,108 +227,15 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
                 }
             }
         })
-        .state('tab.new-activitie', {
-            url: '/new-activitie',
+        .state('tab.activity-detail', {
+            url: '/activities/:activityId',
             views: {
                 'tab-activities': {
-                    templateUrl: 'templates/activities/tab-new-activitie.html',
-                    controller: 'CategoriesCtrl'
+                    templateUrl: 'templates/activities/activity-detail.html',
+                    controller: 'ActivityDetailCtrl'
                 }
             }
         })
-        .state('tab.new-activitie-form', {
-            url: '/new/:categorieId',
-            views: {
-                'tab-activities': {
-                    templateUrl: 'templates/activities/new-activitie-form.html',
-                    controller: 'NewActivitieCtrl'
-                }
-            }
-        })
-      .state('tab.activitie-detail', {
-          url: '/activities/:activitieId',
-          views: {
-              'tab-activities': {
-                  templateUrl: 'templates/activities/activitie-detail.html',
-                  controller: 'ActivitieDetailCtrl'
-              }
-          }
-        })
-
-    .state('tab.my-activities', {
-        url: '/my-activities',
-        views: {
-            'tab-my-activities': {
-                templateUrl: 'templates/activities/tab-my-activities.html'
-                // controller: is called on tabs.html
-            }
-        }
-    })
-        .state('tab.my-activities-map', {
-            url: '/my-activities-map',
-            views: {
-                'tab-my-activities': {
-                    templateUrl: 'templates/activities/tab-my-activities-map.html',
-                    controller: 'MyActivitiesMapCtrl'
-                }
-            }
-        })
-        .state('tab.my-activities-grid', {
-            url: '/my-activities-grid',
-            views: {
-                'tab-my-activities': {
-                    templateUrl: 'templates/activities/tab-my-activities-grid.html'
-                    // controller: is called on tabs.html
-                }
-            }
-        })
-        .state('tab.my-activitie-detail', {
-            url: '/my-activities/:activitieId',
-            views: {
-                'tab-my-activities': {
-                    templateUrl: 'templates/activities/my-activitie-detail.html',
-                    controller: 'MyActivitieDetailCtrl'
-                }
-            }
-        })
-
-    .state('tab.favorites-activities', {
-        url: '/favorites-activities',
-        views: {
-            'tab-favorites-activities': {
-                templateUrl: 'templates/activities/tab-favorites-activities.html'
-                // controller: is called on tabs.html
-            }
-        }
-    })
-        .state('tab.favorites-activities-map', {
-            url: '/favorites-activities-map',
-            views: {
-                'tab-favorites-activities': {
-                    templateUrl: 'templates/activities/tab-favorites-activities-map.html',
-                    controller: 'FavoritesMapCtrl'
-                }
-            }
-        })
-        .state('tab.favorites-activities-grid', {
-            url: '/favorites-activities-grid',
-            views: {
-                'tab-favorites-activities': {
-                    templateUrl: 'templates/activities/tab-favorites-activities-grid.html'
-                    // controller: is called on tabs.html
-                }
-            }
-        })
-        .state('tab.favorite-activitie-detail', {
-            url: '/favorites-activitie/:activitieId',
-            views: {
-                'tab-favorites-activities': {
-                    templateUrl: 'templates/activities/favorite-activitie-detail.html',
-                    controller: 'FavoriteDetailCtrl'
-                }
-            }
-        })
-
     // ACCOUNT TAB
     .state('account', {
         url: '/account',

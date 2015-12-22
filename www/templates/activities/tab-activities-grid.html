@@ -1,9 +1,9 @@
-﻿<ion-view view-title="{{'INCIDENTS' | translate}}">
+﻿<ion-view view-title="{{'ACTIVITIES' | translate}}">
     <ion-content>
-            <ion-item collection-repeat="incident in incidents | filter:categorieFilter"
+            <ion-item collection-repeat="activity in activities | filter:typeFilter"
     			collection-item-height="200"
     			collection-item-width="'50%'">
-    			<a href="#/tab/incidents/{{incident.id}}"><img class="img-grid" ng-src="{{incident.image}}"></a>
+    			<a href="#/tab/activities/{{activity.id}}"><img class="img-grid" ng-src="{{activity.image}}"></a>
   			</ion-item>
 	</ion-content>
 </ion-view>

@@ -1,14 +1,14 @@
-﻿<ion-view view-title="{{ 'MY_INCIDENTS' | translate }}">
+﻿<ion-view view-title="{{ 'MY_ACTIVITIES' | translate }}">
     <ion-content>
-        <div class="card"  ng-show="incidents.length === 0">
+        <div class="card"  ng-show="activities.length === 0">
             <div class="item item-text-wrap" >
-                {{ 'STILL' | translate }}
+                {{ 'STILL_ACTIVITY' | translate }}
             </div>
         </div>
-        <ion-item collection-repeat="incident in incidents | filter:categorieFilter"
+        <ion-item collection-repeat="activity in activities | filter:typeFilter"
                 collection-item-height="200"
                 collection-item-width="'50%'">
-                <a href="#/tab/my-incidents/{{incident.id}}"><img class="img-grid" ng-src="{{incident.image}}"></a>
+                <a href="#/tab/my-activities/{{activity.id}}"><img class="img-grid" ng-src="{{activity.image}}"></a>
             </ion-item>
     </ion-content>
 </ion-view>
