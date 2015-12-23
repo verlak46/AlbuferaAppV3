@@ -16,10 +16,6 @@
     width: auto;
 }
 
-.popup-buttons .button {
-	background-color: #66cc33;
-}
-
 .tabs-stable > .tabs{
 	background-color: #385d28 !important;
 }
@@ -46,8 +42,4 @@ a.tab-item-active {
 
 .ion-person {
     font-size: 25px;
-}
-
-.ion-ios-arrow-back {
-    font-size: 35px;
 }

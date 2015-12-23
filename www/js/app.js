@@ -74,7 +74,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
         views: {
             'tab-incidents': {
                 templateUrl: 'templates/incidents/tab-incidents-map.html',
-                controller: 'IncidentsMapCtrl'
+                //controller: is called on tabs.html
             }
         }
     })
@@ -82,8 +82,8 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
             url: '/incidents',
             views: {
                 'tab-incidents': {
-                    templateUrl: 'templates/incidents/tab-incidents.html'
-                    // controller: is called on tabs.html
+                    templateUrl: 'templates/incidents/tab-incidents.html',
+                    controller: 'IncidentsCtrl'
                 }
             }
         })
@@ -91,8 +91,8 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
             url: '/incidents-grid',
             views: {
                 'tab-incidents': {
-                    templateUrl: 'templates/incidents/tab-incidents-grid.html'
-                    // controller: is called on tabs.html
+                    templateUrl: 'templates/incidents/tab-incidents-grid.html',
+                    controller: 'IncidentsCtrl'
                 }
             }
         })

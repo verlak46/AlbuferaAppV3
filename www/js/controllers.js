@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, $ionicModal, $filter, $translate, geolocation, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
+.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, geolocation, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
 
     $scope.incidents = '';
     
@@ -927,19 +927,7 @@ angular.module('starter.controllers', [])
 
     var account = StorageService.getAccount();
 
-    // Show BackButton control
-    $scope.showBackButton = function() {
-        if ($ionicHistory.currentView() !== null) {
-            if ($ionicHistory.currentView().url === "/account") {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return false;  
-    };
-
-    // Show AccountButton control
+    // Show or not AccountButton control on Tab
     $scope.showAccountButton = function() {
         if ($ionicHistory.currentView() !== null) {
             if ($ionicHistory.currentView().url === "/account") {
@@ -950,6 +938,11 @@ angular.module('starter.controllers', [])
         }
         return true;  
     };
+
+    // Force back button display
+    $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+        viewData.enableBack = true;
+    }); 
     
     // Form Validation
     $scope.account = {};
@@ -993,7 +986,7 @@ angular.module('starter.controllers', [])
 })
 
 // Set the state back to  the top of the tabs view stack whenever the tab is selected
-.controller('StateCtrl', function($scope, $state) {
+.controller('StateCtrl', function($scope, $state, $ionicHistory) {
 
     this.onTabSelected = function(_scope){
     // if we are selecting the home title then 
@@ -1001,27 +994,35 @@ angular.module('starter.controllers', [])
         switch (_scope.title) {
             case 'Incidencias':
                 $state.go('tab.incidents-map', {});
+                //$ionicHistory.clearHistory();
             break;
             case 'Incidents':
                 $state.go('tab.incidents-map', {});
+                //$ionicHistory.clearHistory();
             break;
             case 'Mis incidencias':
                 $state.go('tab.my-incidents-map', {});
+                $ionicHistory.clearHistory();
             break;
             case 'My incidents':
                 $state.go('tab.my-incidents-map', {});
+                $ionicHistory.clearHistory();
             break;
             case 'Favoritas':
                 $state.go('tab.favorites-map', {});
+                $ionicHistory.clearHistory();
             break;
             case 'Favorites':
                 $state.go('tab.favorites-map', {});
+                $ionicHistory.clearHistory();
             break;
             case 'Actividades':
                 $state.go('tab.activities-map', {});
+                $ionicHistory.clearHistory();
             break;
             case 'Activities':
                 $state.go('tab.activities-map', {});
+                $ionicHistory.clearHistory();
             break;
         }
     };
