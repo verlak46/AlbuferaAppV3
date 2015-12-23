@@ -199,8 +199,8 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.coords, $scope.incident.description,
-            null, null) // Share via native share sheet
+        .share($scope.incident.description, $scope.incident.coords,
+            $scope.incident.image, null) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -612,8 +612,8 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.coords, $scope.incident.description,
-            null, null) // Share via native share sheet
+        .share($scope.incident.description, $scope.incident.coords,
+            $scope.incident.image, null) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -747,8 +747,8 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.coords, $scope.incident.description,
-            null, null) // Share via native share sheet
+        .share($scope.incident.description, $scope.incident.coords,
+            $scope.incident.image, null) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -905,8 +905,8 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.activity.coords, $scope.activity.description,
-            null, null) // Share via native share sheet
+        .share($scope.activity.description, $scope.activity.coords,
+            $scope.activity.image, null) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
