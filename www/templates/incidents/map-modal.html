@@ -1,7 +1,7 @@
 <ion-modal-view>
     <ion-header-bar class="bar bar-header bar-stable">
         <h1 class="title">{{'ADD_COORDS' | translate}}</h1>
-        <button class="button button-clear button-primary" ng-click="closeModal(2)">{{'ACCEPT' | translate}}</button>
+        <button class="button button-icon ion-checkmark-round" ng-click="closeModal(2)"></button>
     </ion-header-bar>
     <ion-content scroll="false" data-tap-disabled="true">
         <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
