@@ -5,7 +5,7 @@
             <ui-gmap-marker coords="markerUser.coords" options="markerUser.options" idkey="10000">
             </ui-gmap-marker>
             <ui-gmap-marker ng-repeat="incident in incidents | filter:categorieFilter"
-                   coords="incident.coords" idkey="id + 1">
+                   coords="incident.coords" idkey="id + 1" options="marker.options">
                 <ui-gmap-window ng-cloak>
                     <a href="#/tab/incidents/{{incident.id}}" style="text-decoration:none; color:black;"><p class="titlewindow">{{incident.categorie | translate}}</p><p class="descriptionwindow">
                     {{incident.description}}</p><img class="imagewindow" ng-src="{{incident.image}}" /></a>

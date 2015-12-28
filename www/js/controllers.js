@@ -4,6 +4,12 @@ angular.module('starter.controllers', [])
 
     $scope.incidents = '';
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.marker = {
+        options: {
+            draggable: false,
+            icon: 'img/green_marker.png'
+        }
+    };
 
     // Setup the loader
     $ionicLoading.show({
@@ -376,7 +382,7 @@ angular.module('starter.controllers', [])
                 latitude: 39.333,
                 longitude: -0.367
               },
-              options: { draggable: true },
+              options: { draggable: true, icon: 'img/green_marker.png' },
               events: {
                 dragend: function (marker, eventName, args) {
                   $log.log('marker dragend');
@@ -599,6 +605,12 @@ angular.module('starter.controllers', [])
 
     $scope.incidents = StorageService.getAll();
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.marker = {
+        options: {
+            draggable: false,
+            icon: 'img/green_marker.png'
+        }
+    };
 
     // Setup the loader
     $ionicLoading.show({
@@ -726,6 +738,12 @@ angular.module('starter.controllers', [])
 
     $scope.incidents = StorageService.getAllFavorites();
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.marker = {
+        options: {
+            draggable: false,
+            icon: 'img/green_marker.png'
+        }
+    };
     
     // Setup the loader
     $ionicLoading.show({
@@ -877,6 +895,12 @@ angular.module('starter.controllers', [])
 
     $scope.activities = Activities.getAll();
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.marker = {
+        options: {
+            draggable: false,
+            icon: 'img/green_marker.png'
+        }
+    };
 
     // Setup the loader
     $ionicLoading.show({
