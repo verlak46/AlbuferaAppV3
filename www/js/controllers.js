@@ -12,8 +12,8 @@ angular.module('starter.controllers', [])
     };
 
     // Refresh Map
-    $scope.$on( "$ionicView.afterLeave", function() {
-        //$ionicHistory.clearCache();
+    $scope.$on( "$ionicView.enter", function() {
+        
     });
 
     // Setup the loader
@@ -575,7 +575,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('MyIncidentsCtrl', function ($scope, $ionicModal, $ionicLoading, StorageService, Categories, CategorieFilter) {
+.controller('MyIncidentsCtrl', function ($scope, $ionicLoading, StorageService, Categories, CategorieFilter) {
     // Setup the loader
     $ionicLoading.show({
         content: 'Cargando...',
@@ -590,26 +590,6 @@ angular.module('starter.controllers', [])
 
     $ionicLoading.hide();
 
-    // Load the modal from the given template URL
-    $ionicModal.fromTemplateUrl('templates/incidents/filter-modal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.modal = modal;
-    });
-
-    $scope.openModal = function () {
-        $scope.modal.show();
-    };
-
-    $scope.closeModal = function () {
-        $scope.modal.hide();
-    };
-
-    $scope.$on('$destroy', function () {
-        $scope.modal.remove();
-    });
-
     // CategorieFilter //
 
     $scope.includeCategorie = function (categorie) {
@@ -621,9 +601,10 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('MyIncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, StorageService, CategorieFilter) {
+.controller('MyIncidentsMapCtrl', function ($scope, $ionicModal, $stateParams, $ionicLoading, StorageService, Categories, CategorieFilter) {
 
     $scope.incidents = StorageService.getAll();
+    $scope.categories = Categories.getAll();
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
     $scope.marker = {
         options: {
@@ -673,6 +654,26 @@ angular.module('starter.controllers', [])
         alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
     }
 
+    // Load the modal from the given template URL
+    $ionicModal.fromTemplateUrl('templates/incidents/filter-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.openModal = function () {
+        $scope.modal.show();
+    };
+
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+
+    $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
+
     // CategorieFilter //
 
     $scope.includeCategorie = function (categorie) {
@@ -709,7 +710,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('FavoritesCtrl', function ($scope, $ionicModal, $ionicLoading, StorageService, Categories, CategorieFilter) {
+.controller('FavoritesCtrl', function ($scope, $ionicLoading, StorageService, Categories, CategorieFilter) {
 
     // Setup the loader
     $ionicLoading.show({
@@ -729,26 +730,6 @@ angular.module('starter.controllers', [])
         StorageService.removeFavorite(incident);
     };
 
-    // Load the modal from the given template URL
-    $ionicModal.fromTemplateUrl('templates/incidents/filter-modal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.modal = modal;
-    });
-
-    $scope.openModal = function () {
-        $scope.modal.show();
-    };
-
-    $scope.closeModal = function () {
-        $scope.modal.hide();
-    };
-
-    $scope.$on('$destroy', function () {
-        $scope.modal.remove();
-    });
-
     // CategorieFilter //
 
     $scope.includeCategorie = function (categorie) {
@@ -760,9 +741,10 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('FavoritesMapCtrl', function ($scope, $stateParams, $ionicLoading, StorageService, CategorieFilter) {
+.controller('FavoritesMapCtrl', function ($scope, $ionicModal, $stateParams, $ionicLoading, StorageService, Categories, CategorieFilter) {
 
     $scope.incidents = StorageService.getAllFavorites();
+    $scope.categories = Categories.getAll();
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
     $scope.marker = {
         options: {
@@ -812,6 +794,26 @@ angular.module('starter.controllers', [])
         alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
     }
 
+    // Load the modal from the given template URL
+    $ionicModal.fromTemplateUrl('templates/incidents/filter-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.openModal = function () {
+        $scope.modal.show();
+    };
+
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+
+    $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
+
     // CategorieFilter //
 
     $scope.includeCategorie = function (categorie) {
@@ -848,31 +850,11 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivitiesCtrl', function ($scope, $filter, $cordovaSocialSharing, $ionicModal, Activities, ActivityTypes, ActivityTypeFilter, StorageService) {
+.controller('ActivitiesCtrl', function ($scope, $filter, $cordovaSocialSharing, Activities, ActivityTypes, ActivityTypeFilter, StorageService) {
 
     $scope.activities = Activities.getAll();
     $scope.activityTypes = ActivityTypes.getAll();
     console.log($scope.activityTypes);
-
-    // Load the modal from the given template URL
-    $ionicModal.fromTemplateUrl('templates/activities/filter-modal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.modal = modal;
-    });
-
-    $scope.openModal = function () {
-        $scope.modal.show();
-    };
-
-    $scope.closeModal = function () {
-        $scope.modal.hide();
-    };
-
-    $scope.$on('$destroy', function () {
-        $scope.modal.remove();
-    });
 
     // On pull refresh
     $scope.doRefresh = function() {
@@ -923,9 +905,10 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivitiesMapCtrl', function ($scope, $stateParams, $ionicLoading, Activities, ActivityTypeFilter) {
+.controller('ActivitiesMapCtrl', function ($scope, $ionicModal, $stateParams, $ionicLoading, Activities, ActivityTypes, ActivityTypeFilter) {
 
     $scope.activities = Activities.getAll();
+    $scope.activityTypes = ActivityTypes.getAll();
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
     $scope.marker = {
         options: {
@@ -975,6 +958,26 @@ angular.module('starter.controllers', [])
     function onError(error) {
         alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
     }
+
+    // Load the modal from the given template URL
+    $ionicModal.fromTemplateUrl('templates/activities/filter-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.openModal = function () {
+        $scope.modal.show();
+    };
+
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+
+    $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
 
     // TypeFilter //
     $scope.includeType = function (type) {

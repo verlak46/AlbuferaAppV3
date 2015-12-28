@@ -74,7 +74,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
         views: {
             'tab-incidents': {
                 templateUrl: 'templates/incidents/tab-incidents-map.html',
-                //controller: is called on tabs.html
+                controller: 'IncidentsMapCtrl'
             }
         }
     })
@@ -87,7 +87,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
                 }
             }
         })
-        .state('tab.incidents-grid', {
+        /*.state('tab.incidents-grid', {
             url: '/incidents-grid',
             views: {
                 'tab-incidents': {
@@ -95,7 +95,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
                     controller: 'IncidentsCtrl'
                 }
             }
-        })
+        })*/
         .state('tab.new', {
             url: '/new',
             views: {
@@ -127,7 +127,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
     // MY INCIDENTS TABS
     .state('tab.my-incidents-map', {
         url: '/my-incidents-map',
-        cache: false,
         views: {
             'tab-my-incidents': {
                 templateUrl: 'templates/incidents/tab-my-incidents-map.html',
@@ -139,13 +138,13 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
             url: '/my-incidents',
             views: {
                 'tab-my-incidents': {
-                    templateUrl: 'templates/incidents/tab-my-incidents.html'
-                    // controller: is called on tabs.html
+                    templateUrl: 'templates/incidents/tab-my-incidents.html',
+                    controller: 'MyIncidentsCtrl'
                 }
             }
         })
         
-        .state('tab.my-incidents-grid', {
+        /*.state('tab.my-incidents-grid', {
             url: '/my-incidents-grid',
             views: {
                 'tab-my-incidents': {
@@ -153,7 +152,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
                     // controller: is called on tabs.html
                 }
             }
-        })
+        })*/
         .state('tab.my-incident-detail', {
             url: '/my-incidents/:incidentId',
             views: {
@@ -178,13 +177,13 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
             url: '/favorites',
             views: {
                 'tab-favorites': {
-                    templateUrl: 'templates/incidents/tab-favorites.html'
-                    // controller: is called on tabs.html
+                    templateUrl: 'templates/incidents/tab-favorites.html',
+                    controller: 'FavoritesCtrl'
                 }
             }
         })
         
-        .state('tab.favorites-grid', {
+        /*.state('tab.favorites-grid', {
             url: '/favorites-grid',
             views: {
                 'tab-favorites': {
@@ -192,7 +191,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
                     // controller: is called on tabs.html
                 }
             }
-        })
+        })*/
         .state('tab.favorite-detail', {
             url: '/favorites/:incidentId',
             views: {
@@ -217,13 +216,12 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
             url: '/activities',
             views: {
                 'tab-activities': {
-                    templateUrl: 'templates/activities/tab-activities.html'
-                    // controller: is called on tabs.html
+                    templateUrl: 'templates/activities/tab-activities.html',
+                    controller: 'ActivitiesCtrl'
                 }
             }
         })
-
-        .state('tab.activities-grid', {
+        /*.state('tab.activities-grid', {
             url: '/activities-grid',
             views: {
                 'tab-activities': {
@@ -231,7 +229,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
                     // controller: is called on tabs.html
                 }
             }
-        })
+        })*/
         .state('tab.activity-detail', {
             url: '/activities/:activityId',
             views: {

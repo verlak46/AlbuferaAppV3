@@ -8,12 +8,18 @@
                    coords="activity.coords" idkey="id + 1" options="marker.options">
                 <ui-gmap-window ng-cloak>
                     <div class="window">
-                    <a href="#/tab/activities/{{activity.id}}" style="text-decoration:none; color:black;"><p style="font-weight: bold; text-align:center;">{{activity.activityType | translate}}</p>
-                    {{activity.description}}</a>
+                    <a href="#/tab/activities/{{activity.id}}" style="text-decoration:none; color:black;"><p class="titlewindow">{{activity.activityType | translate}}</p><p class="descriptionwindow">
+                    {{activity.description}}</p><img class="imagewindow" ng-src="{{activity.image}}" /></a>
                     </div>
                 </ui-gmap-window>
             </ui-gmap-marker>
         </ui-gmap-google-map>
+        <ion-footer-bar class="bar-stable footer-button">
+                <button class="button button-stable icon-left ion-ios-location" onclick="window.location.href='#/tab/activities-map'"></button>
+                <button class="button button-stable icon-left ion-ios-list" onclick="window.location.href='#/tab/activities'"></button>
+                <!--<button class="button button-stable icon-left ion-grid" onclick="window.location.href='#/tab/activities-grid'"></button>-->
+                <button class="button button-stable icon-left ion-funnel" ng-click="openModal()">{{ 'FILTER' | translate }}</button>
+        </ion-footer-bar>
     </ion-content>
 </ion-view>
 </div>
