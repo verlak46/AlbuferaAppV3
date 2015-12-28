@@ -13,7 +13,7 @@ angular.module('starter.controllers', [])
 
     // Refresh Map
     $scope.$on( "$ionicView.enter", function() {
-        
+        $scope.incidents = Incidents.getAll();
     });
 
     // Setup the loader
@@ -271,7 +271,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('NewIncidentCtrl', function ($scope, $stateParams, $state, $ionicModal, $filter, $log, $ionicPopup, $ionicLoading, Images, Incidents, Categories, StorageService, IDGenerator) {
+.controller('NewIncidentCtrl', function ($scope, $ionicHistory, $stateParams, $state, $ionicModal, $filter, $log, $ionicPopup, $ionicLoading, Images, Incidents, Categories, StorageService, IDGenerator) {
     
     $scope.categorie = Categories.get($stateParams.categorieId);
     $scope.newForm = {};
@@ -305,6 +305,7 @@ angular.module('starter.controllers', [])
     });
 
     $scope.openModal = function(index) {
+      $ionicHistory.clearCache();
       if (index == 1) $scope.oModal1.show();
       else $scope.oModal2.show();
     };
@@ -358,6 +359,8 @@ angular.module('starter.controllers', [])
 
     // Incident coordenades
     $scope.getCoordenades = function () {
+
+        $ionicHistory.clearCache();
 
         $scope.openModal(2);
 
@@ -614,9 +617,8 @@ angular.module('starter.controllers', [])
     };
 
     // Refresh Map
-    $scope.$on('$ionicView.enter', function() {
-    // code to run each time view is entered
-        //$ionicHistory.clearCache();
+    $scope.$on( "$ionicView.enter", function() {
+        $scope.incidents = StorageService.getAll();
     });
 
     // Setup the loader
@@ -752,13 +754,12 @@ angular.module('starter.controllers', [])
             icon: 'img/green_marker.png'
         }
     };
-
-    // Refresh Map
-    $scope.$on('$ionicView.enter', function() {
-    // code to run each time view is entered
-        //$ionicHistory.clearCache();
-    });
     
+    // Refresh Map
+    $scope.$on( "$ionicView.enter", function() {
+        $scope.incidents = StorageService.getAllFavorites();
+    });
+
     // Setup the loader
     $ionicLoading.show({
         content: 'Cargando...',
@@ -918,9 +919,8 @@ angular.module('starter.controllers', [])
     };
 
     // Refresh Map
-    $scope.$on('$ionicView.enter', function() {
-    // code to run each time view is entered
-        //$ionicHistory.clearCache();
+    $scope.$on( "$ionicView.enter", function() {
+        $scope.incidents = Activities.getAll();
     });
 
     // Setup the loader
@@ -1014,7 +1014,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('AccountCtrl', function ($scope, $ionicPopup, $filter, $translate, $ionicHistory, StorageService) {
+.controller('AccountCtrl', function ($scope, $ionicHistory, $ionicPopup, $filter, $translate, $ionicHistory, StorageService) {
 
     var account = StorageService.getAccount();
 
@@ -1074,10 +1074,10 @@ angular.module('starter.controllers', [])
         StorageService.setLanguage(key);
         $translate.use(key);
     };
-})
+});
 
 // Set the state back to  the top of the tabs view stack whenever the tab is selected
-.controller('StateCtrl', function($scope, $state, $ionicHistory) {
+/*.controller('StateCtrl', function($scope, $state, $ionicHistory) {
 
     this.onTabSelected = function(_scope){
     // if we are selecting the home title then 
@@ -1109,4 +1109,4 @@ angular.module('starter.controllers', [])
             break;
         }
     };
-});
+});*/

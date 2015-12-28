@@ -81,3 +81,7 @@ a.tab-item-active {
 a.tab-item.ng-binding {
     color:  #385d28 !important;
 }
+
+.gmnoprint {
+    height: 0px;
+}
