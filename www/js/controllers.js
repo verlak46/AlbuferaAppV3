@@ -52,7 +52,7 @@ angular.module('starter.controllers', [])
         var notSentIncidents = StorageService.getAllNotSent();
 
         for (var i = 0; i < notSentIncidents.length; i++) {
-            
+             
             var newIncident = StorageService.getNotSent(notSentIncidents[i].id);
 
             newIncident.categorie = newIncident.categorieId;
@@ -158,6 +158,16 @@ angular.module('starter.controllers', [])
     // CategorieFilter //
 
     $scope.includeCategorie = function (categorie) {
+        // Setup the loader
+        $ionicLoading.show({
+        content: 'Cargando...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0,
+        duration: 3000,
+        });
+
         CategorieFilter.includeCategorie(categorie);
     };
 
@@ -202,6 +212,16 @@ angular.module('starter.controllers', [])
 
     // CategorieFilter //
     $scope.includeCategorie = function (categorie) {
+        // Setup the loader
+        $ionicLoading.show({
+        content: 'Cargando...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0,
+        duration: 3000,
+        });
+
         CategorieFilter.includeCategorie(categorie);
     };
 
@@ -596,6 +616,16 @@ angular.module('starter.controllers', [])
     // CategorieFilter //
 
     $scope.includeCategorie = function (categorie) {
+        // Setup the loader
+        $ionicLoading.show({
+        content: 'Cargando...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0,
+        duration: 3000,
+        });
+
         CategorieFilter.includeCategorie(categorie);
     };
 
@@ -679,6 +709,16 @@ angular.module('starter.controllers', [])
     // CategorieFilter //
 
     $scope.includeCategorie = function (categorie) {
+        // Setup the loader
+        $ionicLoading.show({
+        content: 'Cargando...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0,
+        duration: 3000,
+        });
+
         CategorieFilter.includeCategorie(categorie);
     };
 
@@ -735,6 +775,16 @@ angular.module('starter.controllers', [])
     // CategorieFilter //
 
     $scope.includeCategorie = function (categorie) {
+        // Setup the loader
+        $ionicLoading.show({
+        content: 'Cargando...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0,
+        duration: 3000,
+        });
+
         CategorieFilter.includeCategorie(categorie);
     };
 
@@ -818,6 +868,16 @@ angular.module('starter.controllers', [])
     // CategorieFilter //
 
     $scope.includeCategorie = function (categorie) {
+        // Setup the loader
+        $ionicLoading.show({
+        content: 'Cargando...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0,
+        duration: 3000,
+        });
+
         CategorieFilter.includeCategorie(categorie);
     };
 
@@ -898,6 +958,16 @@ angular.module('starter.controllers', [])
 
     // TypeFilter //
     $scope.includeType = function (type) {
+        // Setup the loader
+        $ionicLoading.show({
+        content: 'Cargando...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0,
+        duration: 3000,
+        });
+
         ActivityTypeFilter.includeType(type);
     };
 
@@ -981,6 +1051,16 @@ angular.module('starter.controllers', [])
 
     // TypeFilter //
     $scope.includeType = function (type) {
+        // Setup the loader
+        $ionicLoading.show({
+        content: 'Cargando...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0,
+        duration: 3000,
+        });
+        
         ActivityTypeFilter.includeType(type);
     };
 
