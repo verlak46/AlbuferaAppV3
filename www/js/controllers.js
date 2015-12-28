@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
+.controller('IncidentsMapCtrl', function ($ionicHistory, $scope, $stateParams, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
 
     $scope.incidents = '';
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
@@ -10,6 +10,12 @@ angular.module('starter.controllers', [])
             icon: 'img/green_marker.png'
         }
     };
+
+    // Refresh Map
+    $scope.$on('$ionicView.enter', function() {
+    // code to run each time view is entered
+        $ionicHistory.clearCache();
+    });
 
     // Setup the loader
     $ionicLoading.show({
@@ -270,6 +276,7 @@ angular.module('starter.controllers', [])
     
     $scope.categorie = Categories.get($stateParams.categorieId);
     $scope.newForm = {};
+
     var incidentCoords, userCoords;
 
     // default userCoords
@@ -350,7 +357,7 @@ angular.module('starter.controllers', [])
         });
     };
 
-    // Geolocation
+    // Incident coordenades
     $scope.getCoordenades = function () {
 
         $scope.openModal(2);
@@ -363,9 +370,6 @@ angular.module('starter.controllers', [])
             maxWidth: 200,
             showDelay: 0,
         });
-
-        //Center's the map on Albufera coords
-        $scope.map = { center: { latitude: 39.396, longitude: -0.494 }, zoom: 12};
 
         $scope.newForm.coords = "39.333" + ", " + "-0.367";
 
@@ -398,6 +402,7 @@ angular.module('starter.controllers', [])
 
                   $scope.marker.options = {
                     draggable: true,
+                    icon: 'img/green_marker.png',
                     labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
                     labelAnchor: "100 0",
                     labelClass: "marker-labels"
@@ -406,8 +411,11 @@ angular.module('starter.controllers', [])
             }
         };
 
+        //Center's the map on Albufera coords
+        $scope.map = { center: { latitude: $scope.marker.coords.latitude, longitude: $scope.marker.coords.longitude }, zoom: 12};
+
         $scope.windowOptions = {
-            visible: true
+            visible: false
         };
 
         $scope.onClick = function () {
@@ -429,6 +437,19 @@ angular.module('starter.controllers', [])
                 coords: {
                     latitude: data.coords.latitude,
                     longitude: data.coords.longitude
+                }
+            };
+
+            $scope.markerUser = {
+                id: 1000,
+                show: false,
+                coords: {
+                    latitude: data.coords.latitude,
+                    longitude: data.coords.longitude
+                },
+                options: {
+                    draggable: false,
+                    icon: 'img/pegman.png'
                 }
             };
         }
@@ -612,6 +633,12 @@ angular.module('starter.controllers', [])
         }
     };
 
+    // Refresh Map
+    $scope.$on('$ionicView.enter', function() {
+    // code to run each time view is entered
+        $ionicHistory.clearCache();
+    });
+
     // Setup the loader
     $ionicLoading.show({
         content: 'Cargando...',
@@ -744,6 +771,12 @@ angular.module('starter.controllers', [])
             icon: 'img/green_marker.png'
         }
     };
+
+    // Refresh Map
+    $scope.$on('$ionicView.enter', function() {
+    // code to run each time view is entered
+        $ionicHistory.clearCache();
+    });
     
     // Setup the loader
     $ionicLoading.show({
@@ -901,6 +934,12 @@ angular.module('starter.controllers', [])
             icon: 'img/green_marker.png'
         }
     };
+
+    // Refresh Map
+    $scope.$on('$ionicView.enter', function() {
+    // code to run each time view is entered
+        $ionicHistory.clearCache();
+    });
 
     // Setup the loader
     $ionicLoading.show({

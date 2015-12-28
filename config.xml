@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.albuferaapp364220" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>albuferaApp</name>
-  <description>&#xD;&#xD;
-        An Ionic Framework and Cordova project for manage Albufera's incidents.&#xD;&#xD;
+
+    <description>
+        Gestiona las incidencias de la Albufera
     </description>
-  <author email="ivan.easypyme@gmail.com" href="https://github.com/verlak46/AlbuferaAppV3">&#xD;&#xD;
-      Easy Pyme&#xD;&#xD;
+
+    <author href="http://www.easypyme.es" email="soporte@easypyme.es">
+        EasyPyme desarrollo de herramientas para la PYME.
     </author>
   <content src="index.html"/>
   <access origin="*"/>
