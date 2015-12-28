@@ -57,6 +57,12 @@ a.tab-item-active {
 
 .descriptionwindow{
     font-family: 'RalewayMedium';
+    height: 60px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .imagewindow {
