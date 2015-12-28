@@ -5,7 +5,7 @@
             <ui-gmap-marker coords="markerUser.coords" options="markerUser.options" idkey="10000">
             </ui-gmap-marker>
             <ui-gmap-marker ng-repeat="activity in activities | filter:typeFilter"
-                   coords="activity.coords" idkey="id + 1">
+                   coords="activity.coords" idkey="id + 1" options="marker.options">
                 <ui-gmap-window ng-cloak>
                     <a href="#/tab/activities/{{activity.id}}" style="text-decoration:none; color:black;"><p style="font-weight: bold; text-align:center;">{{activity.activityType | translate}}</p>
                     {{activity.description}}</a>
