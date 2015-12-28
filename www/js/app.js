@@ -124,6 +124,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
           }
       })
 
+    // MY INCIDENTS TABS
     .state('tab.my-incidents-map', {
         url: '/my-incidents-map',
         views: {
@@ -162,6 +163,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
             }
         })
 
+    // FAVORITES TABS
     .state('tab.favorites-map', {
         url: '/favorites-map',
         views: {

@@ -7,8 +7,8 @@
             <ui-gmap-marker ng-repeat="incident in incidents | filter:categorieFilter"
                    coords="incident.coords" idkey="id + 1">
                 <ui-gmap-window ng-cloak>
-                    <a href="#/tab/my-incidents/{{incident.id}}" style="text-decoration:none; color:black;"><p style="font-weight: bold; text-align:center;">{{incident.categorie | translate}}</p>
-                    {{incident.description}}</a>
+                    <a href="#/tab/incidents/{{incident.id}}" style="text-decoration:none; color:black;"><p class="titlewindow">{{incident.categorie | translate}}</p><p class="descriptionwindow">
+                    {{incident.description}}</p><img class="imagewindow" ng-src="{{incident.image}}" /></a>
                 </ui-gmap-window>
             </ui-gmap-marker>
         </ui-gmap-google-map>

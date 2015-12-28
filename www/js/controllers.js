@@ -1020,11 +1020,11 @@ angular.module('starter.controllers', [])
         switch (_scope.title) {
             case 'Incidencias':
                 $state.go('tab.incidents-map', {});
-                //$ionicHistory.clearHistory();
+                $ionicHistory.clearHistory();
             break;
             case 'Incidents':
                 $state.go('tab.incidents-map', {});
-                //$ionicHistory.clearHistory();
+                $ionicHistory.clearHistory();
             break;
             case 'Mis incidencias':
                 $state.go('tab.my-incidents-map', {});
