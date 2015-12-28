@@ -1,16 +1,29 @@
 angular.module('starter.controllers', [])
 
-.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, geolocation, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
+.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
 
     $scope.incidents = '';
-    
+    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.marker = {
+        options: {
+            draggable: false,
+            icon: 'img/green_marker.png'
+        }
+    };
+
+    // Refresh Map
+    $scope.$on( "$ionicView.afterLeave", function() {
+        //$ionicHistory.clearCache();
+    });
+
     // Setup the loader
     $ionicLoading.show({
         content: 'Cargando...',
         animation: 'fade-in',
         showBackdrop: true,
         maxWidth: 200,
-        showDelay: 0
+        showDelay: 0,
+        duration: 5000,
     });
 
     // Data initialization
@@ -35,8 +48,54 @@ angular.module('starter.controllers', [])
         Activities.save(data.activities);
         ActivityTypes.save(data.activityTypes);
 
-        $ionicLoading.hide();
+        // Check if there are any incident to sent
+        var notSentIncidents = StorageService.getAllNotSent();
+
+        for (var i = 0; i < notSentIncidents.length; i++) {
+            
+            var newIncident = StorageService.getNotSent(notSentIncidents[i].id);
+
+            newIncident.categorie = newIncident.categorieId;
+
+            Incidents.post(newIncident).then(function(data) {
+
+                if (data === 'error') {
+                    console.log('Error');
+                } else {
+                    // Remove incident from not sent
+                    var localIncident = StorageService.getNotSent(notSentIncidents[i].id);
+                    StorageService.removeNotSent(localIncident);
+                }
+            });
+        }
     });
+
+    // Geolocation
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+    // onSuccess Geolocation
+    function onSuccess(data) {
+        
+        // Mark's user location
+        $scope.markerUser = {
+            id: 1000,
+            show: false,
+            coords: {
+                latitude: data.coords.latitude,
+                longitude: data.coords.longitude
+            },
+            options: {
+                draggable: false,
+                icon: 'img/pegman.png'
+            }
+        };
+    }
+
+    // onError Callback receives a PositionError object
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+    }
+
 
     if (StorageService.isFirstVisit()) {
         // Language Selection at first visit
@@ -76,48 +135,6 @@ angular.module('starter.controllers', [])
         $translate.use(StorageService.getLanguage());
     }
 
-    // Setup the loader
-    $ionicLoading.show({
-        content: 'Cargando...',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0
-    });
-
-    geolocation.getLocation().then(function (data) {
-        //Center's the map on Albufera coords
-        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
-
-        // Mark's user location
-        $scope.marker = {
-            id: 0,
-            show: false,
-            coords: {
-                latitude: data.coords.latitude,
-                longitude: data.coords.longitude
-            },
-            options: {
-                draggable: false,
-                icon: 'img/pegman.png'
-            }
-        };
-
-        $scope.windowOptions = {
-            visible: false
-        };
-
-        $scope.onClick = function () {
-            $scope.windowOptions.visible = !$scope.windowOptions.visible;
-        };
-
-        $scope.closeClick = function () {
-            $scope.windowOptions.visible = false;
-        };
-
-        $ionicLoading.hide();
-    });
-
     // Load the modal from the given template URL
     $ionicModal.fromTemplateUrl('templates/incidents/filter-modal.html', {
         scope: $scope,
@@ -147,6 +164,7 @@ angular.module('starter.controllers', [])
     $scope.categorieFilter = function (incident) {
         return CategorieFilter.filter(incident);
     };
+
 })
 
 .controller('IncidentsCtrl', function ($scope, $ionicPopup, $ionicLoading, $filter, $translate, Incidents, Categories, CategorieFilter) {
@@ -253,11 +271,20 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('NewIncidentCtrl', function ($scope, $stateParams, $state, $ionicModal, $filter, $log, $ionicPopup, $ionicLoading, geolocation, Images, Incidents, Categories, StorageService, IDGenerator) {
+.controller('NewIncidentCtrl', function ($scope, $stateParams, $state, $ionicModal, $filter, $log, $ionicPopup, $ionicLoading, Images, Incidents, Categories, StorageService, IDGenerator) {
     
     $scope.categorie = Categories.get($stateParams.categorieId);
     $scope.newForm = {};
+
     var incidentCoords, userCoords;
+
+    // default userCoords
+    userCoords = {
+        coords: {
+            latitude: 1,
+            longitude: 1
+        }
+     };
 
     // Modal 1
     $ionicModal.fromTemplateUrl('templates/incidents/new-incident-image-modal.html', {
@@ -329,7 +356,7 @@ angular.module('starter.controllers', [])
         });
     };
 
-    // Geolocation
+    // Incident coordenades
     $scope.getCoordenades = function () {
 
         $scope.openModal(2);
@@ -340,34 +367,25 @@ angular.module('starter.controllers', [])
             animation: 'fade-in',
             showBackdrop: true,
             maxWidth: 200,
-            showDelay: 0
+            showDelay: 0,
         });
 
-        geolocation.getLocation().then(function (data) {
-            //Center's the map on Albufera coords
-            $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 12};
-            $scope.newForm.coords = data.coords.latitude + ", " + data.coords.longitude;
-            userCoords = {
-                coords: {
-                    latitude: data.coords.latitude,
-                    longitude: data.coords.longitude
-                }
-            };
+        $scope.newForm.coords = "39.333" + ", " + "-0.367";
 
-            incidentCoords = {
-                coords: {
-                    latitude: data.coords.latitude,
-                    longitude: data.coords.longitude
-                }
-            };
-                        
-            $scope.marker = {
+        incidentCoords = {
+            coords: {
+                latitude: 39.333,
+                longitude: -0.367
+            }
+        };
+
+        $scope.marker = {
               id: 0,
               coords: {
-                latitude: data.coords.latitude,
-                longitude: data.coords.longitude
+                latitude: 39.333,
+                longitude: -0.367
               },
-              options: { draggable: true },
+              options: { draggable: true, icon: 'img/green_marker.png' },
               events: {
                 dragend: function (marker, eventName, args) {
                   $log.log('marker dragend');
@@ -383,28 +401,62 @@ angular.module('starter.controllers', [])
 
                   $scope.marker.options = {
                     draggable: true,
+                    icon: 'img/green_marker.png',
                     labelContent: "lat: " + $scope.marker.coords.latitude + ' ' + 'lon: ' + $scope.marker.coords.longitude,
                     labelAnchor: "100 0",
                     labelClass: "marker-labels"
                   };
                 }
-              }
+            }
+        };
+
+        //Center's the map on Albufera coords
+        $scope.map = { center: { latitude: $scope.marker.coords.latitude, longitude: $scope.marker.coords.longitude }, zoom: 12};
+
+        $scope.windowOptions = {
+            visible: false
+        };
+
+        $scope.onClick = function () {
+            $scope.windowOptions.visible = !$scope.windowOptions.visible;
+        };
+
+        $scope.closeClick = function () {
+            $scope.windowOptions.visible = false;
+        };
+
+        $ionicLoading.hide();
+
+        // Geolocation
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+        // onSuccess Geolocation
+        function onSuccess(data) {
+            userCoords = {
+                coords: {
+                    latitude: data.coords.latitude,
+                    longitude: data.coords.longitude
+                }
             };
 
-            $scope.windowOptions = {
-                visible: true
+            $scope.markerUser = {
+                id: 1000,
+                show: false,
+                coords: {
+                    latitude: data.coords.latitude,
+                    longitude: data.coords.longitude
+                },
+                options: {
+                    draggable: false,
+                    icon: 'img/pegman.png'
+                }
             };
+        }
 
-            $scope.onClick = function () {
-                $scope.windowOptions.visible = !$scope.windowOptions.visible;
-            };
-
-            $scope.closeClick = function () {
-                $scope.windowOptions.visible = false;
-            };
-
-            $ionicLoading.hide();
-        });
+        // onError Callback receives a PositionError object
+        function onError(error) {
+            alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+        }
     };
 
     // Form Validation
@@ -419,6 +471,15 @@ angular.module('starter.controllers', [])
 
     // Send incident
     $scope.submit = function () {
+
+        // Setup the loader
+        $ionicLoading.show({
+            content: 'Cargando...',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0,
+        });
 
         var newIncident = {
             //id: parseInt(IDGenerator.generate()),
@@ -451,17 +512,27 @@ angular.module('starter.controllers', [])
             coords: {
                 latitude: incidentCoords.coords.latitude,
                 longitude: incidentCoords.coords.longitude
-            }
+            },
+            account: {
+                name: $scope.newForm.name,
+                subname: $scope.newForm.subname,
+                email: $scope.newForm.email,
+                phone: $scope.newForm.phone,
+                coords: {
+                    latitude: userCoords.coords.latitude,
+                    longitude: userCoords.coords.latitude
+                }
+            },
+            categorieId: parseInt($scope.categorie.id),
         };
 
         console.log(newIncident);
 
-        // Save Local Incident
-        StorageService.add(newIncidentLocal);
-
         // Send remote Incident...
         Incidents.post(newIncident).then(function(data) {
             console.log(data);
+
+            $ionicLoading.hide();
 
             if (data === 'error') {
                 $scope.showErrorAlert = function () {
@@ -474,10 +545,11 @@ angular.module('starter.controllers', [])
                     alertPopup.then(function (res) {
                     });
                 };
-
                 $scope.showErrorAlert();
 
-                return;
+                // Save Local Incident
+                StorageService.add(newIncidentLocal);
+                StorageService.addNotSent(newIncidentLocal);
             } else {
                 // An alert dialog on success
                 $scope.showSuccessAlert = function () {
@@ -489,12 +561,15 @@ angular.module('starter.controllers', [])
                     alertPopup.then(function (res) {
                     });
                 };
-
                 $scope.showSuccessAlert();
+
+                // Save Local Incident
+                StorageService.add(newIncidentLocal);
+                $scope.newForm = {};
             }
 
             setTimeout(function() {
-                $state.go('tab.incidents', {}, { reload: true });
+                $state.go('tab.incidents-map', {}, { reload: true });
             },20);
         });
     };
@@ -546,9 +621,22 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('MyIncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, StorageService, CategorieFilter) {
+.controller('MyIncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, StorageService, CategorieFilter) {
 
     $scope.incidents = StorageService.getAll();
+    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.marker = {
+        options: {
+            draggable: false,
+            icon: 'img/green_marker.png'
+        }
+    };
+
+    // Refresh Map
+    $scope.$on('$ionicView.enter', function() {
+    // code to run each time view is entered
+        //$ionicHistory.clearCache();
+    });
 
     // Setup the loader
     $ionicLoading.show({
@@ -556,16 +644,18 @@ angular.module('starter.controllers', [])
         animation: 'fade-in',
         showBackdrop: true,
         maxWidth: 200,
-        showDelay: 0
+        showDelay: 0,
+        duration: 5000
     });
 
-    geolocation.getLocation().then(function (data) {
-        //Center's the map on Albufera coords
-        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    // Geolocation
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
-        //Mark's user location
-        $scope.marker = {
-            id: 0,
+    // onSuccess Geolocation
+    function onSuccess(data) {
+        // Mark's user location
+        $scope.markerUser = {
+            id: 1000,
             show: false,
             coords: {
                 latitude: data.coords.latitude,
@@ -576,23 +666,12 @@ angular.module('starter.controllers', [])
                 icon: 'img/pegman.png'
             }
         };
+    }
 
-        $scope.windowOptions = {
-            visible: false
-        };
-
-        $scope.onClick = function () {
-            $scope.windowOptions.visible = !$scope.windowOptions.visible;
-        };
-
-        $scope.closeClick = function () {
-            $scope.windowOptions.visible = false;
-        };
-
-        $scope.title = "INFO";
-
-        $ionicLoading.hide();
-    });
+    // onError Callback receives a PositionError object
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+    }
 
     // CategorieFilter //
 
@@ -681,9 +760,22 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('FavoritesMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, StorageService, CategorieFilter) {
+.controller('FavoritesMapCtrl', function ($scope, $stateParams, $ionicLoading, StorageService, CategorieFilter) {
 
     $scope.incidents = StorageService.getAllFavorites();
+    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.marker = {
+        options: {
+            draggable: false,
+            icon: 'img/green_marker.png'
+        }
+    };
+
+    // Refresh Map
+    $scope.$on('$ionicView.enter', function() {
+    // code to run each time view is entered
+        //$ionicHistory.clearCache();
+    });
     
     // Setup the loader
     $ionicLoading.show({
@@ -691,15 +783,17 @@ angular.module('starter.controllers', [])
         animation: 'fade-in',
         showBackdrop: true,
         maxWidth: 200,
-        showDelay: 0
+        showDelay: 0,
+        duration: 5000
     });
 
-    geolocation.getLocation().then(function (data) {
-        //Center's the map on Albufera coords
-        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    // Geolocation
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
+    // onSuccess Geolocation
+    function onSuccess(data) {
         // Mark's user location
-        $scope.marker = {
+        $scope.markerUser = {
             id: 0,
             show: false,
             coords: {
@@ -711,23 +805,12 @@ angular.module('starter.controllers', [])
                 icon: 'img/pegman.png'
             }
         };
+    }
 
-        $scope.windowOptions = {
-            visible: false
-        };
-
-        $scope.onClick = function () {
-            $scope.windowOptions.visible = !$scope.windowOptions.visible;
-        };
-
-        $scope.closeClick = function () {
-            $scope.windowOptions.visible = false;
-        };
-
-        $scope.title = "INFO";
-
-        $ionicLoading.hide();
-    });
+    // onError Callback receives a PositionError object
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+    }
 
     // CategorieFilter //
 
@@ -840,9 +923,22 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivitiesMapCtrl', function ($scope, $stateParams, $ionicLoading, geolocation, Activities, ActivityTypeFilter) {
+.controller('ActivitiesMapCtrl', function ($scope, $stateParams, $ionicLoading, Activities, ActivityTypeFilter) {
 
     $scope.activities = Activities.getAll();
+    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.marker = {
+        options: {
+            draggable: false,
+            icon: 'img/green_marker.png'
+        }
+    };
+
+    // Refresh Map
+    $scope.$on('$ionicView.enter', function() {
+    // code to run each time view is entered
+        //$ionicHistory.clearCache();
+    });
 
     // Setup the loader
     $ionicLoading.show({
@@ -850,15 +946,18 @@ angular.module('starter.controllers', [])
         animation: 'fade-in',
         showBackdrop: true,
         maxWidth: 200,
-        showDelay: 0
+        showDelay: 0,
+        duration: 5000
     });
 
-    geolocation.getLocation().then(function (data) {
-        //Center's the map on Albufera coords
-        $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    // Geolocation
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+    // onSuccess Geolocation
+    function onSuccess(data) {
 
         // Mark's user location
-        $scope.marker = {
+        $scope.markerUser = {
             id: 0,
             show: false,
             coords: {
@@ -870,23 +969,12 @@ angular.module('starter.controllers', [])
                 icon: 'img/pegman.png'
             }
         };
+    }
 
-        $scope.windowOptions = {
-            visible: false
-        };
-
-        $scope.onClick = function () {
-            $scope.windowOptions.visible = !$scope.windowOptions.visible;
-        };
-
-        $scope.closeClick = function () {
-            $scope.windowOptions.visible = false;
-        };
-
-        $ionicLoading.hide();
-    });
-
-    // CategorieFilter //
+    // onError Callback receives a PositionError object
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+    }
 
     // TypeFilter //
     $scope.includeType = function (type) {
@@ -993,36 +1081,28 @@ angular.module('starter.controllers', [])
     // change the state back to the top state
         switch (_scope.title) {
             case 'Incidencias':
-                $state.go('tab.incidents-map', {});
-                //$ionicHistory.clearHistory();
+                $state.go('tab.incidents-map', {}, { reload:true });
             break;
             case 'Incidents':
                 $state.go('tab.incidents-map', {});
-                //$ionicHistory.clearHistory();
             break;
             case 'Mis incidencias':
                 $state.go('tab.my-incidents-map', {});
-                $ionicHistory.clearHistory();
             break;
             case 'My incidents':
                 $state.go('tab.my-incidents-map', {});
-                $ionicHistory.clearHistory();
             break;
             case 'Favoritas':
                 $state.go('tab.favorites-map', {});
-                $ionicHistory.clearHistory();
             break;
             case 'Favorites':
                 $state.go('tab.favorites-map', {});
-                $ionicHistory.clearHistory();
             break;
             case 'Actividades':
                 $state.go('tab.activities-map', {});
-                $ionicHistory.clearHistory();
             break;
             case 'Activities':
                 $state.go('tab.activities-map', {});
-                $ionicHistory.clearHistory();
             break;
         }
     };

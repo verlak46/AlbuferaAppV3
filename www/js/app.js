@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.translate', 'geolocation', 'uiGmapgoogle-maps', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.translate', 'uiGmapgoogle-maps', 'starter.controllers', 'starter.services'])
 
 .run(function ($ionicPlatform) {
 
@@ -124,8 +124,10 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
           }
       })
 
+    // MY INCIDENTS TABS
     .state('tab.my-incidents-map', {
         url: '/my-incidents-map',
+        cache: false,
         views: {
             'tab-my-incidents': {
                 templateUrl: 'templates/incidents/tab-my-incidents-map.html',
@@ -162,6 +164,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
             }
         })
 
+    // FAVORITES TABS
     .state('tab.favorites-map', {
         url: '/favorites-map',
         views: {

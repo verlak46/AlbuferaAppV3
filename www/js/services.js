@@ -286,9 +286,9 @@ angular.module('starter.services', [])
     $localStorage = $localStorage.$default({
         incidents: [],
         favorites: [],
-        favoritesActivities: [],
         firstVisit: true,
-        language: ''
+        language: '',
+        notSent: []
     });
 
     return {
@@ -302,6 +302,23 @@ angular.module('starter.services', [])
         },
         getAll: function () {
             return $localStorage.incidents;
+        },
+        getNotSent: function (incidentId) {
+            for (var i = 0; i < $localStorage.notSent.length; i++) {
+                if (parseInt($localStorage.notSent[i].id) === parseInt(incidentId)) {
+                    return $localStorage.notSent[i];
+                }
+            }
+            return null;
+        },
+        getAllNotSent: function () {
+            return $localStorage.notSent;
+        },
+        removeNotSent: function (incident) {
+            $localStorage.notSent.splice($localStorage.notSent.indexOf(incident), 1);
+        },
+        addNotSent: function (incident) {
+            $localStorage.notSent.unshift(incident);
         },
         add: function (incident) {
             $localStorage.incidents.unshift(incident);

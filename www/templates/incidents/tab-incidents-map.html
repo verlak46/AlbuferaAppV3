@@ -1,18 +1,19 @@
-﻿<ion-view view-title="{{ 'INCIDENTS' | translate }}">
-    <ion-content scroll="false" data-tap-disabled="true">
-        <ui-gmap-google-map center='map.center' zoom='map.zoom'>
-            <ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id" click="onClick()">
-                <ui-gmap-window options="windowOptions" closeClick="closeClick()">
-                    <div>{{ 'INFO' | translate }}</div>
-                </ui-gmap-window>
+﻿<div ng-init="id=0">
+<ion-view view-title="{{ 'INCIDENTS' | translate }}">
+    <ion-content data-tap-disabled="true">
+        <ui-gmap-google-map center='map.center' zoom='map.zoom' options="options">
+            <ui-gmap-marker coords="markerUser.coords" options="markerUser.options" idkey="10000">
             </ui-gmap-marker>
             <ui-gmap-marker ng-repeat="incident in incidents | filter:categorieFilter"
-                   coords="incident.coords" idkey="marker.id">
+                   coords="incident.coords" idkey="id + 1" options="marker.options">
                 <ui-gmap-window ng-cloak>
-                    <a href="#/tab/incidents/{{incident.id}}" style="text-decoration:none; color:black;"><p style="font-weight: bold; text-align:center;">{{incident.categorie | translate}}</p>
-                    {{incident.description}}</a>
+                    <div class="window">
+                    <a href="#/tab/incidents/{{incident.id}}" style="text-decoration:none; color:black;"><p class="titlewindow">{{incident.categorie | translate}}</p><p class="descriptionwindow">
+                    {{incident.description}}</p><img class="imagewindow" ng-src="{{incident.image}}" /></a>
+                    </div>
                 </ui-gmap-window>
             </ui-gmap-marker>
         </ui-gmap-google-map>
-    </div>
+    </ion-content>
 </ion-view>
+</div>
