@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('IncidentsMapCtrl', function ($ionicHistory, $scope, $stateParams, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
+.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
 
     $scope.incidents = '';
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
@@ -12,9 +12,8 @@ angular.module('starter.controllers', [])
     };
 
     // Refresh Map
-    $scope.$on('$ionicView.enter', function() {
-    // code to run each time view is entered
-        $ionicHistory.clearCache();
+    $scope.$on( "$ionicView.afterLeave", function() {
+        //$ionicHistory.clearCache();
     });
 
     // Setup the loader
@@ -636,7 +635,7 @@ angular.module('starter.controllers', [])
     // Refresh Map
     $scope.$on('$ionicView.enter', function() {
     // code to run each time view is entered
-        $ionicHistory.clearCache();
+        //$ionicHistory.clearCache();
     });
 
     // Setup the loader
@@ -775,7 +774,7 @@ angular.module('starter.controllers', [])
     // Refresh Map
     $scope.$on('$ionicView.enter', function() {
     // code to run each time view is entered
-        $ionicHistory.clearCache();
+        //$ionicHistory.clearCache();
     });
     
     // Setup the loader
@@ -938,7 +937,7 @@ angular.module('starter.controllers', [])
     // Refresh Map
     $scope.$on('$ionicView.enter', function() {
     // code to run each time view is entered
-        $ionicHistory.clearCache();
+        //$ionicHistory.clearCache();
     });
 
     // Setup the loader
@@ -958,7 +957,7 @@ angular.module('starter.controllers', [])
     function onSuccess(data) {
 
         // Mark's user location
-        $scope.marker = {
+        $scope.markerUser = {
             id: 0,
             show: false,
             coords: {
@@ -1082,36 +1081,28 @@ angular.module('starter.controllers', [])
     // change the state back to the top state
         switch (_scope.title) {
             case 'Incidencias':
-                $state.go('tab.incidents-map', {});
-                $ionicHistory.clearHistory();
+                $state.go('tab.incidents-map', {}, { reload:true });
             break;
             case 'Incidents':
                 $state.go('tab.incidents-map', {});
-                $ionicHistory.clearHistory();
             break;
             case 'Mis incidencias':
                 $state.go('tab.my-incidents-map', {});
-                $ionicHistory.clearHistory();
             break;
             case 'My incidents':
                 $state.go('tab.my-incidents-map', {});
-                $ionicHistory.clearHistory();
             break;
             case 'Favoritas':
                 $state.go('tab.favorites-map', {});
-                $ionicHistory.clearHistory();
             break;
             case 'Favorites':
                 $state.go('tab.favorites-map', {});
-                $ionicHistory.clearHistory();
             break;
             case 'Actividades':
                 $state.go('tab.activities-map', {});
-                $ionicHistory.clearHistory();
             break;
             case 'Activities':
                 $state.go('tab.activities-map', {});
-                $ionicHistory.clearHistory();
             break;
         }
     };

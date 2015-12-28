@@ -127,6 +127,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
     // MY INCIDENTS TABS
     .state('tab.my-incidents-map', {
         url: '/my-incidents-map',
+        cache: false,
         views: {
             'tab-my-incidents': {
                 templateUrl: 'templates/incidents/tab-my-incidents-map.html',
