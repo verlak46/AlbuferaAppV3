@@ -1099,7 +1099,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('AccountCtrl', function ($scope, $ionicHistory, $ionicPopup, $filter, $translate, $ionicHistory, StorageService) {
+.controller('AccountCtrl', function ($scope, $ionicHistory, $ionicPopup, $filter, $translate, StorageService) {
 
     var account = StorageService.getAccount();
 
@@ -1160,38 +1160,3 @@ angular.module('starter.controllers', [])
         $translate.use(key);
     };
 });
-
-// Set the state back to  the top of the tabs view stack whenever the tab is selected
-/*.controller('StateCtrl', function($scope, $state, $ionicHistory) {
-
-    this.onTabSelected = function(_scope){
-    // if we are selecting the home title then 
-    // change the state back to the top state
-        switch (_scope.title) {
-            case 'Incidencias':
-                $state.go('tab.incidents-map', {}, { reload:true });
-            break;
-            case 'Incidents':
-                $state.go('tab.incidents-map', {});
-            break;
-            case 'Mis incidencias':
-                $state.go('tab.my-incidents-map', {});
-            break;
-            case 'My incidents':
-                $state.go('tab.my-incidents-map', {});
-            break;
-            case 'Favoritas':
-                $state.go('tab.favorites-map', {});
-            break;
-            case 'Favorites':
-                $state.go('tab.favorites-map', {});
-            break;
-            case 'Actividades':
-                $state.go('tab.activities-map', {});
-            break;
-            case 'Activities':
-                $state.go('tab.activities-map', {});
-            break;
-        }
-    };
-});*/
