@@ -1140,6 +1140,8 @@ angular.module('starter.controllers', [])
 
         StorageService.addAccount(newAccount);
 
+        $ionicHistory.clearCache();
+
         // An alert dialog
         $scope.showAlert = function () {
             var alertPopup = $ionicPopup.alert({
