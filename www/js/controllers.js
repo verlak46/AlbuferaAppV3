@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
+.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicHistory, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
 
     $scope.incidents = '';
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
@@ -13,6 +13,7 @@ angular.module('starter.controllers', [])
 
     // Refresh Map
     $scope.$on( "$ionicView.enter", function() {
+        $ionicHistory.clearCache();
         $scope.incidents = Incidents.getAll();
     });
 
@@ -23,7 +24,7 @@ angular.module('starter.controllers', [])
         showBackdrop: true,
         maxWidth: 200,
         showDelay: 0,
-        duration: 5000,
+        duration: 3000,
     });
 
     // Data initialization
@@ -165,7 +166,7 @@ angular.module('starter.controllers', [])
         showBackdrop: true,
         maxWidth: 200,
         showDelay: 0,
-        duration: 3000,
+        duration: 1000
         });
 
         CategorieFilter.includeCategorie(categorie);
@@ -219,10 +220,11 @@ angular.module('starter.controllers', [])
         showBackdrop: true,
         maxWidth: 200,
         showDelay: 0,
-        duration: 3000,
+        duration: 1000
         });
 
         CategorieFilter.includeCategorie(categorie);
+        $ionicLoading.hide();
     };
 
     $scope.categorieFilter = function (incident) {
@@ -623,7 +625,7 @@ angular.module('starter.controllers', [])
         showBackdrop: true,
         maxWidth: 200,
         showDelay: 0,
-        duration: 3000,
+        duration: 1000,
         });
 
         CategorieFilter.includeCategorie(categorie);
@@ -634,7 +636,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('MyIncidentsMapCtrl', function ($scope, $ionicModal, $stateParams, $ionicLoading, StorageService, Categories, CategorieFilter) {
+.controller('MyIncidentsMapCtrl', function ($scope, $ionicModal, $ionicHistory, $stateParams, $ionicLoading, StorageService, Categories, CategorieFilter) {
 
     $scope.incidents = StorageService.getAll();
     $scope.categories = Categories.getAll();
@@ -648,6 +650,7 @@ angular.module('starter.controllers', [])
 
     // Refresh Map
     $scope.$on( "$ionicView.enter", function() {
+        $ionicHistory.clearCache();
         $scope.incidents = StorageService.getAll();
     });
 
@@ -658,7 +661,7 @@ angular.module('starter.controllers', [])
         showBackdrop: true,
         maxWidth: 200,
         showDelay: 0,
-        duration: 5000
+        duration: 3000
     });
 
     // Geolocation
@@ -716,7 +719,7 @@ angular.module('starter.controllers', [])
         showBackdrop: true,
         maxWidth: 200,
         showDelay: 0,
-        duration: 3000,
+        duration: 1000,
         });
 
         CategorieFilter.includeCategorie(categorie);
@@ -782,7 +785,7 @@ angular.module('starter.controllers', [])
         showBackdrop: true,
         maxWidth: 200,
         showDelay: 0,
-        duration: 3000,
+        duration: 1000,
         });
 
         CategorieFilter.includeCategorie(categorie);
@@ -793,7 +796,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('FavoritesMapCtrl', function ($scope, $ionicModal, $stateParams, $ionicLoading, StorageService, Categories, CategorieFilter) {
+.controller('FavoritesMapCtrl', function ($scope, $ionicModal, $ionicHistory, $stateParams, $ionicLoading, StorageService, Categories, CategorieFilter) {
 
     $scope.incidents = StorageService.getAllFavorites();
     $scope.categories = Categories.getAll();
@@ -807,6 +810,7 @@ angular.module('starter.controllers', [])
     
     // Refresh Map
     $scope.$on( "$ionicView.enter", function() {
+        $ionicHistory.clearCache();
         $scope.incidents = StorageService.getAllFavorites();
     });
 
@@ -817,7 +821,7 @@ angular.module('starter.controllers', [])
         showBackdrop: true,
         maxWidth: 200,
         showDelay: 0,
-        duration: 5000
+        duration: 3000
     });
 
     // Geolocation
@@ -875,7 +879,7 @@ angular.module('starter.controllers', [])
         showBackdrop: true,
         maxWidth: 200,
         showDelay: 0,
-        duration: 3000,
+        duration: 1000,
         });
 
         CategorieFilter.includeCategorie(categorie);
@@ -976,7 +980,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivitiesMapCtrl', function ($scope, $ionicModal, $stateParams, $ionicLoading, Activities, ActivityTypes, ActivityTypeFilter) {
+.controller('ActivitiesMapCtrl', function ($scope, $ionicModal, $ionicHistory, $stateParams, $ionicLoading, Activities, ActivityTypes, ActivityTypeFilter) {
 
     $scope.activities = Activities.getAll();
     $scope.activityTypes = ActivityTypes.getAll();
@@ -990,6 +994,7 @@ angular.module('starter.controllers', [])
 
     // Refresh Map
     $scope.$on( "$ionicView.enter", function() {
+        $ionicHistory.clearCache();
         $scope.incidents = Activities.getAll();
     });
 
@@ -1000,7 +1005,7 @@ angular.module('starter.controllers', [])
         showBackdrop: true,
         maxWidth: 200,
         showDelay: 0,
-        duration: 5000
+        duration: 3000
     });
 
     // Geolocation

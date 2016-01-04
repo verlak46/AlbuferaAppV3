@@ -1,0 +1,18 @@
+{
+     "android": {
+         "debug": {
+             "keystore": "departamento_devesa.jks",
+             "storePassword": "DepartamentoAlbufera2016",
+             "alias": "cuida_l_albufera",
+             "password" : "DepartamentoAlbufera2016",
+             "keystoreType": ""
+         },
+         "release": {
+             "keystore": "departamento_devesa.jks",
+             "storePassword": "DepartamentoAlbufera2016",
+             "alias": "cuida_l_albufera",
+             "password" : "DepartamentoAlbufera2016",
+             "keystoreType": ""
+         }
+     }
+ }
