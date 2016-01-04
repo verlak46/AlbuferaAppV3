@@ -239,7 +239,7 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.description, $scope.incident.coords,
+        .share($scope.incident.description, $scope.incident.categorie,
             $scope.incident.image, null) // Share via native share sheet
         .then(function(result) {
           // Success!
@@ -523,7 +523,7 @@ angular.module('starter.controllers', [])
                 phone: $scope.newForm.phone,
                 coords: {
                     latitude: userCoords.coords.latitude,
-                    longitude: userCoords.coords.latitude
+                    longitude: userCoords.coords.longitude
                 }
             }
         };
@@ -545,7 +545,7 @@ angular.module('starter.controllers', [])
                 phone: $scope.newForm.phone,
                 coords: {
                     latitude: userCoords.coords.latitude,
-                    longitude: userCoords.coords.latitude
+                    longitude: userCoords.coords.longitude
                 }
             },
             categorieId: parseInt($scope.categorie.id),
@@ -737,7 +737,7 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.description, $scope.incident.coords,
+        .share($scope.incident.description, $scope.incident.categorie,
             $scope.incident.image, null) // Share via native share sheet
         .then(function(result) {
           // Success!
@@ -897,7 +897,7 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.description, $scope.incident.coords,
+        .share($scope.incident.description, $scope.incident.categorie,
             $scope.incident.image, null) // Share via native share sheet
         .then(function(result) {
           // Success!
@@ -1081,7 +1081,7 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.activity.description, $scope.activity.coords,
+        .share($scope.activity.description, $scope.activity.categorie,
             $scope.activity.image, null) // Share via native share sheet
         .then(function(result) {
           // Success!
