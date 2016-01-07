@@ -1074,9 +1074,39 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivityDetailCtrl', function ($scope, $stateParams, $ionicPopup, $filter, $cordovaSocialSharing, Activities, StorageService) {
+.controller('ActivityDetailCtrl', function ($scope, $stateParams, $ionicModal, $ionicPopup, $filter, $cordovaSocialSharing, uiGmapGoogleMapApi, Activities, StorageService) {
     
     $scope.activity = Activities.get($stateParams.activityId);
+    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.polyline = 
+    {
+        id: 1,
+        path: [
+            {
+                latitude: 39.333,
+                longitude: -0.367
+            },
+            {
+                latitude: 39.366,
+                longitude: -0.370
+            }
+        ],
+        stroke: {
+            color: '#6060FB',
+            weight: 3
+        },
+        editable: true,
+        draggable: true,
+        geodesic: true,
+        visible: true,
+        icons: [{
+            icon: {
+                path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW
+            },
+            offset: '25px',
+            repeat: '50px'
+        }]
+    };
 
     // Social Sharing
     $scope.share = function() {
@@ -1097,6 +1127,26 @@ angular.module('starter.controllers', [])
             });
       });
     };
+
+    // Load the modal from the given template URL
+    $ionicModal.fromTemplateUrl('templates/activities/get-there-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.openModal = function () {
+        $scope.modal.show();
+    };
+
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+
+    $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
 })
 
 .controller('AccountCtrl', function ($scope, $ionicHistory, $ionicPopup, $filter, $translate, StorageService) {
