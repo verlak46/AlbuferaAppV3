@@ -21,6 +21,7 @@
     "angularjs-geolocation": "latest",
     "angular-google-maps": "latest",
     "ngstorage": "~0.3.10",
+    "ngmap": "~1.16.5"
     "angular-translate": "latest",
     "angular-translate-loader-static-files": "~2.8.1"
   }

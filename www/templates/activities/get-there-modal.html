@@ -3,10 +3,15 @@
         <h1 class="title">{{'GET_THERE' | translate}}</h1>
         <button class="button button-icon ion-checkmark-round" ng-click="closeModal()"></button>
     </ion-header-bar>
-    <ion-content scroll="false" data-tap-disabled="true">
-        <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
-        <ui-gmap-polyline path="polyline.path" stroke="polyline.stroke" visible='polyline.visible'
-                  geodesic='polyline.geodesic' fit="false" editable="polyline.editable" draggable="polyline.draggable" icons='polyline.icons'></ui-gmap-polyline>
-        </ui-gmap-google-map>
+    <ion-content>
+        <ng-map zoom="12" center="current-location" style="height:100%">
+        <directions 
+          draggable="true"
+          panel="directions-panel"
+          travel-mode="DRIVING"
+          origin="current-location"
+          destination="{{destination}}">
+        </directions>
+      </ng-map> 
     </ion-content>
 </ion-modal-view>

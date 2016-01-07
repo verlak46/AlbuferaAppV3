@@ -13,13 +13,10 @@
                 <p>
                     {{activity.description}}
                 </p>
-                <!--<p>
-                    <a href="#" class="subdued">1 {{ 'LIKE' | translate }} </a>
-                </p>-->
             </div>
 
             <div class="item tabs tabs-secondary tabs-icon-left" style="background-color: white;">
-                <a class="tab-item" ng-click="openModal()">
+                <a class="tab-item" href="#/tab/activity-get-there/{{activity.id}}">
                     <i class="icon ion-map"></i>
                     {{ 'GET_THERE' | translate }}
                 </a>

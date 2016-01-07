@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.translate', 'uiGmapgoogle-maps', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.translate', 'uiGmapgoogle-maps', 'ngMap', 'starter.controllers', 'starter.services'])
 
 .run(function ($ionicPlatform) {
 
@@ -236,6 +236,15 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
                 'tab-activities': {
                     templateUrl: 'templates/activities/activity-detail.html',
                     controller: 'ActivityDetailCtrl'
+                }
+            }
+        })
+        .state('tab.activity-get-there', {
+            url: '/activity-get-there/:activityId',
+            views: {
+                'tab-activities': {
+                    templateUrl: 'templates/activities/activity-get-there.html',
+                    controller: 'ActivityGetThereCtrl'
                 }
             }
         })
