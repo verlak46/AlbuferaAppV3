@@ -1077,7 +1077,7 @@ angular.module('starter.controllers', [])
 .controller('ActivityDetailCtrl', function ($scope, $stateParams, $ionicPopup, $filter, $cordovaSocialSharing, Activities, StorageService) {
     
     $scope.activity = Activities.get($stateParams.activityId);
-    
+
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
@@ -1099,7 +1099,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivityGetThereCtrl', function ($scope, $stateParams, $ionicModal, $ionicHistory, $ionicPopup, $filter, $cordovaSocialSharing, uiGmapGoogleMapApi, Activities, StorageService) {
+.controller('ActivityGetThereCtrl', function ($scope, $stateParams, $ionicHistory, uiGmapGoogleMapApi, Activities) {
     $ionicHistory.clearCache();
     $scope.activity = Activities.get($stateParams.activityId);
     $scope.destination = $scope.activity.coords.latitude + ", " + $scope.activity.coords.longitude;
