@@ -1106,7 +1106,7 @@ angular.module('starter.controllers', [])
     };
 
     $scope.getThere = function() {
-        window.open('https://www.google.es/maps?saddr=My+Location&daddr=' + $scope.activity.coords.latitude + ',' + $scope.activity.coords.longitude, '_system', options);
+       $cordovaInAppBrowser.open('https://maps.google.com/?daddr=' + $scope.activity.coords.latitude + ',' + $scope.activity.coords.longitude, '_system', options);
     };
 })
 
