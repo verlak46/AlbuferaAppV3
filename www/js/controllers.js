@@ -1099,10 +1099,23 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivityGetThereCtrl', function ($scope, $stateParams, $ionicHistory, uiGmapGoogleMapApi, Activities) {
+.controller('ActivityGetThereCtrl', function ($scope, $stateParams, $ionicHistory, $ionicLoading, uiGmapGoogleMapApi, Activities) {
+    
     $ionicHistory.clearCache();
+
+    // Setup the loader
+    $ionicLoading.show({
+        content: 'Cargando...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+    });
+
     $scope.activity = Activities.get($stateParams.activityId);
     $scope.destination = $scope.activity.coords.latitude + ", " + $scope.activity.coords.longitude;
+
+    $ionicLoading.hide();
 })
 
 .controller('AccountCtrl', function ($scope, $ionicHistory, $ionicPopup, $filter, $translate, StorageService) {
