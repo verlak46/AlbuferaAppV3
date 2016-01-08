@@ -239,15 +239,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.tran
                 }
             }
         })
-        .state('tab.activity-get-there', {
-            url: '/activity-get-there/:activityId',
-            views: {
-                'tab-activities': {
-                    templateUrl: 'templates/activities/activity-get-there.html',
-                    controller: 'ActivityGetThereCtrl'
-                }
-            }
-        })
     // ACCOUNT TAB
     .state('account', {
         url: '/account',

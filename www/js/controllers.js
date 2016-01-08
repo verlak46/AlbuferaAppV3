@@ -1074,7 +1074,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivityDetailCtrl', function ($scope, $stateParams, $ionicPopup, $filter, $cordovaSocialSharing, Activities) {
+.controller('ActivityDetailCtrl', function ($scope, $stateParams, $cordovaInAppBrowser, $ionicPopup, $filter, $cordovaSocialSharing, Activities) {
     
     $scope.activity = Activities.get($stateParams.activityId);
 
@@ -1097,57 +1097,17 @@ angular.module('starter.controllers', [])
             });
       });
     };
-})
 
-.controller('ActivityGetThereCtrl', function ($scope, $cordovaGeolocation, $stateParams, $timeout, $ionicPopup, $filter, $ionicHistory, $ionicLoading, uiGmapGoogleMapApi, Activities) {
-    ionic.Platform.ready(function(){
-        // Setup the loader
-        $ionicLoading.show({
-            content: 'Cargando...',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
+    // Get there
+    var options = {
+      location: 'yes',
+      clearcache: 'yes',
+      toolbar: 'no'
+    };
 
-        geo = false;
-        $ionicHistory.clearCache();
-        $scope.activity = Activities.get($stateParams.activityId);
-
-        //Default user position
-        $scope.position = '39.469, -0.378';
-
-        $scope.destination = $scope.activity.coords.latitude + ", " + $scope.activity.coords.longitude;
-
-        var posOptions = {
-            enableHighAccuracy: true,
-            timeout: 3000,
-            maximumAge: 60000
-        };
-
-        $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
-            geo = true;
-            $scope.position = position.coords.latitude + ", " + position.coords.longitude;  
-        });
-
-        $ionicLoading.hide();
-
-        $timeout(function() {
-            if (!geo) {
-                // An error occured. Show a message to the user
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Error',
-                    template: $filter('translate')('ERROR_GEO'),
-                    okType: 'button-balanced'
-                });
-                alertPopup.then(function (res) {
-                });
-            }
-        }, 3000);
-    }, function(err) {
-        $ionicLoading.hide();
-        console.log(err);
-    });
+    $scope.getThere = function() {
+        window.open('https://www.google.es/maps?saddr=My+Location&daddr=' + $scope.activity.coords.latitude + ',' + $scope.activity.coords.longitude, '_system', options);
+    };
 })
 
 .controller('AccountCtrl', function ($scope, $ionicHistory, $ionicPopup, $filter, $translate, StorageService) {
