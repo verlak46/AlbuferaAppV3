@@ -1,11 +1,11 @@
 <ion-view view-title="{{'GET_THERE' | translate}}">
 	<ion-content scroll="false">
-        <ng-map zoom="12" center="current-location" style="height:100%">
+        <ng-map zoom="12" center="{{position}}" style="height:100%">
         <directions 
           draggable="true"
           panel="directions-panel"
           travel-mode="DRIVING"
-          origin="current-location"
+          origin="{{position}}"
           destination="{{destination}}">
         </directions>
       </ng-map>

@@ -24,7 +24,7 @@ angular.module('starter.controllers', [])
         showBackdrop: true,
         maxWidth: 200,
         showDelay: 0,
-        duration: 3000,
+        duration: 3000
     });
 
     // Data initialization
@@ -1099,23 +1099,39 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivityGetThereCtrl', function ($scope, $stateParams, $ionicHistory, $ionicLoading, uiGmapGoogleMapApi, Activities) {
-    
-    $ionicHistory.clearCache();
+.controller('ActivityGetThereCtrl', function ($scope, $cordovaGeolocation, $stateParams, $ionicHistory, $ionicLoading, uiGmapGoogleMapApi, Activities) {
+    ionic.Platform.ready(function(){
+        // Setup the loader
+        $ionicLoading.show({
+            content: 'Cargando...',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0
+        });
 
-    // Setup the loader
-    $ionicLoading.show({
-        content: 'Cargando...',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0
+        $ionicHistory.clearCache();
+        $scope.position = '39.469, -0.378';
+
+        var posOptions = {
+            enableHighAccuracy: true,
+            timeout: 3000,
+            maximumAge: 60000
+        };
+
+        $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
+            $scope.position  = position.coords.latitude + ", " + position.coords.longitude;  
+        });
+
+        $scope.activity = Activities.get($stateParams.activityId);
+        $scope.destination = $scope.activity.coords.latitude + ", " + $scope.activity.coords.longitude;
+
+        $ionicLoading.hide();
+
+    }, function(err) {
+        $ionicLoading.hide();
+        console.log(err);
     });
-
-    $scope.activity = Activities.get($stateParams.activityId);
-    $scope.destination = $scope.activity.coords.latitude + ", " + $scope.activity.coords.longitude;
-
-    $ionicLoading.hide();
 })
 
 .controller('AccountCtrl', function ($scope, $ionicHistory, $ionicPopup, $filter, $translate, StorageService) {
