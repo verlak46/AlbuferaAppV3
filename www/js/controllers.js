@@ -1074,7 +1074,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivityDetailCtrl', function ($scope, $stateParams, $ionicPopup, $filter, $cordovaSocialSharing, Activities, StorageService) {
+.controller('ActivityDetailCtrl', function ($scope, $stateParams, $ionicPopup, $filter, $cordovaSocialSharing, Activities) {
     
     $scope.activity = Activities.get($stateParams.activityId);
 
@@ -1099,7 +1099,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivityGetThereCtrl', function ($scope, $cordovaGeolocation, $stateParams, $ionicHistory, $ionicLoading, uiGmapGoogleMapApi, Activities) {
+.controller('ActivityGetThereCtrl', function ($scope, $cordovaGeolocation, $stateParams, $timeout, $ionicPopup, $filter, $ionicHistory, $ionicLoading, uiGmapGoogleMapApi, Activities) {
     ionic.Platform.ready(function(){
         // Setup the loader
         $ionicLoading.show({
@@ -1110,8 +1110,14 @@ angular.module('starter.controllers', [])
             showDelay: 0
         });
 
+        geo = false;
         $ionicHistory.clearCache();
+        $scope.activity = Activities.get($stateParams.activityId);
+
+        //Default user position
         $scope.position = '39.469, -0.378';
+
+        $scope.destination = $scope.activity.coords.latitude + ", " + $scope.activity.coords.longitude;
 
         var posOptions = {
             enableHighAccuracy: true,
@@ -1120,14 +1126,24 @@ angular.module('starter.controllers', [])
         };
 
         $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
-            $scope.position  = position.coords.latitude + ", " + position.coords.longitude;  
+            geo = true;
+            $scope.position = position.coords.latitude + ", " + position.coords.longitude;  
         });
-
-        $scope.activity = Activities.get($stateParams.activityId);
-        $scope.destination = $scope.activity.coords.latitude + ", " + $scope.activity.coords.longitude;
 
         $ionicLoading.hide();
 
+        $timeout(function() {
+            if (!geo) {
+                // An error occured. Show a message to the user
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: $filter('translate')('ERROR_GEO'),
+                    okType: 'button-balanced'
+                });
+                alertPopup.then(function (res) {
+                });
+            }
+        }, 3000);
     }, function(err) {
         $ionicLoading.hide();
         console.log(err);

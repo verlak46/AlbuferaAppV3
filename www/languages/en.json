@@ -75,4 +75,5 @@
 "REFRESH": "Pull to refresh...",
 "ERROR_POST": "There was an error sending the incident",
 "NEW_ACTIVITY": "New activity",
-"GET_THERE": "How to get there"}
+"GET_THERE": "How to get there",
+"ERROR_GEO": "Sorry, could not retrieve your location"}
