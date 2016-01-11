@@ -286,8 +286,13 @@ angular.module('starter.services', [])
         getAllNotSent: function () {
             return $localStorage.notSent;
         },
-        removeNotSent: function (incident) {
-            $localStorage.notSent.splice($localStorage.notSent.indexOf(incident), 1);
+        removeNotSent: function (incidentId) {
+            for (var i = 0; i < $localStorage.notSent.length; i++) {
+                if (parseInt($localStorage.notSent[i].id) === parseInt(incidentId)) {
+                    $localStorage.notSent.splice(i, 1);
+                    break;
+                }
+            }
         },
         addNotSent: function (incident) {
             $localStorage.notSent.unshift(incident);
