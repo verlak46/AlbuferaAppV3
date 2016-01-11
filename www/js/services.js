@@ -1,8 +1,8 @@
-﻿var baseApiUrl = 'http://albuferadevalencia.vl17860.dinaserver.com/admin/api/app.php/';
-
 angular.module('starter.services', [])
 
-.factory('Init', function ($http, $q) {
+.value('baseApiUrl', 'http://albuferadevalencia.vl17860.dinaserver.com/admin/api/app.php/')
+
+.factory('Init', function ($http, $q, baseApiUrl) {
 
     return {
         all: function () {
@@ -22,7 +22,7 @@ angular.module('starter.services', [])
     };
 })
 
-.factory('Incidents', function ($http, $q) {
+.factory('Incidents', function ($http, $q, baseApiUrl) {
 
     var incidents = [];
 
@@ -88,7 +88,7 @@ angular.module('starter.services', [])
     };
 })
 
-.factory('Activities', function ($http, $q) {
+.factory('Activities', function ($http, $q, baseApiUrl) {
 
     var activities = [];
 
@@ -123,38 +123,10 @@ angular.module('starter.services', [])
         getAll: function () {
             return activities;
         }
-        /*post: function(data) {
-            var defer = $q.defer();
-            
-            $http({
-                url: baseApiUrl + 'activities',
-                method: "POST",
-                data: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                }
-                /*withCredentials: true,
-                headers: {
-                    'Authorization': 'Basic bashe64usename:password'
-                }*/
-            /*}).then(function(resp) {
-                console.log('Success', resp);
-                activities = resp.data;
-                defer.resolve(resp.data);
-                // For JSON responses, resp.data contains the result
-                defer.resolve(resp.data);
-            }, function(err) {
-                console.error('ERR', err);
-                defer.resolve('error');
-                // err.status will contain the status code
-            });
-
-            return defer.promise;
-        }*/
     };
 })
 
-.factory('Categories', function ($http, $q) {
+.factory('Categories', function ($http, $q, baseApiUrl) {
 
     var categories = [];
 
@@ -191,7 +163,7 @@ angular.module('starter.services', [])
     };
 })
 
-.factory('ActivityTypes', function ($http, $q) {
+.factory('ActivityTypes', function ($http, $q, baseApiUrl) {
 
     var activityTypes = [];
 
@@ -374,7 +346,7 @@ angular.module('starter.services', [])
     function IDGenerator() {
 
         this.length = 8;
-        this.timestamp = +new Date;
+        this.timestamp = new Date();
 
         var _getRandomInt = function (min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;

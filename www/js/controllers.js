@@ -50,6 +50,16 @@ angular.module('starter.controllers', [])
         Activities.save(data.activities);
         ActivityTypes.save(data.activityTypes);
 
+        var checkData = function(data) {
+            if (data === 'error') {
+                console.log('Error');
+            } else {
+                // Remove incident from not sent
+                var localIncident = StorageService.getNotSent(notSentIncidents[i].id);
+                StorageService.removeNotSent(localIncident);
+            }
+        };
+
         // Check if there are any incident to sent
         var notSentIncidents = StorageService.getAllNotSent();
 
@@ -59,16 +69,7 @@ angular.module('starter.controllers', [])
 
             newIncident.categorie = newIncident.categorieId;
 
-            Incidents.post(newIncident).then(function(data) {
-
-                if (data === 'error') {
-                    console.log('Error');
-                } else {
-                    // Remove incident from not sent
-                    var localIncident = StorageService.getNotSent(notSentIncidents[i].id);
-                    StorageService.removeNotSent(localIncident);
-                }
-            });
+            Incidents.post(newIncident).then(checkData(data));
         }
     });
 
