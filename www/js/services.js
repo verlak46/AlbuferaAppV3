@@ -1,4 +1,4 @@
-﻿var baseApiUrl = 'http://c2566322-0.web-hosting.es/albufera/api/app.php/';
+﻿var baseApiUrl = 'http://albuferadevalencia.vl17860.dinaserver.com/admin/api/app.php/';
 
 angular.module('starter.services', [])
 

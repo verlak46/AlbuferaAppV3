@@ -1,0 +1,112 @@
+.img-grid {
+    width:100%;
+    height:100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.scroll {
+    height: 100%;
+}
+
+.angular-google-map,
+.angular-google-map-container {
+    height: 100%;
+}
+
+.button {
+    margin-right: 10px;
+    width: auto;
+}
+
+.tabs-stable > .tabs{
+	background-color: #385d28 !important;
+}
+
+a.tab-item {
+    color:  #a1c692 !important;
+    font-family: 'RalewayMedium'
+}
+    
+a.tab-item-active {
+    color:  #dadfe2 !important;
+    font-family: 'RalewayMedium';
+    opacity: 1;
+    border-top:   3px;
+    border-bottom: 3px;
+}
+
+@media(max-width: 350px) {
+    .footer-button .button {
+        margin-right: 3px;
+    }
+    .bar .button.icon-left::before {
+        font-size: 20px;
+    }
+}
+
+.ion-person {
+    font-size: 28px;
+}
+
+.titlewindow {
+    font-weight: bold; 
+    text-align:center;
+    font-family: 'RalewayMedium';
+}
+
+.descriptionwindow{
+    font-family: 'RalewayMedium';
+    height: 60px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.imagewindow {
+    width: 100%;
+    height: 80px;
+    border-radius: 6px !important;
+}
+
+.window {
+    max-width: 140px;
+    margin-left: 10px;
+}
+
+.gm-style div div div div div {
+    border-radius: 6px !important;
+}
+
+.bar .button.icon-left::before {
+    font-size: 22px;
+}
+
+a.tab-item.ng-binding {
+    color:  #385d28 !important;
+}
+
+.gmnoprint {
+    height: 0px;
+}
+@font-face {
+    font-family: 'RalewayMedium';
+    src: url('../fonts/RalewayMedium.eot');
+    src: url('../fonts/RalewayMedium.eot') format('embedded-opentype'),
+         url('../fonts/RalewayMedium.woff2') format('woff2'),
+         url('../fonts/RalewayMedium.woff') format('woff'),
+         url('../fonts/RalewayMedium.ttf') format('truetype'),
+         url('../fonts/RalewayMedium.svg#RalewayMedium') format('svg');
+}
+
+@font-face {
+    font-family: 'PlayfairDisplaySCRegular';
+    src: url('../fonts/PlayfairDisplaySCRegular.eot');
+    src: url('../fonts/PlayfairDisplaySCRegular.eot') format('embedded-opentype'),
+         url('../fonts/PlayfairDisplaySCRegular.woff2') format('woff2'),
+         url('../fonts/PlayfairDisplaySCRegular.woff') format('woff'),
+         url('../fonts/PlayfairDisplaySCRegular.ttf') format('truetype'),
+         url('../fonts/PlayfairDisplaySCRegular.svg#PlayfairDisplaySCRegular') format('svg');
+}
