@@ -57,7 +57,8 @@ angular.module('starter.controllers', [])
                         idKey: "id",
                         latitude: $scope.incidents[i].coords.latitude,
                         longitude: $scope.incidents[i].coords.longitude,
-                        show: true
+                        show: true,
+                        icon: 'img/green_marker.png'
                     };
                 return marker;
             };
