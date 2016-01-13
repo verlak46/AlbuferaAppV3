@@ -2,30 +2,6 @@ angular.module('starter.controllers', [])
 
 .controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicHistory, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
 
-    $scope.incidents = '';
-    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
-    $scope.marker = {
-        options: {
-            draggable: false,
-            icon: 'img/green_marker.png'
-        }
-    };
-
-    // Refresh Map
-    $scope.$on( "$ionicView.enter", function() {
-        // Setup the loader
-        $ionicLoading.show({
-            content: 'Cargando...',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
-        $ionicHistory.clearCache();
-        $scope.incidents = Incidents.getAll();
-        $ionicLoading.hide();
-    });
-
     // Setup the loader
     $ionicLoading.show({
         content: 'Cargando...',
@@ -35,52 +11,67 @@ angular.module('starter.controllers', [])
         showDelay: 0,
         duration: 3000
     });
-
-    // Data initialization
-    Init.all().then(function(data) {
-        console.log(data);
-
-        if (data === 'error') {
-            // An error occured. Show a message to the user
-            var alertPopup = $ionicPopup.alert({
-                title: 'Error',
-                template: $filter('translate')('ERROR_RECOVERY'),
-                okType: 'button-balanced'
-            });
-            alertPopup.then(function (res) {
-            });
+    
+    $scope.incidents = Incidents.getAll();
+    $scope.categories = Categories.getAll();
+    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.marker = {
+        options: {
+            draggable: false,
+            icon: 'img/green_marker.png'
         }
+    };
 
-        Incidents.save(data.incidents);
-        $scope.incidents = Incidents.getAll();
-        Categories.save(data.categories);
-        $scope.categories = Categories.getAll();
-        Activities.save(data.activities);
-        ActivityTypes.save(data.activityTypes);
+    if ($scope.incidents.length === 0) {
+        // Data initialization
+        Init.all().then(function(data) {
+            console.log(data);
 
-        var sendData = function(newIncident) {
-            Incidents.post(newIncident).then(function(data){
-                if (data === 'error') {
-                    console.log('Error');
-                } else {
-                    // Remove incident from not sent
-                    StorageService.removeNotSent(newIncident.id);
+            if (data === 'error') {
+                // An error occured. Show a message to the user
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: $filter('translate')('ERROR_RECOVERY'),
+                    okType: 'button-balanced'
+                });
+                alertPopup.then(function (res) {
+                });
+            }
+
+            Incidents.save(data.incidents);
+            $scope.incidents = Incidents.getAll();
+            Categories.save(data.categories);
+            $scope.categories = Categories.getAll();
+            Activities.save(data.activities);
+            ActivityTypes.save(data.activityTypes);
+
+            var sendData = function(newIncident) {
+                Incidents.post(newIncident).then(function(data){
+                    if (data === 'error') {
+                        console.log('Error');
+                    } else {
+                        // Remove incident from not sent
+                        StorageService.removeNotSent(newIncident.id);
+                    }
+                });
+            };
+
+            // Check if there are any incident to sent
+            var notSentIncidents = [];
+            notSentIncidents = StorageService.getAllNotSent();
+
+            if (notSentIncidents.length > 0) {
+                for (var i = 0; i < notSentIncidents.length; i++) {
+                 
+                    var newIncident = StorageService.getNotSent(notSentIncidents[i].id);
+
+                    newIncident.categorie = newIncident.categorieId;
+
+                    sendData(newIncident);
                 }
-            });
-        };
-
-        // Check if there are any incident to sent
-        var notSentIncidents = StorageService.getAllNotSent();
-
-        for (var i = 0; i < notSentIncidents.length; i++) {
-             
-            var newIncident = StorageService.getNotSent(notSentIncidents[i].id);
-
-            newIncident.categorie = newIncident.categorieId;
-
-            sendData(newIncident);
-        }
-    });
+            }
+        });
+    }
 
     // Geolocation
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
@@ -107,7 +98,6 @@ angular.module('starter.controllers', [])
     function onError(error) {
         alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
     }
-
 
     if (StorageService.isFirstVisit()) {
         // Language Selection at first visit
@@ -520,7 +510,7 @@ angular.module('starter.controllers', [])
         var newIncident = {
             //id: parseInt(IDGenerator.generate()),
             categorie: parseInt($scope.categorie.id),
-            datetime: moment().format('DD/MM/YYYY h:mm:ss'),
+            datetime: moment().format('DD/MM/YYYY hh:mm:ss'),
             description: $scope.newForm.description,
             image: $scope.imgURI,
             coords: {
@@ -542,7 +532,7 @@ angular.module('starter.controllers', [])
         var newIncidentLocal = {
             id: parseInt(IDGenerator.generate()),
             categorie: $scope.categorie.name,
-            datetime: moment().format('DD/MM/YYYY h:mm:ss'),
+            datetime: moment().format('DD/MM/YYYY hh:mm:ss'),
             description: $scope.newForm.description,
             image: $scope.imgURI,
             coords: {
@@ -563,6 +553,7 @@ angular.module('starter.controllers', [])
         };
 
         console.log(newIncident);
+        console.log(newIncidentLocal);
 
         // Send remote Incident...
         Incidents.post(newIncident).then(function(data) {
@@ -601,8 +592,9 @@ angular.module('starter.controllers', [])
 
                 // Save Local Incident
                 StorageService.add(newIncidentLocal);
-                $scope.newForm = {};
             }
+
+            $scope.newForm = {};
 
             setTimeout(function() {
                 $state.go('tab.incidents-map', {}, { reload: true });
