@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicHistory, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
-    
+
     $scope.incidents = '';
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
     $scope.marker = {
