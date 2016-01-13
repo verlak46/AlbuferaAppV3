@@ -73,7 +73,7 @@ angular.module('starter.services', [])
                 }*/
             }).then(function(resp) {
                 console.log('Success', resp);
-                incidents = resp.data;
+                //incidents = resp.data;
                 defer.resolve(resp.data);
                 // For JSON responses, resp.data contains the result
                 defer.resolve(resp.data);

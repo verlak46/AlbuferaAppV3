@@ -21,6 +21,7 @@
     "angular-google-maps": "latest",
     "ngstorage": "~0.3.10",
     "angular-translate": "latest",
-    "angular-translate-loader-static-files": "~2.8.1"
+    "angular-translate-loader-static-files": "~2.8.1",
+    "moment": "~2.11.1"
   }
 }

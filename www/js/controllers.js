@@ -1,8 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicHistory, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
-
-    "ngInject";
+    
     $scope.incidents = '';
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
     $scope.marker = {
@@ -14,8 +13,17 @@ angular.module('starter.controllers', [])
 
     // Refresh Map
     $scope.$on( "$ionicView.enter", function() {
+        // Setup the loader
+        $ionicLoading.show({
+            content: 'Cargando...',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0
+        });
         $ionicHistory.clearCache();
         $scope.incidents = Incidents.getAll();
+        $ionicLoading.hide();
     });
 
     // Setup the loader
@@ -512,7 +520,7 @@ angular.module('starter.controllers', [])
         var newIncident = {
             //id: parseInt(IDGenerator.generate()),
             categorie: parseInt($scope.categorie.id),
-            datetime: new Date().toLocaleString(),
+            datetime: moment().format('DD/MM/YYYY h:mm:ss'),
             description: $scope.newForm.description,
             image: $scope.imgURI,
             coords: {
@@ -534,7 +542,7 @@ angular.module('starter.controllers', [])
         var newIncidentLocal = {
             id: parseInt(IDGenerator.generate()),
             categorie: $scope.categorie.name,
-            datetime: new Date().toLocaleString(),
+            datetime: moment().format('DD/MM/YYYY h:mm:ss'),
             description: $scope.newForm.description,
             image: $scope.imgURI,
             coords: {
