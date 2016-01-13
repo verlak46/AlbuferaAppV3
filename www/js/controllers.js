@@ -12,15 +12,16 @@ angular.module('starter.controllers', [])
         duration: 3000
     });
 
+    $scope.markers = [];
     $scope.incidents = Incidents.getAll();
     $scope.categories = Categories.getAll();
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
-    $scope.marker = {
+    /*$scope.marker = {
         options: {
             draggable: false,
             icon: 'img/green_marker.png'
         }
-    };
+    };*/
 
     // Refresh Map
     $scope.$on( "$ionicView.enter", function() {
@@ -49,6 +50,24 @@ angular.module('starter.controllers', [])
             $scope.categories = Categories.getAll();
             Activities.save(data.activities);
             ActivityTypes.save(data.activityTypes);
+
+            var crearMarcador = function(i){
+                var marker = {
+                        id: i,
+                        idKey: "id",
+                        latitude: $scope.incidents[i].coords.latitude,
+                        longitude: $scope.incidents[i].coords.longitude,
+                        show: true
+                    };
+                return marker;
+            };
+
+            for(var i=0; i< $scope.incidents.length; i++){
+                                
+                $scope.markers.push(crearMarcador(i));
+            }
+
+            console.log($scope.markers);
 
             var sendData = function(newIncident) {
                 Incidents.post(newIncident).then(function(data){
