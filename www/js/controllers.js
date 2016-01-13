@@ -11,7 +11,7 @@ angular.module('starter.controllers', [])
         showDelay: 0,
         duration: 3000
     });
-    
+
     $scope.incidents = Incidents.getAll();
     $scope.categories = Categories.getAll();
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
@@ -21,6 +21,11 @@ angular.module('starter.controllers', [])
             icon: 'img/green_marker.png'
         }
     };
+
+    // Refresh Map
+    $scope.$on( "$ionicView.enter", function() {
+        $ionicHistory.clearCache();
+    });
 
     if ($scope.incidents.length === 0) {
         // Data initialization
@@ -654,7 +659,6 @@ angular.module('starter.controllers', [])
     // Refresh Map
     $scope.$on( "$ionicView.enter", function() {
         $ionicHistory.clearCache();
-        $scope.incidents = StorageService.getAll();
     });
 
     // Setup the loader
@@ -814,7 +818,6 @@ angular.module('starter.controllers', [])
     // Refresh Map
     $scope.$on( "$ionicView.enter", function() {
         $ionicHistory.clearCache();
-        $scope.incidents = StorageService.getAllFavorites();
     });
 
     // Setup the loader
@@ -998,7 +1001,6 @@ angular.module('starter.controllers', [])
     // Refresh Map
     $scope.$on( "$ionicView.enter", function() {
         $ionicHistory.clearCache();
-        $scope.incidents = Activities.getAll();
     });
 
     // Setup the loader
