@@ -12,16 +12,38 @@ angular.module('starter.controllers', [])
         duration: 3000
     });
 
-    $scope.markers = [];
+    $scope.randomMarkers = [];
     $scope.incidents = Incidents.getAll();
     $scope.categories = Categories.getAll();
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
-    /*$scope.marker = {
-        options: {
-            draggable: false,
+
+    var addMarker = function(i){
+        var marker = {
+            id: i,
+            idKey: "id",
+            latitude: $scope.incidents[i].coords.latitude,
+            longitude: $scope.incidents[i].coords.longitude,
+            show: false,
+            categorie: $scope.incidents[i].categorie,
+            id_incident: $scope.incidents[i].id,
+            description: $scope.incidents[i].description,
+            image: $scope.incidents[i].image,
             icon: 'img/green_marker.png'
+        };
+        return marker;
+    };
+
+    // Add markers
+    if ($scope.incidents.length > 0) {
+        for(var i=0; i< $scope.incidents.length; i++){
+                                
+            $scope.randomMarkers.push(addMarker(i));
         }
-    };*/
+    }
+
+    $scope.onClick = function(marker, eventName, model) {
+        model.show = !model.show;
+    };
 
     // Refresh Map
     $scope.$on( "$ionicView.enter", function() {
@@ -51,21 +73,10 @@ angular.module('starter.controllers', [])
             Activities.save(data.activities);
             ActivityTypes.save(data.activityTypes);
 
-            var crearMarcador = function(i){
-                var marker = {
-                        id: i,
-                        idKey: "id",
-                        latitude: $scope.incidents[i].coords.latitude,
-                        longitude: $scope.incidents[i].coords.longitude,
-                        show: true,
-                        icon: 'img/green_marker.png'
-                    };
-                return marker;
-            };
-
+            // Add markers
             for(var i=0; i< $scope.incidents.length; i++){
                                 
-                $scope.markers.push(crearMarcador(i));
+                $scope.randomMarkers.push(addMarker(i));
             }
 
             console.log($scope.markers);
@@ -86,7 +97,7 @@ angular.module('starter.controllers', [])
             notSentIncidents = StorageService.getAllNotSent();
 
             if (notSentIncidents.length > 0) {
-                for (var i = 0; i < notSentIncidents.length; i++) {
+                for (i=0; i < notSentIncidents.length; i++) {
                  
                     var newIncident = StorageService.getNotSent(notSentIncidents[i].id);
 
@@ -185,23 +196,16 @@ angular.module('starter.controllers', [])
     // CategorieFilter //
 
     $scope.includeCategorie = function (categorie) {
-        // Setup the loader
-        $ionicLoading.show({
-        content: 'Cargando...',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0,
-        duration: 1000
-        });
-
         CategorieFilter.includeCategorie(categorie);
+        $scope.randomMarkers = [];
+        // Add markers
+        for(var i=0; i< $scope.incidents.length; i++){
+            console.log(CategorieFilter.filter($scope.incidents[i]));
+            if (CategorieFilter.filter($scope.incidents[i]) !== null) {
+                $scope.randomMarkers.push(addMarker(i));
+            }                   
+        }
     };
-
-    $scope.categorieFilter = function (incident) {
-        return CategorieFilter.filter(incident);
-    };
-
 })
 
 .controller('IncidentsCtrl', function ($scope, $ionicPopup, $ionicLoading, $filter, $translate, Incidents, Categories, CategorieFilter) {

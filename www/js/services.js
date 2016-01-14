@@ -394,7 +394,7 @@ factory('CategorieFilter', function () {
         filter: function (incident) { // Receive the incident passed by the angularjs filter and checks if the category is in the array
             if (categorieIncludes.length > 0) {
                 if (categorieIncludes.indexOf(incident.categorie) < 0) // If the categorie of the incident is in the array...
-                    return; // .. don't show.
+                    return null; // .. don't show.
             }
 
             return incident; // Else, show!
