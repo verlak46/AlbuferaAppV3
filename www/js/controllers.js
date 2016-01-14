@@ -200,7 +200,6 @@ angular.module('starter.controllers', [])
         $scope.randomMarkers = [];
         // Add markers
         for(var i=0; i< $scope.incidents.length; i++){
-            console.log(CategorieFilter.filter($scope.incidents[i]));
             if (CategorieFilter.filter($scope.incidents[i]) !== null) {
                 $scope.randomMarkers.push(addMarker(i));
             }                   
