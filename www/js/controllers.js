@@ -243,18 +243,7 @@ angular.module('starter.controllers', [])
 
     // CategorieFilter //
     $scope.includeCategorie = function (categorie) {
-        // Setup the loader
-        $ionicLoading.show({
-        content: 'Cargando...',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0,
-        duration: 1000
-        });
-
         CategorieFilter.includeCategorie(categorie);
-        $ionicLoading.hide();
     };
 
     $scope.categorieFilter = function (incident) {
@@ -650,16 +639,6 @@ angular.module('starter.controllers', [])
     // CategorieFilter //
 
     $scope.includeCategorie = function (categorie) {
-        // Setup the loader
-        $ionicLoading.show({
-        content: 'Cargando...',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0,
-        duration: 1000,
-        });
-
         CategorieFilter.includeCategorie(categorie);
     };
 
@@ -822,16 +801,6 @@ angular.module('starter.controllers', [])
     // CategorieFilter //
 
     $scope.includeCategorie = function (categorie) {
-        // Setup the loader
-        $ionicLoading.show({
-        content: 'Cargando...',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0,
-        duration: 1000,
-        });
-
         CategorieFilter.includeCategorie(categorie);
     };
 
@@ -1018,16 +987,6 @@ angular.module('starter.controllers', [])
 
     // TypeFilter //
     $scope.includeType = function (type) {
-        // Setup the loader
-        $ionicLoading.show({
-        content: 'Cargando...',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0,
-        duration: 3000,
-        });
-
         ActivityTypeFilter.includeType(type);
     };
 
@@ -1132,6 +1091,13 @@ angular.module('starter.controllers', [])
     // TypeFilter //
     $scope.includeType = function (type) {
         ActivityTypeFilter.includeType(type);
+        $scope.randomMarkers = [];
+        // Add markers
+        for(var i=0; i< $scope.activities.length; i++){
+            if (ActivityTypeFilter.filter($scope.activities[i]) !== null) {
+                $scope.randomMarkers.push(addMarker(i));
+            }                   
+        }
     };
 })
 

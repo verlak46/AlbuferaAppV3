@@ -417,7 +417,7 @@ factory('ActivityTypeFilter', function () {
         filter: function (activity) { // Receive the activity passed by the angularjs filter and checks if the type is in the array
             if (activityTypeIncludes.length > 0) {
                 if (activityTypeIncludes.indexOf(activity.activityType) < 0) // If the type of the activity is in the array...
-                    return; // .. don't show.
+                    return null; // .. don't show.
             }
 
             return activity; // Else, show!
