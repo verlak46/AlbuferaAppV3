@@ -1,18 +1,17 @@
-﻿<div ng-init="id=0">
-<ion-view view-title="{{ 'FAVORITES' | translate }}">
+﻿<ion-view view-title="{{ 'FAVORITES' | translate }}">
     <ion-content scroll="false" data-tap-disabled="true">
+        <ion-content scroll="false" data-tap-disabled="true">
         <ui-gmap-google-map center='map.center' zoom='map.zoom'>
             <ui-gmap-marker coords="markerUser.coords" options="markerUser.options" idkey="10000">
             </ui-gmap-marker>
-            <ui-gmap-marker ng-repeat="incident in incidents | filter:categorieFilter"
-                   coords="incident.coords" idkey="id + 1" options="marker.options">
-                <ui-gmap-window ng-cloak>
-                    <div class="window">
-                    <a href="#/tab/favorites/{{incident.id}}" style="text-decoration:none; color:black;"><p class="titlewindow">{{incident.categorie | translate}}</p><p class="descriptionwindow">
-                    {{incident.description}}</p><img class="imagewindow" ng-src="{{incident.image}}" /></a>
-                    </div>
-                </ui-gmap-window>
-            </ui-gmap-marker>
+            <ui-gmap-markers models="randomMarkers" coords="'self'" icon="'icon'" click="onClick">
+            <ui-gmap-windows show="show">
+                <div ng-non-bindable class="window">
+                    <a href="#/tab/favorites/{{id_incident}}" style="text-decoration:none; color:black;"><p class="titlewindow">{{categorie | translate}}</p><p class="descriptionwindow">
+                    {{description}}</p><img class="imagewindow" src="{{image}}"/></a>
+                </div>
+            </ui-gmap-windows>
+            </ui-gmap-markers>
         </ui-gmap-google-map>
         <ion-footer-bar class="bar-stable footer-button">
                 <button class="button button-stable icon-left ion-ios-location" onclick="window.location.href='#/tab/favorites-map'"></button>
@@ -22,4 +21,3 @@
         </ion-footer-bar>
     </ion-content>
 </ion-view>
-</div>

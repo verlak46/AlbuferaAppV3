@@ -8,8 +8,7 @@ angular.module('starter.controllers', [])
         animation: 'fade-in',
         showBackdrop: true,
         maxWidth: 200,
-        showDelay: 0,
-        duration: 3000
+        showDelay: 0
     });
 
     $scope.randomMarkers = [];
@@ -192,6 +191,8 @@ angular.module('starter.controllers', [])
     $scope.$on('$destroy', function () {
         $scope.modal.remove();
     });
+
+    $ionicLoading.hide();
 
     // CategorieFilter //
 
@@ -669,30 +670,48 @@ angular.module('starter.controllers', [])
 
 .controller('MyIncidentsMapCtrl', function ($scope, $ionicModal, $ionicHistory, $stateParams, $ionicLoading, StorageService, Categories, CategorieFilter) {
 
-    $scope.incidents = StorageService.getAll();
-    $scope.categories = Categories.getAll();
-    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
-    $scope.marker = {
-        options: {
-            draggable: false,
-            icon: 'img/green_marker.png'
-        }
-    };
-
-    // Refresh Map
-    $scope.$on( "$ionicView.enter", function() {
-        $ionicHistory.clearCache();
-    });
-
     // Setup the loader
     $ionicLoading.show({
         content: 'Cargando...',
         animation: 'fade-in',
         showBackdrop: true,
         maxWidth: 200,
-        showDelay: 0,
-        duration: 3000
+        showDelay: 0
     });
+
+    $scope.randomMarkers = [];
+    $scope.incidents = StorageService.getAll();
+    $scope.categories = Categories.getAll();
+    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+
+    // Refresh Map
+    $scope.$on( "$ionicView.enter", function() {
+        $ionicHistory.clearCache();
+    });
+
+    var addMarker = function(i){
+        var marker = {
+            id: i,
+            idKey: "id",
+            latitude: $scope.incidents[i].coords.latitude,
+            longitude: $scope.incidents[i].coords.longitude,
+            show: false,
+            categorie: $scope.incidents[i].categorie,
+            id_incident: $scope.incidents[i].id,
+            description: $scope.incidents[i].description,
+            image: $scope.incidents[i].image,
+            icon: 'img/green_marker.png'
+        };
+        return marker;
+    };
+
+    // Add markers
+    if ($scope.incidents.length > 0) {
+        for(var i=0; i< $scope.incidents.length; i++){
+                                
+            $scope.randomMarkers.push(addMarker(i));
+        }
+    }
 
     // Geolocation
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
@@ -739,24 +758,19 @@ angular.module('starter.controllers', [])
         $scope.modal.remove();
     });
 
+    $ionicLoading.hide();
+
     // CategorieFilter //
 
     $scope.includeCategorie = function (categorie) {
-        // Setup the loader
-        $ionicLoading.show({
-        content: 'Cargando...',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0,
-        duration: 1000,
-        });
-
         CategorieFilter.includeCategorie(categorie);
-    };
-
-    $scope.categorieFilter = function (incident) {
-        return CategorieFilter.filter(incident);
+        $scope.randomMarkers = [];
+        // Add markers
+        for(var i=0; i< $scope.incidents.length; i++){
+            if (CategorieFilter.filter($scope.incidents[i]) !== null) {
+                $scope.randomMarkers.push(addMarker(i));
+            }                   
+        }
     };
 })
 
@@ -828,30 +842,48 @@ angular.module('starter.controllers', [])
 
 .controller('FavoritesMapCtrl', function ($scope, $ionicModal, $ionicHistory, $stateParams, $ionicLoading, StorageService, Categories, CategorieFilter) {
 
-    $scope.incidents = StorageService.getAllFavorites();
-    $scope.categories = Categories.getAll();
-    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
-    $scope.marker = {
-        options: {
-            draggable: false,
-            icon: 'img/green_marker.png'
-        }
-    };
-    
-    // Refresh Map
-    $scope.$on( "$ionicView.enter", function() {
-        $ionicHistory.clearCache();
-    });
-
     // Setup the loader
     $ionicLoading.show({
         content: 'Cargando...',
         animation: 'fade-in',
         showBackdrop: true,
         maxWidth: 200,
-        showDelay: 0,
-        duration: 3000
+        showDelay: 0
     });
+
+    $scope.randomMarkers = [];
+    $scope.incidents = StorageService.getAllFavorites();
+    $scope.categories = Categories.getAll();
+    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+
+    // Refresh Map
+    $scope.$on( "$ionicView.enter", function() {
+        $ionicHistory.clearCache();
+    });
+
+    var addMarker = function(i){
+        var marker = {
+            id: i,
+            idKey: "id",
+            latitude: $scope.incidents[i].coords.latitude,
+            longitude: $scope.incidents[i].coords.longitude,
+            show: false,
+            categorie: $scope.incidents[i].categorie,
+            id_incident: $scope.incidents[i].id,
+            description: $scope.incidents[i].description,
+            image: $scope.incidents[i].image,
+            icon: 'img/green_marker.png'
+        };
+        return marker;
+    };
+
+    // Add markers
+    if ($scope.incidents.length > 0) {
+        for(var i=0; i< $scope.incidents.length; i++){
+                                
+            $scope.randomMarkers.push(addMarker(i));
+        }
+    }
 
     // Geolocation
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
@@ -898,24 +930,19 @@ angular.module('starter.controllers', [])
         $scope.modal.remove();
     });
 
+    $ionicLoading.hide();
+
     // CategorieFilter //
 
     $scope.includeCategorie = function (categorie) {
-        // Setup the loader
-        $ionicLoading.show({
-        content: 'Cargando...',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0,
-        duration: 1000,
-        });
-
         CategorieFilter.includeCategorie(categorie);
-    };
-
-    $scope.categorieFilter = function (incident) {
-        return CategorieFilter.filter(incident);
+        $scope.randomMarkers = [];
+        // Add markers
+        for(var i=0; i< $scope.incidents.length; i++){
+            if (CategorieFilter.filter($scope.incidents[i]) !== null) {
+                $scope.randomMarkers.push(addMarker(i));
+            }                   
+        }
     };
 })
 
@@ -1011,29 +1038,47 @@ angular.module('starter.controllers', [])
 
 .controller('ActivitiesMapCtrl', function ($scope, $ionicModal, $ionicHistory, $stateParams, $ionicLoading, Activities, ActivityTypes, ActivityTypeFilter) {
 
-    $scope.activities = Activities.getAll();
-    $scope.activityTypes = ActivityTypes.getAll();
-    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
-    $scope.marker = {
-        options: {
-            draggable: false,
-            icon: 'img/green_marker.png'
-        }
-    };
-
-    // Refresh Map
-    $scope.$on( "$ionicView.enter", function() {
-        $ionicHistory.clearCache();
-    });
-
     // Setup the loader
     $ionicLoading.show({
         content: 'Cargando...',
         animation: 'fade-in',
         showBackdrop: true,
         maxWidth: 200,
-        showDelay: 0,
-        duration: 3000
+        showDelay: 0
+    });
+
+    $scope.randomMarkers = [];
+    $scope.activities = Activities.getAll();
+    $scope.activityTypes = ActivityTypes.getAll();
+    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+
+    var addMarker = function(i){
+        var marker = {
+            id: i,
+            idKey: "id",
+            latitude: $scope.activities[i].coords.latitude,
+            longitude: $scope.activities[i].coords.longitude,
+            show: false,
+            activityType: $scope.activities[i].activityType,
+            id_incident: $scope.activities[i].id,
+            description: $scope.activities[i].description,
+            image: $scope.activities[i].image,
+            icon: 'img/green_marker.png'
+        };
+        return marker;
+    };
+
+    // Add markers
+    if ($scope.activities.length > 0) {
+        for(var i=0; i< $scope.activities.length; i++){
+                                
+            $scope.randomMarkers.push(addMarker(i));
+        }
+    }
+
+    // Refresh Map
+    $scope.$on( "$ionicView.enter", function() {
+        $ionicHistory.clearCache();
     });
 
     // Geolocation
@@ -1082,23 +1127,11 @@ angular.module('starter.controllers', [])
         $scope.modal.remove();
     });
 
+    $ionicLoading.hide();
+
     // TypeFilter //
     $scope.includeType = function (type) {
-        // Setup the loader
-        $ionicLoading.show({
-        content: 'Cargando...',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0,
-        duration: 3000,
-        });
-        
         ActivityTypeFilter.includeType(type);
-    };
-
-    $scope.typeFilter = function (activity) {
-        return ActivityTypeFilter.filter(activity);
     };
 })
 

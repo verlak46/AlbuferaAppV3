@@ -1,10 +1,10 @@
 ﻿<ion-view view-title="{{ 'INCIDENTS' | translate }}">
-    <ion-content data-tap-disabled="true">
+    <ion-content scroll="false" data-tap-disabled="true">
         <ui-gmap-google-map center='map.center' zoom='map.zoom'>
             <ui-gmap-marker coords="markerUser.coords" options="markerUser.options" idkey="10000">
             </ui-gmap-marker>
             <ui-gmap-markers models="randomMarkers" coords="'self'" icon="'icon'" click="onClick">
-            <ui-gmap-windows show="show" ng-cloak>
+            <ui-gmap-windows show="show">
                 <div ng-non-bindable class="window">
                     <a href="#/tab/incidents/{{id_incident}}" style="text-decoration:none; color:black;"><p class="titlewindow">{{categorie | translate}}</p><p class="descriptionwindow">
                     {{description}}</p><img class="imagewindow" src="{{image}}"/></a>
