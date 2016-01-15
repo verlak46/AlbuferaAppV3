@@ -288,8 +288,8 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.description, $scope.incident.categorie,
-            $scope.incident.image, null) // Share via native share sheet
+        .share($scope.incident.description + $filter('translate')('SHARED_FROM'), $scope.incident.categorie,
+            $scope.incident.image, 'http://albuferadevalencia.vl17860.dinaserver.com/') // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -764,8 +764,8 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.description, $scope.incident.categorie,
-            $scope.incident.image, null) // Share via native share sheet
+        .share($scope.incident.description + $filter('translate')('SHARED_FROM'), $scope.incident.categorie,
+            $scope.incident.image, 'http://albuferadevalencia.vl17860.dinaserver.com/') // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -910,8 +910,8 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.description, $scope.incident.categorie,
-            $scope.incident.image, null) // Share via native share sheet
+        .share($scope.incident.description + $filter('translate')('SHARED_FROM'), $scope.incident.categorie,
+            $scope.incident.image, 'http://albuferadevalencia.vl17860.dinaserver.com/') // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -1130,15 +1130,15 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivityDetailCtrl', function ($scope, $stateParams, $cordovaInAppBrowser, $ionicPopup, $filter, $cordovaSocialSharing, Activities) {
+.controller('ActivityDetailCtrl', function ($scope, $stateParams, $cordovaInAppBrowser, $ionicPopup, $ionicHistory, $filter, $cordovaSocialSharing, Activities) {
     
     $scope.activity = Activities.get($stateParams.activityId);
 
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.activity.description, $scope.activity.categorie,
-            $scope.activity.image, null) // Share via native share sheet
+        .share($scope.activity.description + $filter('translate')('SHARED_FROM'), $scope.activity.activityType,
+            $scope.activity.image, 'http://albuferadevalencia.vl17860.dinaserver.com/') // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -1162,7 +1162,8 @@ angular.module('starter.controllers', [])
     };
 
     $scope.getThere = function() {
-       $cordovaInAppBrowser.open('https://maps.google.com/?daddr=' + $scope.activity.coords.latitude + ',' + $scope.activity.coords.longitude + '&dirflg=b', '_system', options);
+        $ionicHistory.clearCache();
+        $cordovaInAppBrowser.open('https://maps.google.com/?daddr=' + $scope.activity.coords.latitude + ',' + $scope.activity.coords.longitude + '&dirflg=b', '_system', options);
     };
 })
 
