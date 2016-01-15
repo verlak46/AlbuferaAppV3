@@ -20,7 +20,7 @@ angular.module('starter.controllers', [])
     if ($scope.incidents.length > 0) {
         for(var i=0; i< $scope.incidents.length; i++){
                                 
-            $scope.randomMarkers.push(AddMarker.add(i, $scope));
+            $scope.randomMarkers.push(AddMarker.addIncident(i, $scope));
         }
     }
 
@@ -59,7 +59,7 @@ angular.module('starter.controllers', [])
             // Add markers
             for(var i=0; i< $scope.incidents.length; i++){
                                 
-                $scope.randomMarkers.push(AddMarker.add(i, $scope));
+                $scope.randomMarkers.push(AddMarker.addIncident(i, $scope));
             }
 
             console.log($scope.markers);
@@ -186,7 +186,7 @@ angular.module('starter.controllers', [])
         // Add markers
         for(var i=0; i< $scope.incidents.length; i++){
             if (CategorieFilter.filter($scope.incidents[i]) !== null) {
-                $scope.randomMarkers.push(AddMarker.add(i, $scope));
+                $scope.randomMarkers.push(AddMarker.addIncident(i, $scope));
             }                   
         }
     };
@@ -656,7 +656,7 @@ angular.module('starter.controllers', [])
     if ($scope.incidents.length > 0) {
         for(var i=0; i< $scope.incidents.length; i++){
                                 
-            $scope.randomMarkers.push(AddMarker.add(i, $scope));
+            $scope.randomMarkers.push(AddMarker.addIncident(i, $scope));
         }
     }
 
@@ -715,7 +715,7 @@ angular.module('starter.controllers', [])
         // Add markers
         for(var i=0; i< $scope.incidents.length; i++){
             if (CategorieFilter.filter($scope.incidents[i]) !== null) {
-                $scope.randomMarkers.push(AddMarker.add(i, $scope));
+                $scope.randomMarkers.push(AddMarker.addIncident(i, $scope));
             }                   
         }
     };
@@ -802,7 +802,7 @@ angular.module('starter.controllers', [])
     if ($scope.incidents.length > 0) {
         for(var i=0; i< $scope.incidents.length; i++){
                                 
-            $scope.randomMarkers.push(AddMarker.add(i, $scope));
+            $scope.randomMarkers.push(AddMarker.addIncident(i, $scope));
         }
     }
 
@@ -861,7 +861,7 @@ angular.module('starter.controllers', [])
         // Add markers
         for(var i=0; i< $scope.incidents.length; i++){
             if (CategorieFilter.filter($scope.incidents[i]) !== null) {
-                $scope.randomMarkers.push(AddMarker.add(i, $scope));
+                $scope.randomMarkers.push(AddMarker.addIncident(i, $scope));
             }                   
         }
     };
@@ -967,7 +967,7 @@ angular.module('starter.controllers', [])
     if ($scope.activities.length > 0) {
         for(var i=0; i< $scope.activities.length; i++){
                                 
-            $scope.randomMarkers.push(AddMarker.add(i, $scope));
+            $scope.randomMarkers.push(AddMarker.addActivity(i, $scope));
         }
     }
 
@@ -1031,7 +1031,7 @@ angular.module('starter.controllers', [])
         // Add markers
         for(var i=0; i< $scope.activities.length; i++){
             if (ActivityTypeFilter.filter($scope.activities[i]) !== null) {
-                $scope.randomMarkers.push(AddMarker.add(i, $scope));
+                $scope.randomMarkers.push(AddMarker.addActivity(i, $scope));
             }                   
         }
     };

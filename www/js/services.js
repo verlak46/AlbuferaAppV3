@@ -428,7 +428,7 @@ factory('ActivityTypeFilter', function () {
 factory('AddMarker', function() {
 
     return {
-        add: function(i, scope){
+        addIncident: function(i, scope){
             var marker = {
                 id: i,
                 idKey: "id",
@@ -439,6 +439,21 @@ factory('AddMarker', function() {
                 id_incident: scope.incidents[i].id,
                 description: scope.incidents[i].description,
                 image: scope.incidents[i].image,
+                icon: 'img/green_marker.png'
+            };
+            return marker;
+        },
+        addActivity: function(i, scope){
+            var marker = {
+                id: i,
+                idKey: "id",
+                latitude: scope.activities[i].coords.latitude,
+                longitude: scope.activities[i].coords.longitude,
+                show: false,
+                categorie: scope.activities[i].categorie,
+                id_incident: scope.activities[i].id,
+                description: scope.activities[i].description,
+                image: scope.activities[i].image,
                 icon: 'img/green_marker.png'
             };
             return marker;
