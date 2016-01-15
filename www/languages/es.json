@@ -76,4 +76,5 @@
 "ERROR_POST": "Hubo un error al enviar la incidencia, se enviará automáticamente más tarde.",
 "NEW_ACTIVITY": "Nueva actividad",
 "GET_THERE": "Cómo llegar",
-"ERROR_GEO": "Lo sentimos, no se pudo recuperar su localización"}
+"ERROR_GEO": "Lo sentimos, no se pudo recuperar su localización",
+"ALL_DATA": "Todos los datos son obligatorios"}
