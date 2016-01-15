@@ -8,7 +8,8 @@ angular.module('starter.controllers', [])
         animation: 'fade-in',
         showBackdrop: true,
         maxWidth: 200,
-        showDelay: 0
+        showDelay: 0,
+        duration: 2000
     });
 
     $scope.randomMarkers = [];
@@ -221,8 +222,6 @@ angular.module('starter.controllers', [])
     $scope.$on('$destroy', function () {
         $scope.modal.remove();
     });
-
-    $ionicLoading.hide();
 
     // CategorieFilter //
 
@@ -675,7 +674,8 @@ angular.module('starter.controllers', [])
         animation: 'fade-in',
         showBackdrop: true,
         maxWidth: 200,
-        showDelay: 0
+        showDelay: 0,
+        duration: 2000
     });
 
     $scope.randomMarkers = [];
@@ -740,8 +740,6 @@ angular.module('starter.controllers', [])
     $scope.$on('$destroy', function () {
         $scope.modal.remove();
     });
-
-    $ionicLoading.hide();
 
     // CategorieFilter //
 
@@ -991,7 +989,8 @@ angular.module('starter.controllers', [])
         animation: 'fade-in',
         showBackdrop: true,
         maxWidth: 200,
-        showDelay: 0
+        showDelay: 0,
+        duration: 2000
     });
 
     $scope.randomMarkers = [];
@@ -1114,8 +1113,6 @@ angular.module('starter.controllers', [])
     $scope.$on('$destroy', function () {
         $scope.modal.remove();
     });
-
-    $ionicLoading.hide();
 
     // TypeFilter //
     $scope.includeType = function (type) {
