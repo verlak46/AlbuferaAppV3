@@ -423,4 +423,25 @@ factory('ActivityTypeFilter', function () {
             return activity; // Else, show!
         }
     };
+}).
+
+factory('AddMarker', function() {
+
+    return {
+        add: function(i, scope){
+            var marker = {
+                id: i,
+                idKey: "id",
+                latitude: scope.incidents[i].coords.latitude,
+                longitude: scope.incidents[i].coords.longitude,
+                show: false,
+                categorie: scope.incidents[i].categorie,
+                id_incident: scope.incidents[i].id,
+                description: scope.incidents[i].description,
+                image: scope.incidents[i].image,
+                icon: 'img/green_marker.png'
+            };
+            return marker;
+        }
+    }; 
 });

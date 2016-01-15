@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicHistory, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService) {
+.controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicHistory, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService, AddMarker) {
 
     // Setup the loader
     $ionicLoading.show({
@@ -16,27 +16,11 @@ angular.module('starter.controllers', [])
     $scope.categories = Categories.getAll();
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
 
-    var addMarker = function(i){
-        var marker = {
-            id: i,
-            idKey: "id",
-            latitude: $scope.incidents[i].coords.latitude,
-            longitude: $scope.incidents[i].coords.longitude,
-            show: false,
-            categorie: $scope.incidents[i].categorie,
-            id_incident: $scope.incidents[i].id,
-            description: $scope.incidents[i].description,
-            image: $scope.incidents[i].image,
-            icon: 'img/green_marker.png'
-        };
-        return marker;
-    };
-
     // Add markers
     if ($scope.incidents.length > 0) {
         for(var i=0; i< $scope.incidents.length; i++){
                                 
-            $scope.randomMarkers.push(addMarker(i));
+            $scope.randomMarkers.push(AddMarker.add(i, $scope));
         }
     }
 
@@ -75,7 +59,7 @@ angular.module('starter.controllers', [])
             // Add markers
             for(var i=0; i< $scope.incidents.length; i++){
                                 
-                $scope.randomMarkers.push(addMarker(i));
+                $scope.randomMarkers.push(AddMarker.add(i, $scope));
             }
 
             console.log($scope.markers);
@@ -202,7 +186,7 @@ angular.module('starter.controllers', [])
         // Add markers
         for(var i=0; i< $scope.incidents.length; i++){
             if (CategorieFilter.filter($scope.incidents[i]) !== null) {
-                $scope.randomMarkers.push(addMarker(i));
+                $scope.randomMarkers.push(AddMarker.add(i, $scope));
             }                   
         }
     };
@@ -647,7 +631,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('MyIncidentsMapCtrl', function ($scope, $ionicModal, $ionicHistory, $stateParams, $ionicLoading, StorageService, Categories, CategorieFilter) {
+.controller('MyIncidentsMapCtrl', function ($scope, $ionicModal, $ionicHistory, $stateParams, $ionicLoading, StorageService, Categories, CategorieFilter, AddMarker) {
 
     // Setup the loader
     $ionicLoading.show({
@@ -668,27 +652,11 @@ angular.module('starter.controllers', [])
         $ionicHistory.clearCache();
     });
 
-    var addMarker = function(i){
-        var marker = {
-            id: i,
-            idKey: "id",
-            latitude: $scope.incidents[i].coords.latitude,
-            longitude: $scope.incidents[i].coords.longitude,
-            show: false,
-            categorie: $scope.incidents[i].categorie,
-            id_incident: $scope.incidents[i].id,
-            description: $scope.incidents[i].description,
-            image: $scope.incidents[i].image,
-            icon: 'img/green_marker.png'
-        };
-        return marker;
-    };
-
     // Add markers
     if ($scope.incidents.length > 0) {
         for(var i=0; i< $scope.incidents.length; i++){
                                 
-            $scope.randomMarkers.push(addMarker(i));
+            $scope.randomMarkers.push(AddMarker.add(i, $scope));
         }
     }
 
@@ -747,7 +715,7 @@ angular.module('starter.controllers', [])
         // Add markers
         for(var i=0; i< $scope.incidents.length; i++){
             if (CategorieFilter.filter($scope.incidents[i]) !== null) {
-                $scope.randomMarkers.push(addMarker(i));
+                $scope.randomMarkers.push(AddMarker.add(i, $scope));
             }                   
         }
     };
@@ -809,7 +777,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('FavoritesMapCtrl', function ($scope, $ionicModal, $ionicHistory, $stateParams, $ionicLoading, StorageService, Categories, CategorieFilter) {
+.controller('FavoritesMapCtrl', function ($scope, $ionicModal, $ionicHistory, $stateParams, $ionicLoading, StorageService, Categories, CategorieFilter, AddMarker) {
 
     // Setup the loader
     $ionicLoading.show({
@@ -830,27 +798,11 @@ angular.module('starter.controllers', [])
         $ionicHistory.clearCache();
     });
 
-    var addMarker = function(i){
-        var marker = {
-            id: i,
-            idKey: "id",
-            latitude: $scope.incidents[i].coords.latitude,
-            longitude: $scope.incidents[i].coords.longitude,
-            show: false,
-            categorie: $scope.incidents[i].categorie,
-            id_incident: $scope.incidents[i].id,
-            description: $scope.incidents[i].description,
-            image: $scope.incidents[i].image,
-            icon: 'img/green_marker.png'
-        };
-        return marker;
-    };
-
     // Add markers
     if ($scope.incidents.length > 0) {
         for(var i=0; i< $scope.incidents.length; i++){
                                 
-            $scope.randomMarkers.push(addMarker(i));
+            $scope.randomMarkers.push(AddMarker.add(i, $scope));
         }
     }
 
@@ -909,7 +861,7 @@ angular.module('starter.controllers', [])
         // Add markers
         for(var i=0; i< $scope.incidents.length; i++){
             if (CategorieFilter.filter($scope.incidents[i]) !== null) {
-                $scope.randomMarkers.push(addMarker(i));
+                $scope.randomMarkers.push(AddMarker.add(i, $scope));
             }                   
         }
     };
@@ -995,7 +947,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivitiesMapCtrl', function ($scope, $ionicModal, $ionicHistory, $stateParams, $ionicLoading, Activities, ActivityTypes, ActivityTypeFilter) {
+.controller('ActivitiesMapCtrl', function ($scope, $ionicModal, $ionicHistory, $stateParams, $ionicLoading, Activities, ActivityTypes, ActivityTypeFilter, AddMarker) {
 
     // Setup the loader
     $ionicLoading.show({
@@ -1011,27 +963,11 @@ angular.module('starter.controllers', [])
     $scope.activityTypes = ActivityTypes.getAll();
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
 
-    var addMarker = function(i){
-        var marker = {
-            id: i,
-            idKey: "id",
-            latitude: $scope.activities[i].coords.latitude,
-            longitude: $scope.activities[i].coords.longitude,
-            show: false,
-            activityType: $scope.activities[i].activityType,
-            id_incident: $scope.activities[i].id,
-            description: $scope.activities[i].description,
-            image: $scope.activities[i].image,
-            icon: 'img/green_marker.png'
-        };
-        return marker;
-    };
-
     // Add markers
     if ($scope.activities.length > 0) {
         for(var i=0; i< $scope.activities.length; i++){
                                 
-            $scope.randomMarkers.push(addMarker(i));
+            $scope.randomMarkers.push(AddMarker.add(i, $scope));
         }
     }
 
@@ -1095,7 +1031,7 @@ angular.module('starter.controllers', [])
         // Add markers
         for(var i=0; i< $scope.activities.length; i++){
             if (ActivityTypeFilter.filter($scope.activities[i]) !== null) {
-                $scope.randomMarkers.push(addMarker(i));
+                $scope.randomMarkers.push(AddMarker.add(i, $scope));
             }                   
         }
     };
