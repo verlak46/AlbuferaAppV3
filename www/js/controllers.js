@@ -548,7 +548,7 @@ angular.module('starter.controllers', [])
         var newIncident = {
             //id: parseInt(IDGenerator.generate()),
             categorie: parseInt($scope.categorie.id),
-            datetime: moment().format('DD/MM/YYYY hh:mm:ss'),
+            datetime: moment().format('DD/MM/YYYY HH:mm:ss'),
             description: $scope.newForm.description,
             image: $scope.imgURI,
             coords: {
@@ -570,7 +570,7 @@ angular.module('starter.controllers', [])
         var newIncidentLocal = {
             id: parseInt(IDGenerator.generate()),
             categorie: $scope.categorie.name,
-            datetime: moment().format('DD/MM/YYYY hh:mm:ss'),
+            datetime: moment().format('DD/MM/YYYY HH:mm:ss'),
             description: $scope.newForm.description,
             image: $scope.imgURI,
             coords: {
