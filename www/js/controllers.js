@@ -28,13 +28,59 @@ angular.module('starter.controllers', [])
         model.show = !model.show;
     };
 
-    // Refresh Map
+    // Refresh Map on enter view
     $scope.$on( "$ionicView.enter", function() {
         $ionicHistory.clearCache();
     });
 
+    // Refresh by user
+    $scope.doRefresh = function() {
+        // Setup the loader
+        $ionicLoading.show({
+            content: 'Cargando...',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0,
+            duration: 2000
+        });
+
+        Incidents.all().then(function(data) {
+            console.log(data);
+
+            if (data === 'error') {
+                // An error occured. Show a message to the user
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: $filter('translate')('ERROR_RECOVERY'),
+                    okType: 'button-balanced'
+                });
+                alertPopup.then(function (res) {
+                });
+            }
+
+            $scope.incidents = Incidents.getAll();
+            $scope.randomMarkers = [];
+            // Add markers
+            for(var i=0; i< $scope.incidents.length; i++){
+                if (CategorieFilter.filter($scope.incidents[i]) !== null) {
+                    $scope.randomMarkers.push(AddMarker.addIncident(i, $scope));
+                }                   
+            }
+
+            $scope.$broadcast('scroll.refreshComplete');
+        });
+
+        Categories.all().then(function(data) {
+
+            $scope.categories = Categories.getAll();
+
+            $scope.$broadcast('scroll.refreshComplete');
+        });
+    };
+
+    // Data initialization
     if ($scope.incidents.length === 0) {
-        // Data initialization
         Init.all().then(function(data) {
             console.log(data);
 
@@ -398,8 +444,6 @@ angular.module('starter.controllers', [])
             showDelay: 0,
         });
 
-        $scope.newForm.coords = "39.333" + ", " + "-0.367";
-
         incidentCoords = {
             coords: {
                 latitude: 39.333,
@@ -639,7 +683,7 @@ angular.module('starter.controllers', [])
     $scope.categories = Categories.getAll();
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
 
-    // Refresh Map
+    // Refresh Map on enter view
     $scope.$on( "$ionicView.enter", function() {
         $ionicHistory.clearCache();
     });
@@ -785,7 +829,7 @@ angular.module('starter.controllers', [])
     $scope.categories = Categories.getAll();
     $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
 
-    // Refresh Map
+    // Refresh Map on enter view
     $scope.$on( "$ionicView.enter", function() {
         $ionicHistory.clearCache();
     });
@@ -963,10 +1007,67 @@ angular.module('starter.controllers', [])
         }
     }
 
-    // Refresh Map
+    // Refresh Map on enter view
     $scope.$on( "$ionicView.enter", function() {
         $ionicHistory.clearCache();
     });
+
+    // Refresh map by user
+    $scope.doRefresh = function() {
+        // Setup the loader
+        $ionicLoading.show({
+            content: 'Cargando...',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0,
+            duration: 2000
+        });
+
+        Activities.all().then(function(data) {
+            console.log(data);
+
+            if (data === 'error') {
+                // An error occured. Show a message to the user
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: $filter('translate')('ERROR_RECOVERY_ACTIVITIES'),
+                    okType: 'button-balanced'
+                });
+                alertPopup.then(function (res) {
+                });
+            }
+
+            $scope.activities = Activities.getAll();
+            // Add markers
+            if ($scope.activities.length > 0) {
+                for(var i=0; i< $scope.activities.length; i++){
+                                        
+                    $scope.randomMarkers.push(AddMarker.addActivity(i, $scope));
+                }
+            }
+
+            $scope.$broadcast('scroll.refreshComplete');
+        });
+
+        ActivityTypes.all().then(function(data) {
+            console.log(data);
+
+            if (data === 'error') {
+                // An error occured. Show a message to the user
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: $filter('translate')('ERROR_RECOVERY_ACTIVITIES'),
+                    okType: 'button-balanced'
+                });
+                alertPopup.then(function (res) {
+                });
+            }
+
+            $scope.activityTypes = ActivityTypes.getAll();
+            $scope.$broadcast('scroll.refreshComplete');
+        });
+    };
 
     // Geolocation
     navigator.geolocation.getCurrentPosition(onSuccess, onError);

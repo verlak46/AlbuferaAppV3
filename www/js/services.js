@@ -450,7 +450,7 @@ factory('AddMarker', function() {
                 latitude: scope.activities[i].coords.latitude,
                 longitude: scope.activities[i].coords.longitude,
                 show: false,
-                categorie: scope.activities[i].categorie,
+                activityType: scope.activities[i].activityType,
                 id_incident: scope.activities[i].id,
                 description: scope.activities[i].description,
                 image: scope.activities[i].image,
