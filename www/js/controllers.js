@@ -441,16 +441,8 @@ angular.module('starter.controllers', [])
         //Center's the map on Albufera coords
         $scope.map = { center: { latitude: $scope.marker.coords.latitude, longitude: $scope.marker.coords.longitude }, zoom: 12};
 
-        $scope.windowOptions = {
-            visible: false
-        };
-
-        $scope.onClick = function () {
-            $scope.windowOptions.visible = !$scope.windowOptions.visible;
-        };
-
         $scope.closeClick = function () {
-            $scope.windowOptions.visible = false;
+            $scope.windowOptions.show = false;
         };
 
         $ionicLoading.hide();
