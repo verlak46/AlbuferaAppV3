@@ -287,8 +287,8 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.description + $filter('translate')('SHARED_FROM'), $scope.incident.categorie,
-            $scope.incident.image, 'http://albuferadevalencia.vl17860.dinaserver.com/') // Share via native share sheet
+        .share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
+            $scope.incident.image, null) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -762,8 +762,8 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.description + $filter('translate')('SHARED_FROM'), $scope.incident.categorie,
-            $scope.incident.image, 'http://albuferadevalencia.vl17860.dinaserver.com/') // Share via native share sheet
+        .share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
+            $scope.incident.image, null) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -908,8 +908,8 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.incident.description + $filter('translate')('SHARED_FROM'), $scope.incident.categorie,
-            $scope.incident.image, 'http://albuferadevalencia.vl17860.dinaserver.com/') // Share via native share sheet
+        .share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
+            $scope.incident.image, null) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -1134,8 +1134,8 @@ angular.module('starter.controllers', [])
     // Social Sharing
     $scope.share = function() {
         $cordovaSocialSharing
-        .share($scope.activity.description + $filter('translate')('SHARED_FROM'), $scope.activity.activityType,
-            $scope.activity.image, 'http://albuferadevalencia.vl17860.dinaserver.com/') // Share via native share sheet
+        .share($scope.activity.description, $scope.activity.activityType + $filter('translate')('SHARED_FROM'),
+            $scope.activity.image, null) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
