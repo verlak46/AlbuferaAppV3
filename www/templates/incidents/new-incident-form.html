@@ -1,12 +1,12 @@
 ﻿    <ion-view view-title="{{ 'NEW_INCIDENT'| translate }}">
-    <ion-content>
-    <div class="item item-divider">
-        {{'ALL_DATA' | translate}}
-    </div>
+    <ion-content style="padding">
     <ion-list>
     <div class="list card">
-        <div class="item item-divider" style="text-align:center">
+        <div class="item item-divider">
             {{categorie.name | translate}}
+        </div>
+        <div class="item item-text-wrap">
+        {{'ALL_DATA' | translate}}
         </div>
         <div class="item item-body">
             <form name="incidentForm" novalidate>
