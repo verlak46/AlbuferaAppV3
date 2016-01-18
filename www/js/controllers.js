@@ -993,16 +993,77 @@ angular.module('starter.controllers', [])
         duration: 2000
     });
 
+    $scope.map = {
+        mapID: "multiple_marker_map_canvas",
+        mapType: "ROADMAP",
+        center: {
+            lat: 39.3347088,
+            lon: -0.3505317
+        },
+        zoom: 12,
+        markers: [
+            /*{
+                position: {
+                    lat: 39.3129996,
+                    lon: -0.3643913
+                },
+                title: "Hello marker 1!",
+                snippet: "snippet 1!",
+                icon: {
+                    url: "http://www.museumexperience.es/img/icons/icon-32-clock.png",
+                    size: {
+                        width: 40,
+                        height: 40
+                    }
+                },
+                draggable: false,
+                disableAutoPan: false,
+                animation: "DROP",
+                markerClick: function(marker) {
+                    alert("marker111111");
+                },
+                infoClick: function(marker) {
+                    alert("info111111");
+                }
+            },
+            {
+                position: {
+                    lat: 39.3416121,
+                    lon: -0.3205042
+                },
+                title: "Hello marker 2!",
+                snippet: "snippet 2!",
+                icon: {
+                    url: "http://www.museumexperience.es/img/icons/icon-32-clock.png",
+                    size: {
+                        width: 40,
+                        height: 40
+                    }
+                },
+                draggable: true,
+                disableAutoPan: true,
+                animation: "BOUNCE",
+                markerClick: function(marker) {
+                    alert("marker222222");
+                },
+                infoClick: function(marker) {
+                    alert("info222222");
+                }
+            }*/
+        ]
+    };
+
+
     $scope.randomMarkers = [];
     $scope.activities = Activities.getAll();
     $scope.activityTypes = ActivityTypes.getAll();
-    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    //$scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
 
     // Add markers
     if ($scope.activities.length > 0) {
         for(var i=0; i< $scope.activities.length; i++){
-                                
             $scope.randomMarkers.push(AddMarker.addActivity(i, $scope));
+            $scope.map.markers = $scope.randomMarkers;
         }
     }
 
@@ -1041,8 +1102,8 @@ angular.module('starter.controllers', [])
             // Add markers
             if ($scope.activities.length > 0) {
                 for(var i=0; i< $scope.activities.length; i++){
-                                        
                     $scope.randomMarkers.push(AddMarker.addActivity(i, $scope));
+                    $scope.map.markers = $scope.randomMarkers;
                 }
             }
 
@@ -1075,7 +1136,7 @@ angular.module('starter.controllers', [])
     function onSuccess(data) {
 
         // Mark's user location
-        $scope.markerUser = {
+        /*$scope.markerUser = {
             id: 0,
             show: false,
             coords: {
@@ -1086,12 +1147,12 @@ angular.module('starter.controllers', [])
                 draggable: false,
                 icon: 'img/pegman.png'
             }
-        };
+        };*/
     }
 
     // onError Callback receives a PositionError object
     function onError(error) {
-        alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+        //alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
     }
 
     // Load the modal from the given template URL
@@ -1122,6 +1183,7 @@ angular.module('starter.controllers', [])
         for(var i=0; i< $scope.activities.length; i++){
             if (ActivityTypeFilter.filter($scope.activities[i]) !== null) {
                 $scope.randomMarkers.push(AddMarker.addActivity(i, $scope));
+                $scope.map.markers = $scope.randomMarkers;
             }                   
         }
     };

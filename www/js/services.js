@@ -377,9 +377,9 @@ angular.module('starter.services', [])
             return generator.generate();
         }
     };
-}).
+})
 
-factory('CategorieFilter', function () {
+.factory('CategorieFilter', function () {
     categorieIncludes = []; // This array contains the categories to filter
 
     return {
@@ -400,9 +400,9 @@ factory('CategorieFilter', function () {
             return incident; // Else, show!
         }
     };
-}).
+})
 
-factory('ActivityTypeFilter', function () {
+.factory('ActivityTypeFilter', function () {
     activityTypeIncludes = []; // This array contains the types to filter
 
     return {
@@ -423,9 +423,9 @@ factory('ActivityTypeFilter', function () {
             return activity; // Else, show!
         }
     };
-}).
+})
 
-factory('AddMarker', function() {
+.factory('AddMarker', function() {
 
     return {
         addIncident: function(i, scope){
@@ -444,7 +444,7 @@ factory('AddMarker', function() {
             return marker;
         },
         addActivity: function(i, scope){
-            var marker = {
+            /*var marker = {
                 id: i,
                 idKey: "id",
                 latitude: scope.activities[i].coords.latitude,
@@ -455,6 +455,26 @@ factory('AddMarker', function() {
                 description: scope.activities[i].description,
                 image: scope.activities[i].image,
                 icon: 'img/green_marker.png'
+            };*/
+            var marker = {
+                position: {
+                    lat: scope.activities[i].coords.latitude,
+                    lon: scope.activities[i].coords.longitude
+                },
+                title: scope.activities[i].activityType,
+                snippet: scope.activities[i].description,
+                icon: {
+                    url: "www/img/green_marker.png",
+                },
+                draggable: false,
+                disableAutoPan: true,
+                animation: "BOUNCE"
+                /*markerClick: function(marker) {
+                    alert("marker222222");
+                },
+                infoClick: function(marker) {
+                    alert("info222222");
+                }*/
             };
             return marker;
         }

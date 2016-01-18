@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.translate', 'uiGmapgoogle-maps', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngStorage', 'pascalprecht.translate', 'uiGmapgoogle-maps', 'starter.controllers', 'starter.services', 'starter.directives'])
 
 .run(function ($ionicPlatform) {
 
