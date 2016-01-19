@@ -443,40 +443,179 @@ angular.module('starter.services', [])
             };
             return marker;
         },
-        addActivity: function(i, scope){
-            /*var marker = {
-                id: i,
-                idKey: "id",
-                latitude: scope.activities[i].coords.latitude,
-                longitude: scope.activities[i].coords.longitude,
-                show: false,
-                activityType: scope.activities[i].activityType,
-                id_incident: scope.activities[i].id,
-                description: scope.activities[i].description,
-                image: scope.activities[i].image,
-                icon: 'img/green_marker.png'
-            };*/
+        addActivity: function(i, scope, image){
             var marker = {
                 position: {
                     lat: scope.activities[i].coords.latitude,
                     lon: scope.activities[i].coords.longitude
                 },
-                title: scope.activities[i].activityType,
+                title: image,
                 snippet: scope.activities[i].description,
                 icon: {
-                    url: "www/img/green_marker.png",
+                    url: "www/img/green_marker.png"
                 },
                 draggable: false,
                 disableAutoPan: true,
                 animation: "BOUNCE"
-                /*markerClick: function(marker) {
-                    alert("marker222222");
-                },
-                infoClick: function(marker) {
-                    alert("info222222");
-                }*/
             };
             return marker;
         }
     }; 
+})
+
+.factory('createMapServ', function() {
+    return {
+        create: function(scope) {
+
+            console.log("yeeeeeeeeeeeeeeee");
+            // Map Functionality
+            var div = document.getElementById(scope.map.mapID);
+            var map = null;
+            var mapOptions = {
+                camera: {
+                    latLng: new plugin.google.maps.LatLng(40.3732626, -3.705482),
+                    zoom: 4
+                },
+                mapType: plugin.google.maps.MapTypeId.ROADMAP
+            };
+
+            // Establece un centro para el mapa
+            if(scope.map.center) {
+                mapOptions.camera.latLng = new plugin.google.maps.LatLng(scope.map.center.lat, scope.map.center.lon);
+            }
+
+            // Estrablece el zoom
+            if(scope.map.zoom) {
+                mapOptions.camera.zoom = scope.map.zoom;
+            }
+
+            // Tipo mapa
+            if(scope.map.mapType == "HYBRID") {
+                mapOptions.mapType = plugin.google.maps.MapTypeId.HYBRID;
+            } else if(scope.map.mapType == "TERRAIN") {
+                mapOptions.mapType = plugin.google.maps.MapTypeId.TERRAIN;
+            } else if(scope.map.mapType == "SATELLITE") {
+                mapOptions.mapType = plugin.google.maps.MapTypeId.SATELLITE;
+            }
+
+            // Initializa la visualizacion del mapa
+            map = plugin.google.maps.Map.getMap(div, mapOptions);
+
+            // Resetea el mapa
+            //map.clear();
+            //map.off();
+
+            // Espera a que este preparado
+            map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
+
+            function onMapReady() {
+                console.log("readyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+                // Resetea el mapa
+                map.clear();
+                map.off();
+                map.setOptions(mapOptions);
+                map.refreshLayout();
+
+                // Añade los marcadores
+                if(scope.map.markers) {
+                    for(var i = 0; i < scope.map.markers.length; i++) {
+                        var marker = scope.map.markers[i];
+                        var markerData = {
+                            position: new plugin.google.maps.LatLng(marker.position.lat, marker.position.lon),
+                            title: marker.title || "",
+                            snippet: marker.snippet || "",
+                            icon: marker.icon || {'url':"http://www.google.com/mapfiles/marker.png"},
+                            draggable: marker.draggable || false,
+                            disableAutoPan: marker.disableAutoPan || false,
+                            markerClick: marker.markerClick || function(){},
+                            infoClick: marker.infoClick || function(){}
+                        };
+
+                        if(marker.animation == "DROP") {
+                            markerData.animation = plugin.google.maps.Animation.DROP;
+                        } else if(marker.animation == "BOUNCE") {
+                            markerData.animation = plugin.google.maps.Animation.BOUNCE;
+                        }
+                        map.addMarker(markerData);
+                    }
+                }
+
+                if(scope.onReady) {
+                    scope.onReady();
+                }
+
+
+                // Geocoder functionality
+                if(scope.map.isGeocoderMap === true) {
+                    $("#"+scope.map.searchID).off();
+                    $("#"+scope.map.searchID).on("click", function() {
+                        var request = {
+                            address: $("#"+scope.map.inputID).val()
+                        };
+
+                        // Comprueba si no existe la propiedad marker
+                        if(scope.map.marker === undefined || scope.map.marker === null) {
+                            scope.map.marker = {};
+                        }
+
+                        // Genera el mapa
+                        plugin.google.maps.Geocoder.geocode(request, geocoderCallback);
+
+                        function geocoderCallback(results) {
+                            if(results.length) {
+                                var result = results[0]; 
+
+                                map.animateCamera({
+                                    target: result.position,
+                                    zoom: scope.map.zoom || 17
+                                }, function() {
+                                    setTimeout(function() {
+                                        var markerData = {
+                                            position: result.position,
+                                            title: scope.map.marker.title || JSON.stringify(result),
+                                            snippet: scope.map.marker.snippet || "",
+                                            icon: scope.map.marker.icon || {'url':"http://www.google.com/mapfiles/marker.png"},
+                                            draggable: scope.map.marker.draggable || false,
+                                            disableAutoPan: scope.map.marker.disableAutoPan || false,
+                                            markerClick: scope.map.marker.markerClick || function(){},
+                                            infoClick: scope.map.marker.infoClick || function(){}
+                                        };
+
+                                        if(scope.map.marker.animation == "DROP") {
+                                            markerData.animation = plugin.google.maps.Animation.DROP;
+                                        } else if(scope.map.marker.animation == "BOUNCE") {
+                                            markerData.animation = plugin.google.maps.Animation.BOUNCE;
+                                        }
+
+                                        map.addMarker(markerData, function(marker) {
+                                            var autoOpenInfoWindow = true;
+                                            // Comprueba si se ha rellenado la opcion o debe coger la opcion por defecto
+                                            if(typeof scope.map.marker.autoOpenInfoWindow == 'boolean') {
+                                                if(scope.map.marker.autoOpenInfoWindow === true) {
+                                                    marker.showInfoWindow();
+                                                }
+                                            } else {
+                                                marker.showInfoWindow();
+                                            }
+                                        });
+                                    }, 1500);
+                                });
+                            } else {
+                                if(scope.map.notFoundCallback) {
+                                    scope.map.notFoundCallback();
+                                } else {
+                                    alert("No se ha encontrado");
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+
+            scope.$watch("map", function(data) {
+                scope.map = data;
+                onMapReady();
+            });
+        }
+    };
 });

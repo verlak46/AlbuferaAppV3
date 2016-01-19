@@ -981,7 +981,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivitiesMapCtrl', function ($scope, $ionicModal, $ionicHistory, $stateParams, $ionicLoading, Activities, ActivityTypes, ActivityTypeFilter, AddMarker) {
+.controller('ActivitiesMapCtrl', function ($scope, $ionicModal, $ionicHistory, $stateParams, $ionicLoading, Activities, ActivityTypes, ActivityTypeFilter, AddMarker, createMapServ) {
 
     // Setup the loader
     $ionicLoading.show({
@@ -1001,69 +1001,54 @@ angular.module('starter.controllers', [])
             lon: -0.3505317
         },
         zoom: 12,
-        markers: [
-            /*{
-                position: {
-                    lat: 39.3129996,
-                    lon: -0.3643913
-                },
-                title: "Hello marker 1!",
-                snippet: "snippet 1!",
-                icon: {
-                    url: "http://www.museumexperience.es/img/icons/icon-32-clock.png",
-                    size: {
-                        width: 40,
-                        height: 40
-                    }
-                },
-                draggable: false,
-                disableAutoPan: false,
-                animation: "DROP",
-                markerClick: function(marker) {
-                    alert("marker111111");
-                },
-                infoClick: function(marker) {
-                    alert("info111111");
-                }
-            },
-            {
-                position: {
-                    lat: 39.3416121,
-                    lon: -0.3205042
-                },
-                title: "Hello marker 2!",
-                snippet: "snippet 2!",
-                icon: {
-                    url: "http://www.museumexperience.es/img/icons/icon-32-clock.png",
-                    size: {
-                        width: 40,
-                        height: 40
-                    }
-                },
-                draggable: true,
-                disableAutoPan: true,
-                animation: "BOUNCE",
-                markerClick: function(marker) {
-                    alert("marker222222");
-                },
-                infoClick: function(marker) {
-                    alert("info222222");
-                }
-            }*/
-        ]
+        markers: []
     };
 
 
     $scope.randomMarkers = [];
     $scope.activities = Activities.getAll();
     $scope.activityTypes = ActivityTypes.getAll();
-    //$scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.markersCount = 0;
+
+    $scope.convertTipImgToBase64URL = function(id, imagePath){
+        var img = new Image();
+        img.crossOrigin = 'Anonymous';
+        img.onload = function(){
+            $scope.markersCount++;
+            var canvas = document.createElement('CANVAS'),
+            ctx = canvas.getContext('2d');
+            canvas.height = 100;
+            canvas.width = 100;
+            ctx.drawImage(this, 0, 0, this.width, this.height,    // source rectangle
+                   0, 0, canvas.width, canvas.height);  // destination rectangle
+            var dataURL = canvas.toDataURL();
+            console.log(dataURL);
+            
+            $scope.randomMarkers.push(AddMarker.addActivity(id, $scope, dataURL));
+            $scope.map.markers = $scope.randomMarkers;
+            canvas = null;
+
+            if($scope.markersCount == $scope.activities.length) {
+                createMapServ.create($scope);
+            }
+            /*setTimeout(function() {
+                for(var i = 0; i < $scope.map.markers.length; i++){
+                    var marker = $scope.map.markers[i];
+                    console.log("---------------------------MARKER ----- " +i);
+                    console.log(marker.position.lon);
+                    marker.position.lat = (parseFloat(marker.position.lat) + 1.00);
+                    marker.position.lon = (parseFloat(marker.position.lon) + 1.00);
+                    console.log(marker.position.lon);
+                }
+            },10000);*/
+        };
+        img.src = imagePath;
+    };
 
     // Add markers
     if ($scope.activities.length > 0) {
         for(var i=0; i< $scope.activities.length; i++){
-            $scope.randomMarkers.push(AddMarker.addActivity(i, $scope));
-            $scope.map.markers = $scope.randomMarkers;
+            $scope.convertTipImgToBase64URL(i, $scope.activities[i].image);
         }
     }
 
