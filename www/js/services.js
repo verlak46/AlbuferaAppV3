@@ -425,7 +425,7 @@ angular.module('starter.services', [])
     };
 })
 
-.factory('AddMarker', function() {
+.factory('AddMarker', function($window) {
 
     return {
         addIncident: function(i, scope){
@@ -456,7 +456,10 @@ angular.module('starter.services', [])
                 },
                 draggable: false,
                 disableAutoPan: true,
-                animation: "BOUNCE"
+                animation: "BOUNCE",
+                infoClick: function() {
+                    $window.location.href = "#/tab/activities/" + scope.activities[i].id;
+                }
             };
             return marker;
         }
