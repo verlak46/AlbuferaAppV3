@@ -1,5 +1,7 @@
 angular.module('starter.controllers', [])
 
+.value('shareUrl', 'http://albuferadevalencia.vl17860.dinaserver.com/')
+
 .controller('IncidentsMapCtrl', function ($scope, $stateParams, $ionicHistory, $ionicLoading, $ionicPopup, $ionicModal, $filter, $translate, Init, Incidents, Categories, Activities, ActivityTypes, CategorieFilter, StorageService, AddMarker) {
 
     // Setup the loader
@@ -280,7 +282,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, $filter, $cordovaSocialSharing, Incidents, StorageService) {
+.controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, $filter, $cordovaSocialSharing, shareUrl, Incidents, StorageService) {
     
     $scope.incident = Incidents.get($stateParams.incidentId);
 
@@ -288,7 +290,7 @@ angular.module('starter.controllers', [])
     $scope.share = function() {
         $cordovaSocialSharing
         .share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
-            $scope.incident.image, null) // Share via native share sheet
+            $scope.incident.image, shareUrl + "incidencia/" + $scope.incident.id) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -755,7 +757,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('MyIncidentDetailCtrl', function ($scope, $stateParams, $filter, StorageService, $cordovaSocialSharing, CategorieFilter) {
+.controller('MyIncidentDetailCtrl', function ($scope, $stateParams, $filter, StorageService, $cordovaSocialSharing, shareUrl, CategorieFilter) {
     
     $scope.incident = StorageService.get($stateParams.incidentId);
 
@@ -763,7 +765,7 @@ angular.module('starter.controllers', [])
     $scope.share = function() {
         $cordovaSocialSharing
         .share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
-            $scope.incident.image, null) // Share via native share sheet
+            $scope.incident.image, shareUrl + "incidencia/" + $scope.incident.id) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -901,7 +903,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('FavoriteDetailCtrl', function ($scope, $stateParams, $filter, $cordovaSocialSharing, StorageService) {
+.controller('FavoriteDetailCtrl', function ($scope, $stateParams, $filter, $cordovaSocialSharing, shareUrl, StorageService) {
     
     $scope.incident = StorageService.getFavorite($stateParams.incidentId);
 
@@ -909,7 +911,7 @@ angular.module('starter.controllers', [])
     $scope.share = function() {
         $cordovaSocialSharing
         .share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
-            $scope.incident.image, null) // Share via native share sheet
+            $scope.incident.image, shareUrl + "incidencia/" + $scope.incident.id) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -1127,7 +1129,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivityDetailCtrl', function ($scope, $stateParams, $cordovaInAppBrowser, $ionicPopup, $ionicHistory, $filter, $cordovaSocialSharing, Activities) {
+.controller('ActivityDetailCtrl', function ($scope, $stateParams, $cordovaInAppBrowser, $ionicPopup, $ionicHistory, $filter, $cordovaSocialSharing, shareUrl, Activities) {
     
     $scope.activity = Activities.get($stateParams.activityId);
 
@@ -1135,7 +1137,7 @@ angular.module('starter.controllers', [])
     $scope.share = function() {
         $cordovaSocialSharing
         .share($scope.activity.description, $scope.activity.activityType + $filter('translate')('SHARED_FROM'),
-            $scope.activity.image, null) // Share via native share sheet
+            $scope.activity.image, shareUrl + "actividad/" + $scope.incident.id) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
