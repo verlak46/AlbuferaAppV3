@@ -290,7 +290,7 @@ angular.module('starter.controllers', [])
     $scope.share = function() {
         $cordovaSocialSharing
         .share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
-            $scope.incident.image, shareUrl + "incidencia/" + $scope.incident.id) // Share via native share sheet
+            $scope.incident.image, ". Ver en detalle: " + shareUrl + "incidencia/" + $scope.incident.id) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -765,7 +765,7 @@ angular.module('starter.controllers', [])
     $scope.share = function() {
         $cordovaSocialSharing
         .share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
-            $scope.incident.image, shareUrl + "incidencia/" + $scope.incident.id) // Share via native share sheet
+            $scope.incident.image, ". Ver en detalle: " + shareUrl + "incidencia/" + $scope.incident.id) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -911,7 +911,7 @@ angular.module('starter.controllers', [])
     $scope.share = function() {
         $cordovaSocialSharing
         .share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
-            $scope.incident.image, shareUrl + "incidencia/" + $scope.incident.id) // Share via native share sheet
+            $scope.incident.image, ". Ver en detalle: " + shareUrl + "incidencia/" + $scope.incident.id) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
@@ -1137,7 +1137,7 @@ angular.module('starter.controllers', [])
     $scope.share = function() {
         $cordovaSocialSharing
         .share($scope.activity.description, $scope.activity.activityType + $filter('translate')('SHARED_FROM'),
-            $scope.activity.image, shareUrl + "actividad/" + $scope.incident.id) // Share via native share sheet
+            $scope.activity.image, ". Ver en detalle: " + shareUrl + "actividad/" + $scope.activity.id) // Share via native share sheet
         .then(function(result) {
           // Success!
           console.log('sharing');
