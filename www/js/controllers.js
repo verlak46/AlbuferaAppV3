@@ -282,29 +282,46 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, $filter, $cordovaSocialSharing, shareUrl, Incidents, StorageService) {
+.controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, $filter, $cordovaSocialSharing, $ionicModal, $ionicHistory, shareUrl, Incidents, StorageService) {
     
     $scope.incident = Incidents.get($stateParams.incidentId);
 
     // Social Sharing
-    $scope.share = function() {
-        $cordovaSocialSharing
-        .share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
-            $scope.incident.image, ". Ver en detalle: " + shareUrl + "incidencia/" + $scope.incident.id) // Share via native share sheet
-        .then(function(result) {
-          // Success!
-          console.log('sharing');
-      }, function(err) {
-          // An error occured. Show a message to the user
-            var alertPopup = $ionicPopup.alert({
-                title: 'Error',
-                template: $filter('translate')('ERROR_SHARE'),
-                okType: 'button-balanced'
-            });
-            alertPopup.then(function (res) {
-            });
-      });
+    $scope.whatsappShare=function(){
+        window.plugins.socialsharing.shareViaWhatsApp($scope.incident.description + $filter('translate')('SHARED_FROM'),
+            $scope.incident.image, ". Ver en detalle: " + shareUrl + "incidencia/" + $scope.incident.id, null, function(errormsg){alert("Error: Cannot Share");});
     };
+
+    $scope.facebookShare=function(){
+        window.plugins.socialsharing.shareViaFacebookWithPasteMessageHint($scope.incident.description + $filter('translate')('SHARED_FROM'), null, shareUrl + "incidencia/" + $scope.incident.id, 'Copiado al portapapeles', function() {console.log('share ok');}, function(errormsg){alert(errormsg);});
+    };
+   
+    $scope.OtherShare=function(){
+        window.plugins.socialsharing.share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
+            $scope.incident.image, ". Ver en detalle: " + shareUrl + "incidencia/" + $scope.incident.id);
+    };
+
+
+    // Load the modal from the given template URL
+    $ionicModal.fromTemplateUrl('templates/share-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.openModal = function () {
+        $ionicHistory.clearCache();
+        $scope.modal.show();
+    };
+
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+
+    $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
 
     $scope.addToFavorites = function () {
         if (StorageService.addToFavorites($scope.incident) === null) {
@@ -757,29 +774,46 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('MyIncidentDetailCtrl', function ($scope, $stateParams, $filter, StorageService, $cordovaSocialSharing, shareUrl, CategorieFilter) {
+.controller('MyIncidentDetailCtrl', function ($scope, $stateParams, $filter, $ionicModal, $ionicHistory, StorageService, $cordovaSocialSharing, shareUrl, CategorieFilter) {
     
     $scope.incident = StorageService.get($stateParams.incidentId);
 
     // Social Sharing
-    $scope.share = function() {
-        $cordovaSocialSharing
-        .share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
-            $scope.incident.image, ". Ver en detalle: " + shareUrl + "incidencia/" + $scope.incident.id) // Share via native share sheet
-        .then(function(result) {
-          // Success!
-          console.log('sharing');
-      }, function(err) {
-          // An error occured. Show a message to the user
-            var alertPopup = $ionicPopup.alert({
-                title: 'Error',
-                template: $filter('translate')('ERROR_SHARE'),
-                okType: 'button-balanced'
-            });
-            alertPopup.then(function (res) {
-            });
-      });
+    $scope.whatsappShare=function(){
+        window.plugins.socialsharing.shareViaWhatsApp($scope.incident.description + $filter('translate')('SHARED_FROM'),
+            $scope.incident.image, ". Ver en detalle: " + shareUrl + "incidencia/" + $scope.incident.id, null, function(errormsg){alert("Error: Cannot Share");});
     };
+
+    $scope.facebookShare=function(){
+        window.plugins.socialsharing.shareViaFacebookWithPasteMessageHint($scope.incident.description + $filter('translate')('SHARED_FROM'), null, shareUrl + "incidencia/" + $scope.incident.id, 'Copiado al portapapeles', function() {console.log('share ok');}, function(errormsg){alert(errormsg);});
+    };
+   
+    $scope.OtherShare=function(){
+        window.plugins.socialsharing.share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
+            $scope.incident.image, ". Ver en detalle: " + shareUrl + "incidencia/" + $scope.incident.id);
+    };
+
+
+    // Load the modal from the given template URL
+    $ionicModal.fromTemplateUrl('templates/share-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.openModal = function () {
+        $ionicHistory.clearCache();
+        $scope.modal.show();
+    };
+
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+
+    $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
 })
 
 .controller('FavoritesCtrl', function ($scope, $ionicLoading, StorageService, Categories, CategorieFilter) {
@@ -903,29 +937,46 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('FavoriteDetailCtrl', function ($scope, $stateParams, $filter, $cordovaSocialSharing, shareUrl, StorageService) {
+.controller('FavoriteDetailCtrl', function ($scope, $stateParams, $filter, $cordovaSocialSharing, $ionicHistory, $ionicModal, shareUrl, StorageService) {
     
     $scope.incident = StorageService.getFavorite($stateParams.incidentId);
 
     // Social Sharing
-    $scope.share = function() {
-        $cordovaSocialSharing
-        .share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
-            $scope.incident.image, ". Ver en detalle: " + shareUrl + "incidencia/" + $scope.incident.id) // Share via native share sheet
-        .then(function(result) {
-          // Success!
-          console.log('sharing');
-      }, function(err) {
-          // An error occured. Show a message to the user
-            var alertPopup = $ionicPopup.alert({
-                title: 'Error',
-                template: $filter('translate')('ERROR_SHARE'),
-                okType: 'button-balanced'
-            });
-            alertPopup.then(function (res) {
-            });
-      });
+    $scope.whatsappShare=function(){
+        window.plugins.socialsharing.shareViaWhatsApp($scope.incident.description + $filter('translate')('SHARED_FROM'),
+            $scope.incident.image, ". Ver en detalle: " + shareUrl + "incidencia/" + $scope.incident.id, null, function(errormsg){alert("Error: Cannot Share");});
     };
+
+    $scope.facebookShare=function(){
+        window.plugins.socialsharing.shareViaFacebookWithPasteMessageHint($scope.incident.description + $filter('translate')('SHARED_FROM'), null, shareUrl + "incidencia/" + $scope.incident.id, 'Copiado al portapapeles', function() {console.log('share ok');}, function(errormsg){alert(errormsg);});
+    };
+   
+    $scope.OtherShare=function(){
+        window.plugins.socialsharing.share($scope.incident.description, $scope.incident.categorie + $filter('translate')('SHARED_FROM'),
+            $scope.incident.image, ". Ver en detalle: " + shareUrl + "incidencia/" + $scope.incident.id);
+    };
+
+
+    // Load the modal from the given template URL
+    $ionicModal.fromTemplateUrl('templates/share-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.openModal = function () {
+        $ionicHistory.clearCache();
+        $scope.modal.show();
+    };
+
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+
+    $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
 })
 
 .controller('ActivitiesCtrl', function ($scope, $filter, $cordovaSocialSharing, Activities, ActivityTypes, ActivityTypeFilter, StorageService) {
@@ -1129,29 +1180,46 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivityDetailCtrl', function ($scope, $stateParams, $cordovaInAppBrowser, $ionicPopup, $ionicHistory, $filter, $cordovaSocialSharing, shareUrl, Activities) {
+.controller('ActivityDetailCtrl', function ($scope, $stateParams, $cordovaInAppBrowser, $ionicPopup, $ionicModal, $ionicHistory, $filter, $cordovaSocialSharing, shareUrl, Activities) {
     
     $scope.activity = Activities.get($stateParams.activityId);
 
     // Social Sharing
-    $scope.share = function() {
-        $cordovaSocialSharing
-        .share($scope.activity.description, $scope.activity.activityType + $filter('translate')('SHARED_FROM'),
-            $scope.activity.image, ". Ver en detalle: " + shareUrl + "actividad/" + $scope.activity.id) // Share via native share sheet
-        .then(function(result) {
-          // Success!
-          console.log('sharing');
-      }, function(err) {
-          // An error occured. Show a message to the user
-            var alertPopup = $ionicPopup.alert({
-                title: 'Error',
-                template: $filter('translate')('ERROR_SHARE_ACTIVITY'),
-                okType: 'button-balanced'
-            });
-            alertPopup.then(function (res) {
-            });
-      });
+    $scope.whatsappShare=function(){
+        window.plugins.socialsharing.shareViaWhatsApp($scope.activity.description + $filter('translate')('SHARED_FROM'),
+            $scope.activity.image, ". Ver en detalle: " + shareUrl + "actividad/" + $scope.activity.id, null, function(errormsg){alert("Error: Cannot Share");});
     };
+
+    $scope.facebookShare=function(){
+        window.plugins.socialsharing.shareViaFacebookWithPasteMessageHint($scope.activity.description + $filter('translate')('SHARED_FROM'), null, shareUrl + "actividad/" + $scope.activity.id, 'Copiado al portapapeles', function() {console.log('share ok');}, function(errormsg){alert(errormsg);});
+    };
+   
+    $scope.OtherShare=function(){
+        window.plugins.socialsharing.share($scope.activity.description, $scope.activity.activityType + $filter('translate')('SHARED_FROM'),
+            $scope.activity.image, ". Ver en detalle: " + shareUrl + "actividad/" + $scope.activity.id);
+    };
+
+
+    // Load the modal from the given template URL
+    $ionicModal.fromTemplateUrl('templates/share-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.openModal = function () {
+        $ionicHistory.clearCache();
+        $scope.modal.show();
+    };
+
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+
+    $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
 
     // Get there
     var options = {
