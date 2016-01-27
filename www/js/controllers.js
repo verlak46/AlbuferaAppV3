@@ -1221,7 +1221,7 @@ angular.module('starter.controllers', [])
     };
 
     $scope.facebookShare=function(){
-        window.plugins.socialsharing.shareViaFacebookWithPasteMessageHint($scope.activity.description + $filter('translate')('SHARED_FROM'), null, shareUrl + "actividad/" + $scope.activity.id, 'Copiado al portapapeles', function() {console.log('share ok');}, function(errormsg){alert(errormsg);});
+        window.plugins.socialsharing.shareViaFacebookWithPasteMessageHint($scope.activity.description + $filter('translate')('SHARED_FROM'), null, $scope.activity.link, 'Copiado al portapapeles', function() {console.log('share ok');}, function(errormsg){alert(errormsg);});
     };
    
     $scope.OtherShare=function(){
