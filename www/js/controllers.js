@@ -282,7 +282,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, $filter, $cordovaSocialSharing, $ionicModal, $ionicHistory, shareUrl, Incidents, StorageService) {
+.controller('IncidentDetailCtrl', function ($scope, $stateParams, $ionicPopup, $filter, $cordovaSocialSharing, $ionicActionSheet, $ionicHistory, shareUrl, Incidents, StorageService) {
     
     $scope.incident = Incidents.get($stateParams.incidentId);
 
@@ -302,26 +302,36 @@ angular.module('starter.controllers', [])
     };
 
 
-    // Load the modal from the given template URL
-    $ionicModal.fromTemplateUrl('templates/share-modal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.modal = modal;
-    });
-
-    $scope.openModal = function () {
-        $ionicHistory.clearCache();
-        $scope.modal.show();
+    // Triggered on a button click, or some other target
+    $scope.show = function() {
+    
+        $ionicActionSheet.show({
+          titleText: $filter('translate')('SHARE'),
+          buttons: [
+            { text: '<i class="icon ion-social-whatsapp"></i> WhatsApp' },
+            { text: '<i class="icon ion-social-facebook"></i> Facebook' },
+            { text: '<i class="icon ion-android-share-alt"></i> Otros' },
+          ],
+          cancelText: 'Cancel',
+          cancel: function() {
+            console.log('CANCELLED');
+          },
+          buttonClicked: function(index) {
+            console.log('BUTTON CLICKED', index);
+            if (index === 0) {
+                console.log('Share WhatsApp');
+                $scope.whatsappShare();
+            } else if (index === 1) {
+                console.log('Share Facebook');
+                $scope.facebookShare();
+            } else if (index === 2) {
+                console.log('Share Others');
+                $scope.OtherShare();
+            }
+            return true;
+          }
+        });
     };
-
-    $scope.closeModal = function () {
-        $scope.modal.hide();
-    };
-
-    $scope.$on('$destroy', function () {
-        $scope.modal.remove();
-    });
 
     $scope.addToFavorites = function () {
         if (StorageService.addToFavorites($scope.incident) === null) {
@@ -774,7 +784,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('MyIncidentDetailCtrl', function ($scope, $stateParams, $filter, $ionicModal, $ionicHistory, StorageService, $cordovaSocialSharing, shareUrl, CategorieFilter) {
+.controller('MyIncidentDetailCtrl', function ($scope, $stateParams, $filter, $ionicActionSheet, $ionicHistory, StorageService, $cordovaSocialSharing, shareUrl, CategorieFilter) {
     
     $scope.incident = StorageService.get($stateParams.incidentId);
 
@@ -794,26 +804,36 @@ angular.module('starter.controllers', [])
     };
 
 
-    // Load the modal from the given template URL
-    $ionicModal.fromTemplateUrl('templates/share-modal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.modal = modal;
-    });
-
-    $scope.openModal = function () {
-        $ionicHistory.clearCache();
-        $scope.modal.show();
+    // Triggered on a button click, or some other target
+    $scope.show = function() {
+    
+        $ionicActionSheet.show({
+          titleText: $filter('translate')('SHARE'),
+          buttons: [
+            { text: '<i class="icon ion-social-whatsapp"></i> WhatsApp' },
+            { text: '<i class="icon ion-social-facebook"></i> Facebook' },
+            { text: '<i class="icon ion-android-share-alt"></i> Otros' },
+          ],
+          cancelText: 'Cancel',
+          cancel: function() {
+            console.log('CANCELLED');
+          },
+          buttonClicked: function(index) {
+            console.log('BUTTON CLICKED', index);
+            if (index === 0) {
+                console.log('Share WhatsApp');
+                $scope.whatsappShare();
+            } else if (index === 1) {
+                console.log('Share Facebook');
+                $scope.facebookShare();
+            } else if (index === 2) {
+                console.log('Share Others');
+                $scope.OtherShare();
+            }
+            return true;
+          }
+        });
     };
-
-    $scope.closeModal = function () {
-        $scope.modal.hide();
-    };
-
-    $scope.$on('$destroy', function () {
-        $scope.modal.remove();
-    });
 })
 
 .controller('FavoritesCtrl', function ($scope, $ionicLoading, StorageService, Categories, CategorieFilter) {
@@ -937,7 +957,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('FavoriteDetailCtrl', function ($scope, $stateParams, $filter, $cordovaSocialSharing, $ionicHistory, $ionicModal, shareUrl, StorageService) {
+.controller('FavoriteDetailCtrl', function ($scope, $stateParams, $filter, $cordovaSocialSharing, $ionicHistory, $ionicActionSheet, shareUrl, StorageService) {
     
     $scope.incident = StorageService.getFavorite($stateParams.incidentId);
 
@@ -957,26 +977,36 @@ angular.module('starter.controllers', [])
     };
 
 
-    // Load the modal from the given template URL
-    $ionicModal.fromTemplateUrl('templates/share-modal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.modal = modal;
-    });
-
-    $scope.openModal = function () {
-        $ionicHistory.clearCache();
-        $scope.modal.show();
+    // Triggered on a button click, or some other target
+    $scope.show = function() {
+    
+        $ionicActionSheet.show({
+          titleText: $filter('translate')('SHARE'),
+          buttons: [
+            { text: '<i class="icon ion-social-whatsapp"></i> WhatsApp' },
+            { text: '<i class="icon ion-social-facebook"></i> Facebook' },
+            { text: '<i class="icon ion-android-share-alt"></i> Otros' },
+          ],
+          cancelText: 'Cancel',
+          cancel: function() {
+            console.log('CANCELLED');
+          },
+          buttonClicked: function(index) {
+            console.log('BUTTON CLICKED', index);
+            if (index === 0) {
+                console.log('Share WhatsApp');
+                $scope.whatsappShare();
+            } else if (index === 1) {
+                console.log('Share Facebook');
+                $scope.facebookShare();
+            } else if (index === 2) {
+                console.log('Share Others');
+                $scope.OtherShare();
+            }
+            return true;
+          }
+        });
     };
-
-    $scope.closeModal = function () {
-        $scope.modal.hide();
-    };
-
-    $scope.$on('$destroy', function () {
-        $scope.modal.remove();
-    });
 })
 
 .controller('ActivitiesCtrl', function ($scope, $filter, $cordovaSocialSharing, Activities, ActivityTypes, ActivityTypeFilter, StorageService) {
@@ -1180,14 +1210,14 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('ActivityDetailCtrl', function ($scope, $stateParams, $cordovaInAppBrowser, $ionicPopup, $ionicModal, $ionicHistory, $filter, $cordovaSocialSharing, shareUrl, Activities) {
+.controller('ActivityDetailCtrl', function ($scope, $stateParams, $cordovaInAppBrowser, $ionicActionSheet, $ionicPopup, $ionicHistory, $filter, $cordovaSocialSharing, Activities) {
     
     $scope.activity = Activities.get($stateParams.activityId);
 
     // Social Sharing
     $scope.whatsappShare=function(){
         window.plugins.socialsharing.shareViaWhatsApp($scope.activity.description + $filter('translate')('SHARED_FROM'),
-            $scope.activity.image, ". Ver en detalle: " + shareUrl + "actividad/" + $scope.activity.id, null, function(errormsg){alert("Error: Cannot Share");});
+            $scope.activity.image, ". Ver en detalle: " + $scope.activity.link, null, function(errormsg){alert("Error: Cannot Share");});
     };
 
     $scope.facebookShare=function(){
@@ -1196,30 +1226,39 @@ angular.module('starter.controllers', [])
    
     $scope.OtherShare=function(){
         window.plugins.socialsharing.share($scope.activity.description, $scope.activity.activityType + $filter('translate')('SHARED_FROM'),
-            $scope.activity.image, ". Ver en detalle: " + shareUrl + "actividad/" + $scope.activity.id);
+            $scope.activity.image, ". Ver en detalle: " + $scope.activity.link);
     };
 
-
-    // Load the modal from the given template URL
-    $ionicModal.fromTemplateUrl('templates/share-modal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then(function (modal) {
-        $scope.modal = modal;
-    });
-
-    $scope.openModal = function () {
-        $ionicHistory.clearCache();
-        $scope.modal.show();
+    // Triggered on a button click, or some other target
+    $scope.show = function() {
+    
+        $ionicActionSheet.show({
+          titleText: $filter('translate')('SHARE'),
+          buttons: [
+            { text: '<i class="icon ion-social-whatsapp"></i> WhatsApp' },
+            { text: '<i class="icon ion-social-facebook"></i> Facebook' },
+            { text: '<i class="icon ion-android-share-alt"></i> Otros' },
+          ],
+          cancelText: 'Cancel',
+          cancel: function() {
+            console.log('CANCELLED');
+          },
+          buttonClicked: function(index) {
+            console.log('BUTTON CLICKED', index);
+            if (index === 0) {
+                console.log('Share WhatsApp');
+                $scope.whatsappShare();
+            } else if (index === 1) {
+                console.log('Share Facebook');
+                $scope.facebookShare();
+            } else if (index === 2) {
+                console.log('Share Others');
+                $scope.OtherShare();
+            }
+            return true;
+          }
+        });
     };
-
-    $scope.closeModal = function () {
-        $scope.modal.hide();
-    };
-
-    $scope.$on('$destroy', function () {
-        $scope.modal.remove();
-    });
 
     // Get there
     var options = {
