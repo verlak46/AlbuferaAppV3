@@ -312,7 +312,7 @@ angular.module('starter.controllers', [])
             { text: '<i class="icon ion-social-facebook"></i> Facebook' },
             { text: '<i class="icon ion-android-share-alt"></i> Otros' },
           ],
-          cancelText: 'Cancel',
+          cancelText: $filter('translate')('CANCEL'),
           cancel: function() {
             console.log('CANCELLED');
           },
@@ -814,7 +814,7 @@ angular.module('starter.controllers', [])
             { text: '<i class="icon ion-social-facebook"></i> Facebook' },
             { text: '<i class="icon ion-android-share-alt"></i> Otros' },
           ],
-          cancelText: 'Cancel',
+          cancelText: $filter('translate')('CANCEL'),
           cancel: function() {
             console.log('CANCELLED');
           },
@@ -987,7 +987,7 @@ angular.module('starter.controllers', [])
             { text: '<i class="icon ion-social-facebook"></i> Facebook' },
             { text: '<i class="icon ion-android-share-alt"></i> Otros' },
           ],
-          cancelText: 'Cancel',
+          cancelText: $filter('translate')('CANCEL'),
           cancel: function() {
             console.log('CANCELLED');
           },
@@ -1239,7 +1239,7 @@ angular.module('starter.controllers', [])
             { text: '<i class="icon ion-social-facebook"></i> Facebook' },
             { text: '<i class="icon ion-android-share-alt"></i> Otros' },
           ],
-          cancelText: 'Cancel',
+          cancelText: $filter('translate')('CANCEL'),
           cancel: function() {
             console.log('CANCELLED');
           },
