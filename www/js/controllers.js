@@ -17,7 +17,7 @@ angular.module('starter.controllers', [])
     $scope.randomMarkers = [];
     $scope.incidents = Incidents.getAll();
     $scope.categories = Categories.getAll();
-    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12, options: {zoomControl: false}};
 
     // Add markers
     if ($scope.incidents.length > 0) {
@@ -511,7 +511,7 @@ angular.module('starter.controllers', [])
         };
 
         //Center's the map on Albufera coords
-        $scope.map = { center: { latitude: $scope.marker.coords.latitude, longitude: $scope.marker.coords.longitude }, zoom: 12};
+        $scope.map = { center: { latitude: $scope.marker.coords.latitude, longitude: $scope.marker.coords.longitude }, zoom: 12, options: {zoomControl: false}};
 
         $scope.closeClick = function () {
             $scope.windowOptions.show = false;
@@ -710,7 +710,7 @@ angular.module('starter.controllers', [])
     $scope.randomMarkers = [];
     $scope.incidents = StorageService.getAll();
     $scope.categories = Categories.getAll();
-    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12, options: {zoomControl: false}};
 
     // Refresh Map on enter view
     $scope.$on( "$ionicView.enter", function() {
@@ -882,7 +882,7 @@ angular.module('starter.controllers', [])
     $scope.randomMarkers = [];
     $scope.incidents = StorageService.getAllFavorites();
     $scope.categories = Categories.getAll();
-    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12, options: {zoomControl: false}};
 
     // Refresh Map on enter view
     $scope.$on( "$ionicView.enter", function() {
@@ -1078,7 +1078,7 @@ angular.module('starter.controllers', [])
     $scope.randomMarkers = [];
     $scope.activities = Activities.getAll();
     $scope.activityTypes = ActivityTypes.getAll();
-    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12};
+    $scope.map = { center: { latitude: 39.333, longitude: -0.367 }, zoom: 12, options: {zoomControl: false}};
 
     // Add markers
     if ($scope.activities.length > 0) {
