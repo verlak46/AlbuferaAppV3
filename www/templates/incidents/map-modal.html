@@ -4,7 +4,7 @@
         <button class="button button-icon ion-checkmark-round" ng-click="closeModal(2)"></button>
     </ion-header-bar>
     <ion-content scroll="false" data-tap-disabled="true">
-        <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
+        <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options">
         <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="5000">
                 <ui-gmap-window show='true' options="windowOptions" closeClick="closeClick()">
                     <div>{{ 'DRAG' | translate }}</div>
